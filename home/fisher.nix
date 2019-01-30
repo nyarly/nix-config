@@ -102,12 +102,18 @@ let
   ]);
 in
 {
-  xdg.configFile."fish/hm_fishfile" = {
-    text = fishfileText;
-    onChange = ''
-      cp ${config.xdg.configHome}/fish/hm_fishfile ${config.xdg.configHome}/fish/fishfile
-      chmod u+w ${config.xdg.configHome}/fish/fishfile
-      ${pkgs.fish}/bin/fish -c "source ${fisher}; fisher"
-    '';
+  xdg.configFile = {
+    "fish/functions/fisher.fish" = {
+      source = fisher;
+    };
+
+    "fish/hm_fishfile" = {
+      text = fishfileText;
+      onChange = ''
+        cp ${config.xdg.configHome}/fish/hm_fishfile ${config.xdg.configHome}/fish/fishfile
+        chmod u+w ${config.xdg.configHome}/fish/fishfile
+        ${pkgs.fish}/bin/fish -c "source ${fisher}; fisher"
+      '';
+    };
   };
 }
