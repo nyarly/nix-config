@@ -6,14 +6,11 @@ let
   fisherBuilder = builtins.toFile "fisherBuilder.sh" ''
     source $stdenv/setup
 
-    echo "fisherbuilder!"
     cd $src
     mkdir -p $out
     find . -type d -exec mkdir -p $out/\{\} \; -o -type f -not -name "fishfile" -exec cp \{\} $out/\{\} \;
     if [ -f fishfile ]; then
-      echo "fishfile detected..."
-      diff <(sort $sourceFFPath) <(sort fishfile) || exit 1
-      echo "looks good, clobbering"
+      diff <(sort $sourceFFPath) <(sort fishfile) || (echo "fishfile not as expected!"; cat fishfile; exit 1)
       cp $targetFFPath $out/fishfile
     fi
   '';
