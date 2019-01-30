@@ -53,6 +53,17 @@
         '' + "\n" + configs ./home/config/fish/interactive ;
 
       };
+
+    fisher = {
+      enable = true;
+      packages = ''
+        fishpkg/fish-get
+        oh-my-fish/plugin-fasd
+        jethrokuan/fzf
+        nyarly/fish-bang-bang
+        nyarly/fish-rake-complete
+      '';
+    };
   };
 
   xsession = {
