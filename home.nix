@@ -1,8 +1,16 @@
 { config, pkgs, ... }:
 
 {
-  # Let Home Manager install and manage itself.
+  imports = [
+    home/fisher.nix
+  ];
+
+  home.packages = with pkgs; [
+    pv
+    exa
+  ];
   programs = {
+    # Let Home Manager install and manage itself.
     home-manager.enable = true;
 
     direnv = {
@@ -11,7 +19,6 @@
     };
 
     # XXX Add chruby support (chruby module)
-    #
     fish = with builtins; let
       configs        = path: concatStringsSep "\n" (map (p: readFile (path + ("/" + p))) (configScripts path));
       configScripts  = path: filterDir (configMatch "fish") (readDir path);
@@ -47,7 +54,6 @@
 
       };
   };
-
 
   xsession = {
     enable = true;
