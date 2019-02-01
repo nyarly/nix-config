@@ -1,5 +1,8 @@
-{ config, pkgs, ... }:
+{ lib, config, pkgs, ... }:
 
+let
+  loadConfigs = pkgs.callPackage ./home/loadConfigs.nix {};
+in
 {
   imports = [
     home/fisher.nix
@@ -9,6 +12,7 @@
     pv
     exa
   ];
+
   programs = {
     # Let Home Manager install and manage itself.
     home-manager.enable = true;
@@ -20,7 +24,7 @@
 
     # XXX Add chruby support (chruby module)
     fish = with builtins; let
-      configs        = path: concatStringsSep "\n" (map (p: readFile (path + ("/" + p))) (configScripts path));
+      configs        = path: concatStringsSep "\n" (map (p: readFile (path + "/${p}")) (configScripts path));
       configScripts  = path: filterDir (configMatch "fish") (readDir path);
       filterDir      = f: ds: filter (n: f n ds.${n}) (attrNames ds);
       configMatch    = ext: path: type: let
@@ -36,14 +40,13 @@
           ulimit -n 4096
           function fish_greeting; end
           __refresh_gpg_agent_info
-        '';
-        loginShellInit = ''
           set -g __fish_git_prompt_show_informative_status yes
           set -eg EDITOR # Use set -xU EDITOR and VISUAL
           set -gx PAGER "less -RF"
           set -gx MANPATH "" $MANPATH /run/current-system/sw/share/man
           set -gx RIPGREP_CONFIG_PATH ~/.config/ripgreprc
-        '' + "\n" + configs ./home/config/fish/login ;
+        '';
+        loginShellInit = configs ./home/config/fish/login ;
         interactiveShellInit = ''
           stty start undef
           stty stop undef
@@ -66,6 +69,13 @@
     };
   };
 
+  home.file = {
+    ".tmux.conf".source = ./home/config/tmux.conf;
+  };
+
+  xdg.configFile = {
+  } // loadConfigs ./home/config/transitional;
+
   xsession = {
     enable = true;
     windowManager.command = let
@@ -75,4 +85,23 @@
     in
       "${xmonad}/bin/xmonad";
   };
+
+
+  # TODO
+  #
+  # fonts
+  # dunst
+  # xmonad
+  # taffybar
+  # gnupg
+  # systemd
+  # ssh
+  # git
+  # neovim
+  #   VimPlug
+
+  # Separate repos:
+  #   shellscripts
+  #   commute (or: S3 bucket?)
+
 }
