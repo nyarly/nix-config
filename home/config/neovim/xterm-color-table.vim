@@ -28,11 +28,6 @@
 
 
 " We have a dependency on buffer-local autocommands
-if version < 700
-    echo 'FAIL: XtermColorTable requires vim 7.0+'
-    finish
-endif
-
 let s:bufname = '__XtermColorTable__'
 
 if !exists('g:XtermColorTableDefaultOpen')

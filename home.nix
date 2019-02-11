@@ -90,7 +90,7 @@ in
           #./home/config/neovim/mapping-scratch.vim
           ./home/config/neovim/motion-join.vim
           ./home/config/neovim/syntax-inspect.vim
-          ./home/config/neovim/scratch.vim
+          #./home/config/neovim/scratch.vim
           ./home/config/neovim/indent-jump.vim
           ./home/config/neovim/80cols.vim
           ./home/config/neovim/taxo-quickfix.vim
@@ -105,6 +105,25 @@ in
           ./home/config/neovim/center-jump.vim
           ./home/config/neovim/SimpleFold.vim
           ./home/config/neovim/blase-swapfile.vim
+          ./home/config/neovim/plugin-config/ultisnips.vim
+          ./home/config/neovim/plugin-config/yankring.vim
+          ./home/config/neovim/plugin-config/tagbar.vim
+          ./home/config/neovim/plugin-config/ag.vim
+          ./home/config/neovim/plugin-config/deoplete.vim
+          ./home/config/neovim/plugin-config/jobmake.vim
+          ./home/config/neovim/plugin-config/gpg.vim
+          ./home/config/neovim/plugin-config/fzf.vim
+          ./home/config/neovim/plugin-config/quickfixsigns.vim
+          ./home/config/neovim/plugin-config/neocomplete.vim
+          ./home/config/neovim/plugin-config/ale.vim
+          ./home/config/neovim/plugin-config/ranger.vim
+          #./home/config/neovim/plugin-config/airline.vim
+          ./home/config/neovim/plugin-config/indent-guides.vim
+          ./home/config/neovim/plugin-config/rainbow.vim
+          ./home/config/neovim/plugin-config/tmuxline.vim
+          ./home/config/neovim/plugin-config/sideways.vim
+          ./home/config/neovim/plugin-config/legend.vim
+          ./home/config/neovim/plugin-config/ctrlp.vim
         ]);
 
         packages.jdlPackages = with pkgs.vimPlugins; with localNvimPlugins; {
@@ -120,6 +139,7 @@ in
             echodoc
             errormarker-vim
             #floobits-neovim # I think it needs it's Python lib...
+            fzfWrapper
             fzf-vim
             gist-vim
             gnupg
@@ -180,6 +200,7 @@ in
   };
 
   xdg.configFile = {
+    "nvim/plugin/airline.vim".source = ./home/config/neovim/plugin-config/airline.vim;
   } // loadConfigs ./home/config/transitional;
 
   xsession = {
