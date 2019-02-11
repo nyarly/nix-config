@@ -87,7 +87,6 @@ in
           ./home/config/neovim/filetype-settings/javascript.vim
           ./home/config/neovim/filetype-settings/ruby.vim
           ./home/config/neovim/filetype-settings/rust.vim
-          ./home/config/neovim/colors/solarized.vim
           ./home/config/neovim/mapping-scratch.vim
           ./home/config/neovim/motion-join.vim
           ./home/config/neovim/syntax-inspect.vim
@@ -121,7 +120,7 @@ in
             Dockerfile-vim
             echodoc
             errormarker-vim
-            floobits-neovim
+            #floobits-neovim # I think it needs it's Python lib...
             fzf-vim
             gist-vim
             gnupg
