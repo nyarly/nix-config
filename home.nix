@@ -80,14 +80,14 @@ in
     neovim = {
       enable = true;
       configure = {
-        customRC = lib.concatStringsSep "\n" (map builtins.readFile [
+        customRC = lib.concatStringsSep "\n" (map (p: "\"${p}\n${builtins.readFile p}\n") [
           ./home/config/neovim/init.vim
           ./home/config/neovim/ftdetect/extra_ruby.vim
           ./home/config/neovim/filetype-settings/go.vim
           ./home/config/neovim/filetype-settings/javascript.vim
           ./home/config/neovim/filetype-settings/ruby.vim
           ./home/config/neovim/filetype-settings/rust.vim
-          ./home/config/neovim/mapping-scratch.vim
+          #./home/config/neovim/mapping-scratch.vim
           ./home/config/neovim/motion-join.vim
           ./home/config/neovim/syntax-inspect.vim
           ./home/config/neovim/scratch.vim
@@ -96,7 +96,6 @@ in
           ./home/config/neovim/taxo-quickfix.vim
           ./home/config/neovim/out2file.vim
           ./home/config/neovim/bufarg.vim
-          ./home/config/neovim/test/IndentAnything/test.js
           ./home/config/neovim/trim-white.vim
           ./home/config/neovim/sticky-window.vim
           ./home/config/neovim/mapping.vim
