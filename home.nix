@@ -139,6 +139,7 @@ in
             rfc-syntax
             rust-vim
             semweb-vim
+            sparkup
             sideways-vim
             tabular
             tagbar
