@@ -1,0 +1,86 @@
+
+snippet errlf "Error log.Fatal" !b
+if err != nil {
+	log.Fatal(err)
+}
+endsnippet
+
+snippet errp "Error panic" !b
+if err != nil {
+	panic(err)
+}
+endsnippet
+
+
+snippet	lf "Log a value" !b
+log.Printf("${2:${1/.*/$0/}} = %+v\n", $1)
+endsnippet
+
+snippet testa "Test with testify/assert" !b
+func Test${1:Something}(t *testing.T) {
+	assert := assert.New(t)
+
+	${0}
+}
+endsnippet
+
+snippet	xv "Extracted variable"
+`!v getreg('.')` := `!v getreg('"')`
+endsnippet
+
+snippet mux "Lock/Unlock a mutex"
+${1}.Lock()
+defer $1.Unlock()
+
+endsnippet
+
+snippet spy "Define a spy pair"
+type (
+	${1/.+/\l$0/}Spy struct {
+		spy *spies.Spy
+	}
+
+	${1/.+/\l$0/}Controller struct {
+		*spies.Spy
+	}
+)
+
+func New$1Spy() (${1}, ${1/.+/\l$0/}Controller){
+	spy := spies.NewSpy()
+	return ${1/.+/\l$0/}Spy{spy: spy}, ${1/.+/\l$0/}Controller{Spy: spy}
+}
+endsnippet
+
+snippet logmsg "Implement Sous's LogMessage interface"
+
+type ${1}Message struct {
+	callerInfo logging.CallerInfo
+	${2/,/\n\t/g}
+}
+
+func report${1/.+/\u$0/}(logsink logging.LogSink, $2) {
+	msg := new${1/.+/\u$0/}Message(${2/^(\w+)\s+\w+(,?\s*)/$1$2/g})
+	logging.Deliver(msg, logsink)
+}
+
+func new${1/.+/\u$0/}Message(${2}) *$1Message {
+	return &$1Message{
+		callerInfo: logging.GetCallerInfo("${4}"),
+		${2/^(\w+)\s+\w+,?\s*/$1: $1,\n/gm}
+	}
+}
+
+func (msg *$1Message) DefaultLevel() logging.Level {
+	return logging.InformationLevel
+}
+
+func (msg *$1Message) Message() string {
+	return ""
+}
+
+func (msg *$1Message) EachField(f logging.FieldReportFn) {
+	f("@loglov3-otl", "sous-generic-v1")
+	msg.callerInfo.EachField(f)
+}
+
+endsnippet

@@ -22,7 +22,9 @@ in
 
   programs = {
     # Let Home Manager install and manage itself.
-    home-manager.enable = true;
+    home-manager = {
+      enable = true;
+    };
 
     direnv = {
       enable = true;
@@ -78,71 +80,35 @@ in
     neovim = {
       enable = true;
       configure = {
-        customRC = ''
-        set nocompatible
+        customRC = lib.concatStringsSep "\n" (map builtins.readFile [
+          ./home/config/neovim/init.vim
+          ./home/config/neovim/ftdetect/extra_ruby.vim
+          ./home/config/neovim/filetype-settings/go.vim
+          ./home/config/neovim/filetype-settings/javascript.vim
+          ./home/config/neovim/filetype-settings/ruby.vim
+          ./home/config/neovim/filetype-settings/rust.vim
+          ./home/config/neovim/colors/solarized.vim
+          ./home/config/neovim/mapping-scratch.vim
+          ./home/config/neovim/motion-join.vim
+          ./home/config/neovim/syntax-inspect.vim
+          ./home/config/neovim/scratch.vim
+          ./home/config/neovim/indent-jump.vim
+          ./home/config/neovim/80cols.vim
+          ./home/config/neovim/taxo-quickfix.vim
+          ./home/config/neovim/out2file.vim
+          ./home/config/neovim/bufarg.vim
+          ./home/config/neovim/test/IndentAnything/test.js
+          ./home/config/neovim/trim-white.vim
+          ./home/config/neovim/sticky-window.vim
+          ./home/config/neovim/mapping.vim
+          ./home/config/neovim/matchit.vim
+          ./home/config/neovim/xterm-color-table.vim
+          ./home/config/neovim/toggle-folding.vim
+          ./home/config/neovim/center-jump.vim
+          ./home/config/neovim/SimpleFold.vim
+          ./home/config/neovim/blase-swapfile.vim
+        ]);
 
-        if &shell =~# 'fish$'
-          set shell=/bin/sh
-        endif
-
-        runtime! ftdetect/UltiSnips.vim
-
-        set autowrite
-        set autowriteall
-        set expandtab
-        set modeline
-        set sw=2
-        set ts=2
-        set scrolloff=4
-        set pastetoggle=[23~
-        set gdefault
-        set mouse=a
-
-        "O	message for reading a file overwrites any previous message.
-        "Also for quickfix message (e.g., ":cn").
-        "t	truncate file message at the start if it is too long to fit
-        "T	truncate other messages in the middle if they are too long to
-        "I	don't give the intro message when starting Vim |:intro|.
-        "c	don't give |ins-completion-menu| messages.  For example,
-        "   c really useful for echodoc
-        set shortmess+=IcOtT
-        set number
-        "set relativenumber "more confusing than useful
-        set cursorline
-        set noshowmode
-        set foldlevelstart=2
-        set guicursor=n-v-c-sm:block,i-ci-ve:ver25,r-cr-o:hor20
-
-        set title
-
-        set wildmode=list:longest
-
-        set undodir="~/.vim/undo"
-        set undofile
-
-        set clipboard+=unnamed
-        set clipboard+=unnamedplus
-
-        set t_ut= "Needed to get non-text background colors to work correctly in urxvt + tmux
-
-        let g:solarized_termcolors=16
-        set background=light
-        colorscheme solarized
-        nnoremap <F12> "*p
-
-        set tags+=.git/bundle-tags
-
-        if exists("$EXTRA_VIM")
-          for path in split($EXTRA_VIM, ':')
-            exec "source " .path
-          endfor
-        endif
-
-        set inccommand=split
-        " Debugging my 'number' getting disabled:
-        " c.f. https://github.com/neovim/neovim/issues/8739
-        " au OptionSet number echom execute('verbose set number?')
-        '';
         packages.jdlPackages = with pkgs.vimPlugins; with localNvimPlugins; {
           start = [
             ag-vim
@@ -232,8 +198,6 @@ in
   #
   # fonts
   # dunst
-  # xmonad
-  # taffybar
   # gnupg
   # systemd
   # ssh
