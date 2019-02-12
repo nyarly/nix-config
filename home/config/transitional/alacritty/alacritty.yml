@@ -12,6 +12,7 @@ env:
   # Note that some xterm terminfo databases don't declare support for italics.
   # You can verify this by checking for the presence of `smso` and `sitm` in
   # `infocmp xterm-256color`.
+  # TERM: xterm-256color # ???
   TERM: screen-256color
 
 window:
@@ -135,71 +136,87 @@ custom_cursor_colors: true
 draw_bold_text_with_bright_colors: true
 
 schemes:
-  solarized-light: &solarized-light
-    primary:
-      background: '0xfdf6e3'
-      foreground: '0x586e75'
+  solarized:
+    - &base03 '0x002b36'
+    - &base02 '0x073642'
+    - &base01 '0x586e75'
+    - &base00 '0x657b83'
+    - &base0 '0x839496'
+    - &base1 '0x93a1a1'
+    - &base2 '0xeee8d5'
+    - &base3 '0xfdf6e3'
+    - &yellow '0xb58900'
+    - &orange '0xcb4b16'
+    - &red '0xdc322f'
+    - &magenta '0xd33682'
+    - &violet '0x6c71c4'
+    - &blue '0x268bd2'
+    - &cyan '0x2aa198'
+    - &green '0x859900'
 
+  light: &solarized-light
+    # Colors the cursor will use if `custom_cursor_colors` is true
     cursor:
-      text:   '0x586e75'
-      cursor: '0x586e75'
+      text: *base02
+      cursor: *base02
+
+    primary:
+      background: *base3
+      foreground: *base01
 
     # Normal colors
     normal:
-      black:   '0x073642' #base02
-      white:   '0xeee8d5' #base2
-
-      red:     '0xdc322f' #red
-      green:   '0x859900' #green
-      yellow:  '0xb58900' #yellow
-      blue:    '0x268bd2' #blue
-      magenta: '0xd33682' #magenta
-      cyan:    '0x2aa198' #cyan
+      black:   *base02  # '0x073642' &sl-black
+      red:     *red     # '0xdc322f'
+      green:   *green   # '0x859900'
+      yellow:  *yellow  # '0xb58900'
+      blue:    *blue    # '0x268bd2'
+      magenta: *magenta # '0xd33682'
+      cyan:    *cyan    # '0x2aa198'
+      white:   *base2   # '0xeee8d5' &sl-white
 
     # Bright colors
     bright:
-      black:   '0x002b36' #base03
-      green:   '0x586e75' #base01
-      yellow:  '0x657b83' #base00
-      blue:    '0x839496' #base0
-      cyan:    '0x93a1a1' #base1
-      white:   '0xfdf6e3' #base3
+      black:   *base03 # '0x002b36'
+      red:     *orange # '0xcb4b16'
+      green:   *base01 # '0x586e75'
+      yellow:  *base00 # '0x657b83'
+      blue:    *base0  # '0x839496'
+      magenta: *violet # '0x6c71c4'
+      cyan:    *base1  # '0x93a1a1'
+      white:   *base3  # '0xfdf6e3'
 
-      red:     '0xcb4b16' #orange
-      magenta: '0x6c71c4' #violet
-
-  solarized-dark: &solarized-dark
-    # Default colors
-    primary:
-      background: '0x002b36'
-      foreground: '0x839496'
-
+  dark: &solarized-dark
+    # Colors the cursor will use if `custom_cursor_colors` is true
     cursor:
-      text:   '0x839496'
-      cursor: '0x839496'
+      text: *base2
+      cursor: *base2
+
+    primary:
+      background: *base02
+      foreground: *base1
+
     # Normal colors
     normal:
-      black:   '0xeee8d5' #base02
-      white:   '0x073642' #base2
-
-      red:     '0xdc322f' #red
-      green:   '0x859900' #green
-      yellow:  '0xb58900' #yellow
-      blue:    '0x268bd2' #blue
-      magenta: '0xd33682' #magent
-      cyan:    '0x2aa198' #cyan
+      black:   *base2  # '0x073642' &sl-black
+      red:     *red     # '0xdc322f'
+      green:   *green   # '0x859900'
+      yellow:  *yellow  # '0xb58900'
+      blue:    *blue    # '0x268bd2'
+      magenta: *magenta # '0xd33682'
+      cyan:    *cyan    # '0x2aa198'
+      white:   *base02   # '0xeee8d5' &sl-white
 
     # Bright colors
     bright:
-      black:   '0xfdf6e3' #base03
-      green:   '0x93a1a1' #base01
-      yellow:  '0x839496' #base00
-      blue:    '0x657b83' #base0
-      cyan:    '0x586e75' #base1
-      white:   '0x002b36' #base3
-
-      red:     '0xcb4b16' #orange
-      magenta: '0x6c71c4' #violet
+      black:   *base3 # '0x002b36'
+      red:     *orange # '0xcb4b16'
+      green:   *base1 # '0x586e75'
+      yellow:  *base0 # '0x657b83'
+      blue:    *base00  # '0x839496'
+      magenta: *violet # '0x6c71c4'
+      cyan:    *base01  # '0x93a1a1'
+      white:   *base03  # '0xfdf6e3'
 
 colors: *solarized-light
 
