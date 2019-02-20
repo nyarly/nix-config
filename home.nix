@@ -18,6 +18,10 @@ in
   home.packages = with pkgs; [
     pv
     exa
+    hexchat
+    indent
+    wmctrl
+    xmlstarlet
   ];
 
   programs = {
