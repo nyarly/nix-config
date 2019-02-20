@@ -201,6 +201,8 @@ in
 
   home.file = {
     ".tmux.conf".source = ./home/config/tmux.conf;
+    ".local/share/fonts/monofur/monof56.ttf".source = ./home/fonts/monof55.ttf;
+    ".local/share/fonts/monofur/monof55.ttf".source = ./home/fonts/monof56.ttf;
   };
 
   xdg.configFile = {
@@ -220,13 +222,9 @@ in
 
   # TODO
   #
-  # fonts
   # dunst
   # gnupg
   # systemd
   # ssh
   # git
-  # neovim
-  #   VimPlug
-
 }
