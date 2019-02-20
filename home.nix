@@ -30,6 +30,104 @@ in
       enable = true;
     };
 
+    git = {
+      enable = true;
+      package = pkgs.gitAndTools.gitFull;
+      userName = "Judson";
+      userEmail = "nyarly@gmail.com";
+      aliases = {
+        ctags = "!.git/hooks/ctags";
+        bundle-tags = "!.git/hooks/bundle-ctags";
+        savepoint-merge = "!~/bin/git-savepoint-merge";
+        savepoint-complete = "!~/bin/git-savepoint-complete";
+        savepoint-reset = "!~/bin/git-savepoint-reset";
+        savepoint-zap = "branch -d savepoint";
+        localize-branches = "!~/bin/git-localize-branches";
+        go-root = "!echo $(pwd) $GIT_PREFIX";
+        pb = "!pb";
+        mt = "mergetool";
+        dt = "difftool -d";
+      };
+      signing = {
+        key = "9A3F82AA";
+        signByDefault = true;
+      };
+      ignores = [ ".envrc" ".ctrlp-root" ".vim-role" ".cadre" ".sw?" "!.swf"
+        "failed_specs" "rspec_status" "*Session.vim" "errors.err" ".nix-gc/" ];
+      includes = [
+        {
+          path = "~/.config/git/secret";
+          # condition = ? # something about "if it exists"?
+        }
+      ];
+      # can be attrs converted...
+      extraConfig = ''
+        [core]
+          fsyncobjectfiles = false
+        [branch]
+          autosetupmerge = true
+        [color]
+          branch = true
+          diff = true
+          grep = true
+          interactive = true
+          status = true
+          ui = true
+        [rerere]
+          enabled = true
+        [init]
+          templatedir = ~/.git_template
+
+        [bash]
+          showDirtyState = true
+
+        [tag]
+          forceSignAnnotated = true
+
+        [push]
+          default = current
+          followTags = true
+
+        [diff "rawtext"]
+          textconv =    "~/.config/git/trimwhite.sh"
+
+        [filter "trimwhite"]
+          clean =    "~/.config/git/trimwhite.sh"
+        [help]
+          autocorrect = -1
+
+        [interactive]
+          singlekey = true
+
+        [merge]
+          tool = meld
+          conflictstyle = diff3
+
+        [mergetool "mymeld"]
+          cmd = meld --diff $LOCAL $BASE $REMOTE --output=$MERGED --diff $BASE $LOCAL --diff $BASE $REMOTE
+
+        [mergetool]
+          keepBackup = false
+          prompt = false
+
+        [rebase]
+          autosquash = yes
+        [diff]
+          tool = meld
+          rename = copy
+        	algorithm = patience
+        [url "git@github.com:"]
+        	insteadOf = https://github.com/
+
+        [jira]
+        	user = jlester@opentable.com
+        	server = https://opentable.atlassian.net
+          # password should be in ./secret
+        [github]
+        	user = nyarly
+        '';
+    };
+
     direnv = {
       enable = true;
       stdlib = builtins.readFile ./home/config/direnvrc;
@@ -270,6 +368,7 @@ in
 
   xdg.configFile = {
     "nvim/plugin/airline.vim".source = ./home/config/neovim/plugin-config/airline.vim;
+    "git/trimwhite.sh".source = ./home/config/git/trimwhite.sh;
   } // loadConfigs ./home/config/transitional;
 
   xsession = {
@@ -288,5 +387,4 @@ in
   # gnupg
   # systemd
   # ssh
-  # git
 }
