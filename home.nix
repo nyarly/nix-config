@@ -358,6 +358,18 @@ in
         };
       };
     };
+
+    gpg-agent = {
+      enable = true;
+      defaultCacheTtlSsh = 28800;
+      defaultCacheTtl = 28800;
+      maxCacheTtl = 86400;
+      maxCacheTtlSsh = 86400;
+      enableSshSupport = true;
+      extraConfig = ''
+        write-env-file /home/judson/.gpg-agent-info
+      '';
+    };
   };
 
   home.file = {
@@ -384,7 +396,6 @@ in
 
   # TODO
   #
-  # gnupg
   # systemd
   # ssh
 }
