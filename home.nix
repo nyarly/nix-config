@@ -30,6 +30,58 @@ in
       enable = true;
     };
 
+    ssh = {
+      enable = true;
+      controlMaster = "auto";
+      controlPath = "~/.ssh/control/%r@%h:%p.socket";
+      controlPersist = "60m";
+
+      extraOptionOverrides = {
+        IdentitiesOnly = "yes";
+        IdentityFile = "~/.ssh/%h_rsa";
+        UseRoaming = "no";
+      };
+
+      matchBlocks = {
+        "*.amazonaws.com" = {
+          user = "root";
+          identityFile = "~/.ssh/lrd_rsa";
+          extraOptions = {
+            StrictHostKeyChecking = "no";
+            UserKnownHostsFile = "/dev/null";
+          };
+        };
+
+        "github.com" = {
+          identityFile = "~/.ssh/yubi-fd7a96.pub";
+
+          extraOptions = {
+            LogLevel = "QUIET";
+            ControlPersist = "300";
+            ServerAliveInterval = "15";
+          };
+        };
+
+        "bitbucket.org" = {
+          identityFile = "~/.ssh/monotone_something";
+
+          extraOptions = {
+            LogLevel = "QUIET";
+            ControlPersist = "300";
+          };
+        };
+
+        "*.opentable.com sc-ssh-jump-01 *.otenv.com *.ot.tools" = {
+          user = "jlester";
+          identityFile = "~/.ssh/yubi-fd7a96.pub";
+          identitiesOnly = true;
+          extraOptions = {
+            ServerAliveInterval = "15";
+          };
+        };
+      };
+    };
+
     git = {
       enable = true;
       package = pkgs.gitAndTools.gitFull;
@@ -53,7 +105,7 @@ in
         signByDefault = true;
       };
       ignores = [ ".envrc" ".ctrlp-root" ".vim-role" ".cadre" ".sw?" "!.swf"
-        "failed_specs" "rspec_status" "*Session.vim" "errors.err" ".nix-gc/" ];
+      "failed_specs" "rspec_status" "*Session.vim" "errors.err" ".nix-gc/" ];
       includes = [
         {
           path = "~/.config/git/secret";
@@ -115,17 +167,17 @@ in
         [diff]
           tool = meld
           rename = copy
-        	algorithm = patience
+          algorithm = patience
         [url "git@github.com:"]
-        	insteadOf = https://github.com/
+          insteadOf = https://github.com/
 
         [jira]
-        	user = jlester@opentable.com
-        	server = https://opentable.atlassian.net
+          user = jlester@opentable.com
+          server = https://opentable.atlassian.net
           # password should be in ./secret
         [github]
-        	user = nyarly
-        '';
+          user = nyarly
+      '';
     };
 
     direnv = {
@@ -139,15 +191,15 @@ in
       configScripts  = path: filterDir (configMatch "fish") (readDir path);
       filterDir      = f: ds: filter (n: f n ds.${n}) (attrNames ds);
       configMatch    = ext: path: type: let
-          extPattern = ".*[.]${ext}$";
-          isDir = type != "directory";
-          isExt = match extPattern path != null;
-        in
-          isDir && isExt;
+        extPattern = ".*[.]${ext}$";
+        isDir = type != "directory";
+        isExt = match extPattern path != null;
+      in
+      isDir && isExt;
     in
-      {
-        enable = true;
-        shellInit = ''
+    {
+      enable = true;
+      shellInit = ''
           ulimit -n 4096
           function fish_greeting; end
           __refresh_gpg_agent_info
@@ -156,17 +208,17 @@ in
           set -gx PAGER "less -RF"
           set -gx MANPATH "" $MANPATH /run/current-system/sw/share/man
           set -gx RIPGREP_CONFIG_PATH ~/.config/ripgreprc
-        '';
-        loginShellInit = configs ./home/config/fish/login ;
-        interactiveShellInit = ''
+      '';
+      loginShellInit = configs ./home/config/fish/login ;
+      interactiveShellInit = ''
           stty start undef
           stty stop undef
           stty -ixon
           set -x fish_color_search_match  'normal' '--background=878787'
           bind \e\; 'commandline -r -t (commandline -t | sed \"s/:\(\d*\)/ +\1/\")'
-        '' + "\n" + configs ./home/config/fish/interactive ;
+      '' + "\n" + configs ./home/config/fish/interactive ;
 
-      };
+    };
 
     fisher = {
       enable = true;
@@ -376,6 +428,7 @@ in
     ".tmux.conf".source = ./home/config/tmux.conf;
     ".local/share/fonts/monofur/monof56.ttf".source = ./home/fonts/monof55.ttf;
     ".local/share/fonts/monofur/monof55.ttf".source = ./home/fonts/monof56.ttf;
+    ".ssh/yubi-fd7a96.pub".source = ./home/ssh/yubi-fd7a96.pub;
   };
 
   xdg.configFile = {
@@ -397,5 +450,4 @@ in
   # TODO
   #
   # systemd
-  # ssh
 }
