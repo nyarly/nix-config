@@ -204,7 +204,7 @@ in
           function fish_greeting; end
           __refresh_gpg_agent_info
           set -g __fish_git_prompt_show_informative_status yes
-          set -eg EDITOR # Use set -xU EDITOR and VISUAL
+          set -gx EDITOR ~/.nix-profile/bin/nvim
           set -gx PAGER "less -RF"
           set -gx MANPATH "" $MANPATH /run/current-system/sw/share/man
           set -gx RIPGREP_CONFIG_PATH ~/.config/ripgreprc
