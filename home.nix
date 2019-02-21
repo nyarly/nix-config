@@ -13,6 +13,7 @@ in
 {
   imports = [
     home/fisher.nix
+    home/services/nitrogen.nix
   ];
 
   home.packages = with pkgs; [
@@ -422,6 +423,24 @@ in
         write-env-file /home/judson/.gpg-agent-info
       '';
     };
+
+    nitrogen = {
+      enable = true;
+      extraConfig = ''
+        [geometry]
+        posx=1920
+        posy=960
+        sizex=538
+        sizey=958
+
+        [nitrogen]
+        view=icon
+        recurse=true
+        sort=alpha
+        icon_caps=false
+        dirs=/home/judson/Data/Wallpaper;
+      '';
+    };
   };
 
   home.file = {
@@ -450,4 +469,11 @@ in
   # TODO
   #
   # systemd
+  #   # keynav.service # Seldom used, very flaky. Alternatives?
+  #   nm-applet.service
+  #   restart-taffybar.service
+  #   restart-taffybar.timer
+  #   scdaemon-notify.service
+  #   trayer.service
+  #   xembedsniproxy.service # maybe a better choice than trayer?
 }
