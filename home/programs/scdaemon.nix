@@ -120,7 +120,7 @@ in
     };
   };
 
-  config = {
+  config = mkIf cfg.enable {
     home.file.".gnupg/scdaemon.conf" = {
       text = buildScdaemonConf cfg;
     };

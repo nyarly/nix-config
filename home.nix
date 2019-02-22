@@ -10,99 +10,83 @@ let
     inherit (vimUtils) buildVimPluginFrom2Nix;
   };
 in
-{
-  imports = [
-    home/fisher.nix
-    home/services/nitrogen.nix
-    home/services/restart-taffybar.nix
-    home/services/trayer.nix
-    home/programs/scdaemon.nix
-  ];
+  {
+    imports = [
+      home/fisher.nix
 
-  home.packages = with pkgs; [
-    pv
-    exa
-    hexchat
-    indent
-    wmctrl
-    xmlstarlet
-  ];
+      home/services/nitrogen.nix
+      home/services/restart-taffybar.nix
+      home/services/trayer.nix
+      home/services/scdaemon-notify.nix
 
-  programs = {
-    # Let Home Manager install and manage itself.
-    home-manager = {
-      enable = true;
-    };
+      home/programs/scdaemon.nix
+    ];
 
-    scdaemon = {
-      enable = true;
-      logFile = "socket:///tmp/scdaemon.sock";
-      debug = {
-        commandIO = true;
-        bigIntegers = true;
-        traceAssuan = true;
+    home.packages = with pkgs; [
+      pv
+      exa
+      hexchat
+      indent
+      wmctrl
+      xmlstarlet
+    ];
+
+    programs = {
+      # Let Home Manager install and manage itself.
+      home-manager = {
+        enable = true;
       };
 
-      assuanLogCats =  {
-        init = true;
-        context = true;
-        engine = true;
-        data = true;
-        sysio = true;
-        control = true;
-      };
-    };
+      ssh = {
+        enable = true;
+        controlMaster = "auto";
+        controlPath = "~/.ssh/control/%r@%h:%p.socket";
+        controlPersist = "60m";
 
-    ssh = {
-      enable = true;
-      controlMaster = "auto";
-      controlPath = "~/.ssh/control/%r@%h:%p.socket";
-      controlPersist = "60m";
-
-      extraOptionOverrides = {
-        IdentitiesOnly = "yes";
-        IdentityFile = "~/.ssh/%h_rsa";
-        UseRoaming = "no";
-      };
-
-      matchBlocks = {
-        "*.amazonaws.com" = {
-        user = "root";
-        identityFile = "~/.ssh/lrd_rsa";
-        extraOptions = {
-        StrictHostKeyChecking = "no";
-        UserKnownHostsFile = "/dev/null";
-        };
+        extraOptionOverrides = {
+          IdentitiesOnly = "yes";
+          IdentityFile = "~/.ssh/%h_rsa";
+          UseRoaming = "no";
         };
 
-        "github.com" = {
-        identityFile = "~/.ssh/yubi-fd7a96.pub";
+        matchBlocks = {
+          "*.amazonaws.com" = {
+            user = "root";
+            identityFile = "~/.ssh/lrd_rsa";
+            extraOptions = {
+              StrictHostKeyChecking = "no";
+              UserKnownHostsFile = "/dev/null";
+            };
+          };
 
-        extraOptions = {
-          LogLevel = "QUIET";
-          ControlPersist = "300";
-          ServerAliveInterval = "15";
+          "github.com" = {
+            identityFile = "~/.ssh/yubi-fd7a96.pub";
+
+            extraOptions = {
+              LogLevel = "QUIET";
+              ControlPersist = "300";
+              ServerAliveInterval = "15";
+            };
+          };
+
+          "bitbucket.org" = {
+            identityFile = "~/.ssh/monotone_something";
+
+            extraOptions = {
+              LogLevel = "QUIET";
+              ControlPersist = "300";
+            };
+          };
+
+          "*.opentable.com sc-ssh-jump-01 *.otenv.com *.ot.tools" = {
+            user = "jlester";
+            identityFile = "~/.ssh/yubi-fd7a96.pub";
+            identitiesOnly = true;
+            extraOptions = {
+              ServerAliveInterval = "15";
+            };
+          };
         };
-      };
-
-      "bitbucket.org" = {
-      identityFile = "~/.ssh/monotone_something";
-
-      extraOptions = {
-        LogLevel = "QUIET";
-        ControlPersist = "300";
-      };
-    };
-
-    "*.opentable.com sc-ssh-jump-01 *.otenv.com *.ot.tools" = {
-    user = "jlester";
-    identityFile = "~/.ssh/yubi-fd7a96.pub";
-    identitiesOnly = true;
-    extraOptions = {
-      ServerAliveInterval = "15";
-    };
-  };
-};
       };
 
       git = {
@@ -130,140 +114,140 @@ in
         ignores = [ ".envrc" ".ctrlp-root" ".vim-role" ".cadre" ".sw?" "!.swf"
         "failed_specs" "rspec_status" "*Session.vim" "errors.err" ".nix-gc/" ];
         includes = [
-          {
-            path = "~/.config/git/secret";
+        {
+        path = "~/.config/git/secret";
           # condition = ? # something about "if it exists"?
-        }
-      ];
+          }
+          ];
       # can be attrs converted...
       extraConfig = ''
-        [core]
-        fsyncobjectfiles = false
-        [branch]
-        autosetupmerge = true
-        [color]
-        branch = true
-        diff = true
-        grep = true
-        interactive = true
-        status = true
-        ui = true
-        [rerere]
-        enabled = true
-        [init]
-        templatedir = ~/.git_template
+      [core]
+      fsyncobjectfiles = false
+      [branch]
+      autosetupmerge = true
+      [color]
+      branch = true
+      diff = true
+      grep = true
+      interactive = true
+      status = true
+      ui = true
+      [rerere]
+      enabled = true
+      [init]
+      templatedir = ~/.git_template
 
-        [bash]
-        showDirtyState = true
+      [bash]
+      showDirtyState = true
 
-        [tag]
-        forceSignAnnotated = true
+      [tag]
+      forceSignAnnotated = true
 
-        [push]
-        default = current
-        followTags = true
+      [push]
+      default = current
+      followTags = true
 
-        [diff "rawtext"]
-        textconv =    "~/.config/git/trimwhite.sh"
+      [diff "rawtext"]
+      textconv =    "~/.config/git/trimwhite.sh"
 
-        [filter "trimwhite"]
-        clean =    "~/.config/git/trimwhite.sh"
-        [help]
-        autocorrect = -1
+      [filter "trimwhite"]
+      clean =    "~/.config/git/trimwhite.sh"
+      [help]
+      autocorrect = -1
 
-        [interactive]
-        singlekey = true
+      [interactive]
+      singlekey = true
 
-        [merge]
-        tool = meld
-        conflictstyle = diff3
+      [merge]
+      tool = meld
+      conflictstyle = diff3
 
-        [mergetool "mymeld"]
-        cmd = meld --diff $LOCAL $BASE $REMOTE --output=$MERGED --diff $BASE $LOCAL --diff $BASE $REMOTE
+      [mergetool "mymeld"]
+      cmd = meld --diff $LOCAL $BASE $REMOTE --output=$MERGED --diff $BASE $LOCAL --diff $BASE $REMOTE
 
-        [mergetool]
-        keepBackup = false
-        prompt = false
+      [mergetool]
+      keepBackup = false
+      prompt = false
 
-        [rebase]
-        autosquash = yes
-        [diff]
-        tool = meld
-        rename = copy
-        algorithm = patience
-        [url "git@github.com:"]
-        insteadOf = https://github.com/
+      [rebase]
+      autosquash = yes
+      [diff]
+      tool = meld
+      rename = copy
+      algorithm = patience
+      [url "git@github.com:"]
+      insteadOf = https://github.com/
 
-        [jira]
-        user = jlester@opentable.com
-        server = https://opentable.atlassian.net
+      [jira]
+      user = jlester@opentable.com
+      server = https://opentable.atlassian.net
           # password should be in ./secret
           [github]
           user = nyarly
-      '';
-    };
+          '';
+          };
 
-    direnv = {
-      enable = true;
-      stdlib = builtins.readFile ./home/config/direnvrc;
-    };
+          direnv = {
+          enable = true;
+          stdlib = builtins.readFile ./home/config/direnvrc;
+          };
 
     # XXX Add chruby support (chruby module)
     fish = with builtins; let
-      configs        = path: concatStringsSep "\n" (map (p: readFile (path + "/${p}")) (configScripts path));
-      configScripts  = path: filterDir (configMatch "fish") (readDir path);
-      filterDir      = f: ds: filter (n: f n ds.${n}) (attrNames ds);
-      configMatch    = ext: path: type: let
-        extPattern = ".*[.]${ext}$";
-        isDir = type != "directory";
-        isExt = match extPattern path != null;
+    configs        = path: concatStringsSep "\n" (map (p: readFile (path + "/${p}")) (configScripts path));
+    configScripts  = path: filterDir (configMatch "fish") (readDir path);
+    filterDir      = f: ds: filter (n: f n ds.${n}) (attrNames ds);
+    configMatch    = ext: path: type: let
+      extPattern = ".*[.]${ext}$";
+      isDir = type != "directory";
+      isExt = match extPattern path != null;
       in
       isDir && isExt;
-    in
-    {
+      in
+      {
       enable = true;
       shellInit = ''
-        ulimit -n 4096
-        function fish_greeting; end
-        __refresh_gpg_agent_info
-        set -g __fish_git_prompt_show_informative_status yes
-        set -gx EDITOR ~/.nix-profile/bin/nvim
-        set -gx PAGER "less -RF"
-        set -gx MANPATH "" $MANPATH /run/current-system/sw/share/man
-        set -gx RIPGREP_CONFIG_PATH ~/.config/ripgreprc
+      ulimit -n 4096
+      function fish_greeting; end
+      __refresh_gpg_agent_info
+      set -g __fish_git_prompt_show_informative_status yes
+      set -gx EDITOR ~/.nix-profile/bin/nvim
+      set -gx PAGER "less -RF"
+      set -gx MANPATH "" $MANPATH /run/current-system/sw/share/man
+      set -gx RIPGREP_CONFIG_PATH ~/.config/ripgreprc
       '';
-      loginShellInit = configs ./home/config/fish/login ;
-      interactiveShellInit = ''
+        loginShellInit = configs ./home/config/fish/login ;
+        interactiveShellInit = ''
         stty start undef
         stty stop undef
         stty -ixon
         set -x fish_color_search_match  'normal' '--background=878787'
         bind \e\; 'commandline -r -t (commandline -t | sed \"s/:\(\d*\)/ +\1/\")'
-      '' + "\n" + configs ./home/config/fish/interactive ;
+        '' + "\n" + configs ./home/config/fish/interactive ;
 
-    };
+      };
 
-    fisher = {
+      fisher = {
       enable = true;
       packages = ''
-        fishpkg/fish-get
-        oh-my-fish/plugin-fasd
-        jethrokuan/fzf
-        nyarly/fish-bang-bang
-        nyarly/fish-rake-complete
+      fishpkg/fish-get
+      oh-my-fish/plugin-fasd
+      jethrokuan/fzf
+      nyarly/fish-bang-bang
+      nyarly/fish-rake-complete
       '';
-    };
+      };
 
-    neovim = {
+      neovim = {
       enable = true;
       configure = {
-        customRC = lib.concatStringsSep "\n" (map (p: "\"${p}\n${builtins.readFile p}\n") [
-          ./home/config/neovim/init.vim
-          ./home/config/neovim/ftdetect/extra_ruby.vim
-          ./home/config/neovim/filetype-settings/go.vim
-          ./home/config/neovim/filetype-settings/javascript.vim
-          ./home/config/neovim/filetype-settings/ruby.vim
-          ./home/config/neovim/filetype-settings/rust.vim
+      customRC = lib.concatStringsSep "\n" (map (p: "\"${p}\n${builtins.readFile p}\n") [
+        ./home/config/neovim/init.vim
+        ./home/config/neovim/ftdetect/extra_ruby.vim
+        ./home/config/neovim/filetype-settings/go.vim
+        ./home/config/neovim/filetype-settings/javascript.vim
+        ./home/config/neovim/filetype-settings/ruby.vim
+        ./home/config/neovim/filetype-settings/rust.vim
           #./home/config/neovim/mapping-scratch.vim
           ./home/config/neovim/motion-join.vim
           ./home/config/neovim/syntax-inspect.vim
@@ -408,7 +392,6 @@ in
           browser = "/run/current-system/sw/bin/chromium";
           icon_position = "right";
           max_icon_size = 48;
-          #icon_path = "/usr/share/icons/gnome/16x16/status/:/usr/share/icons/gnome/16x16/devices/";
         };
         shortcuts = {
           close = "ctrl+space";
@@ -444,9 +427,11 @@ in
       maxCacheTtlSsh = 86400;
       enableSshSupport = true;
       extraConfig = ''
-        write-env-file /home/judson/.gpg-agent-info
+        write-env-file ${config.home.homeDirectory}/.gpg-agent-info
       '';
     };
+
+    scdaemonNotify.enable = true;
 
     nitrogen = {
       enable = true;
@@ -462,7 +447,7 @@ in
         recurse=true
         sort=alpha
         icon_caps=false
-        dirs=/home/judson/Data/Wallpaper;
+        dirs=${config.home.homeDirectory}/Data/Wallpaper;
       '';
     };
 
