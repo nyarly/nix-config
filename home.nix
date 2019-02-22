@@ -482,8 +482,6 @@ in
   # systemd
   #   # keynav.service # Seldom used, very flaky. Alternatives?
   #   nm-applet.service
-  #   restart-taffybar.service
-  #   restart-taffybar.timer
   #   scdaemon-notify.service
   #   xembedsniproxy.service # maybe a better choice than trayer?
 }
