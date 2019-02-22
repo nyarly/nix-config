@@ -14,6 +14,8 @@ in
   imports = [
     home/fisher.nix
     home/services/nitrogen.nix
+    home/services/restart-taffybar.nix
+    home/services/trayer.nix
   ];
 
   home.packages = with pkgs; [
@@ -412,6 +414,8 @@ in
       };
     };
 
+    restartTaffybar.enable = true;
+
     gpg-agent = {
       enable = true;
       defaultCacheTtlSsh = 28800;
@@ -440,6 +444,13 @@ in
         icon_caps=false
         dirs=/home/judson/Data/Wallpaper;
       '';
+    };
+
+    trayer = {
+      enable = true;
+      setDockType = false;
+      setPartialStrut = false;
+      widthType = "pixel";
     };
   };
 
@@ -474,6 +485,5 @@ in
   #   restart-taffybar.service
   #   restart-taffybar.timer
   #   scdaemon-notify.service
-  #   trayer.service
   #   xembedsniproxy.service # maybe a better choice than trayer?
 }
