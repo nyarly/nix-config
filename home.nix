@@ -16,6 +16,7 @@ in
     home/services/nitrogen.nix
     home/services/restart-taffybar.nix
     home/services/trayer.nix
+    home/programs/scdaemon.nix
   ];
 
   home.packages = with pkgs; [
@@ -33,6 +34,25 @@ in
       enable = true;
     };
 
+    scdaemon = {
+      enable = true;
+      logFile = "socket:///tmp/scdaemon.sock";
+      debug = {
+        commandIO = true;
+        bigIntegers = true;
+        traceAssuan = true;
+      };
+
+      assuanLogCats =  {
+        init = true;
+        context = true;
+        engine = true;
+        data = true;
+        sysio = true;
+        control = true;
+      };
+    };
+
     ssh = {
       enable = true;
       controlMaster = "auto";
@@ -47,138 +67,138 @@ in
 
       matchBlocks = {
         "*.amazonaws.com" = {
-          user = "root";
-          identityFile = "~/.ssh/lrd_rsa";
-          extraOptions = {
-            StrictHostKeyChecking = "no";
-            UserKnownHostsFile = "/dev/null";
-          };
+        user = "root";
+        identityFile = "~/.ssh/lrd_rsa";
+        extraOptions = {
+        StrictHostKeyChecking = "no";
+        UserKnownHostsFile = "/dev/null";
+        };
         };
 
         "github.com" = {
-          identityFile = "~/.ssh/yubi-fd7a96.pub";
+        identityFile = "~/.ssh/yubi-fd7a96.pub";
 
-          extraOptions = {
-            LogLevel = "QUIET";
-            ControlPersist = "300";
-            ServerAliveInterval = "15";
-          };
+        extraOptions = {
+          LogLevel = "QUIET";
+          ControlPersist = "300";
+          ServerAliveInterval = "15";
         };
+      };
 
-        "bitbucket.org" = {
-          identityFile = "~/.ssh/monotone_something";
+      "bitbucket.org" = {
+      identityFile = "~/.ssh/monotone_something";
 
-          extraOptions = {
-            LogLevel = "QUIET";
-            ControlPersist = "300";
-          };
-        };
-
-        "*.opentable.com sc-ssh-jump-01 *.otenv.com *.ot.tools" = {
-          user = "jlester";
-          identityFile = "~/.ssh/yubi-fd7a96.pub";
-          identitiesOnly = true;
-          extraOptions = {
-            ServerAliveInterval = "15";
-          };
-        };
+      extraOptions = {
+        LogLevel = "QUIET";
+        ControlPersist = "300";
       };
     };
 
-    git = {
-      enable = true;
-      package = pkgs.gitAndTools.gitFull;
-      userName = "Judson";
-      userEmail = "nyarly@gmail.com";
-      aliases = {
-        ctags = "!.git/hooks/ctags";
-        bundle-tags = "!.git/hooks/bundle-ctags";
-        savepoint-merge = "!~/bin/git-savepoint-merge";
-        savepoint-complete = "!~/bin/git-savepoint-complete";
-        savepoint-reset = "!~/bin/git-savepoint-reset";
-        savepoint-zap = "branch -d savepoint";
-        localize-branches = "!~/bin/git-localize-branches";
-        go-root = "!echo $(pwd) $GIT_PREFIX";
-        pb = "!pb";
-        mt = "mergetool";
-        dt = "difftool -d";
+    "*.opentable.com sc-ssh-jump-01 *.otenv.com *.ot.tools" = {
+    user = "jlester";
+    identityFile = "~/.ssh/yubi-fd7a96.pub";
+    identitiesOnly = true;
+    extraOptions = {
+      ServerAliveInterval = "15";
+    };
+  };
+};
       };
-      signing = {
-        key = "9A3F82AA";
-        signByDefault = true;
-      };
-      ignores = [ ".envrc" ".ctrlp-root" ".vim-role" ".cadre" ".sw?" "!.swf"
-      "failed_specs" "rspec_status" "*Session.vim" "errors.err" ".nix-gc/" ];
-      includes = [
-        {
-          path = "~/.config/git/secret";
+
+      git = {
+        enable = true;
+        package = pkgs.gitAndTools.gitFull;
+        userName = "Judson";
+        userEmail = "nyarly@gmail.com";
+        aliases = {
+          ctags = "!.git/hooks/ctags";
+          bundle-tags = "!.git/hooks/bundle-ctags";
+          savepoint-merge = "!~/bin/git-savepoint-merge";
+          savepoint-complete = "!~/bin/git-savepoint-complete";
+          savepoint-reset = "!~/bin/git-savepoint-reset";
+          savepoint-zap = "branch -d savepoint";
+          localize-branches = "!~/bin/git-localize-branches";
+          go-root = "!echo $(pwd) $GIT_PREFIX";
+          pb = "!pb";
+          mt = "mergetool";
+          dt = "difftool -d";
+        };
+        signing = {
+          key = "9A3F82AA";
+          signByDefault = true;
+        };
+        ignores = [ ".envrc" ".ctrlp-root" ".vim-role" ".cadre" ".sw?" "!.swf"
+        "failed_specs" "rspec_status" "*Session.vim" "errors.err" ".nix-gc/" ];
+        includes = [
+          {
+            path = "~/.config/git/secret";
           # condition = ? # something about "if it exists"?
         }
       ];
       # can be attrs converted...
       extraConfig = ''
         [core]
-          fsyncobjectfiles = false
+        fsyncobjectfiles = false
         [branch]
-          autosetupmerge = true
+        autosetupmerge = true
         [color]
-          branch = true
-          diff = true
-          grep = true
-          interactive = true
-          status = true
-          ui = true
+        branch = true
+        diff = true
+        grep = true
+        interactive = true
+        status = true
+        ui = true
         [rerere]
-          enabled = true
+        enabled = true
         [init]
-          templatedir = ~/.git_template
+        templatedir = ~/.git_template
 
         [bash]
-          showDirtyState = true
+        showDirtyState = true
 
         [tag]
-          forceSignAnnotated = true
+        forceSignAnnotated = true
 
         [push]
-          default = current
-          followTags = true
+        default = current
+        followTags = true
 
         [diff "rawtext"]
-          textconv =    "~/.config/git/trimwhite.sh"
+        textconv =    "~/.config/git/trimwhite.sh"
 
         [filter "trimwhite"]
-          clean =    "~/.config/git/trimwhite.sh"
+        clean =    "~/.config/git/trimwhite.sh"
         [help]
-          autocorrect = -1
+        autocorrect = -1
 
         [interactive]
-          singlekey = true
+        singlekey = true
 
         [merge]
-          tool = meld
-          conflictstyle = diff3
+        tool = meld
+        conflictstyle = diff3
 
         [mergetool "mymeld"]
-          cmd = meld --diff $LOCAL $BASE $REMOTE --output=$MERGED --diff $BASE $LOCAL --diff $BASE $REMOTE
+        cmd = meld --diff $LOCAL $BASE $REMOTE --output=$MERGED --diff $BASE $LOCAL --diff $BASE $REMOTE
 
         [mergetool]
-          keepBackup = false
-          prompt = false
+        keepBackup = false
+        prompt = false
 
         [rebase]
-          autosquash = yes
+        autosquash = yes
         [diff]
-          tool = meld
-          rename = copy
-          algorithm = patience
+        tool = meld
+        rename = copy
+        algorithm = patience
         [url "git@github.com:"]
-          insteadOf = https://github.com/
+        insteadOf = https://github.com/
 
         [jira]
-          user = jlester@opentable.com
-          server = https://opentable.atlassian.net
+        user = jlester@opentable.com
+        server = https://opentable.atlassian.net
           # password should be in ./secret
-        [github]
+          [github]
           user = nyarly
       '';
     };
@@ -203,22 +223,22 @@ in
     {
       enable = true;
       shellInit = ''
-          ulimit -n 4096
-          function fish_greeting; end
-          __refresh_gpg_agent_info
-          set -g __fish_git_prompt_show_informative_status yes
-          set -gx EDITOR ~/.nix-profile/bin/nvim
-          set -gx PAGER "less -RF"
-          set -gx MANPATH "" $MANPATH /run/current-system/sw/share/man
-          set -gx RIPGREP_CONFIG_PATH ~/.config/ripgreprc
+        ulimit -n 4096
+        function fish_greeting; end
+        __refresh_gpg_agent_info
+        set -g __fish_git_prompt_show_informative_status yes
+        set -gx EDITOR ~/.nix-profile/bin/nvim
+        set -gx PAGER "less -RF"
+        set -gx MANPATH "" $MANPATH /run/current-system/sw/share/man
+        set -gx RIPGREP_CONFIG_PATH ~/.config/ripgreprc
       '';
       loginShellInit = configs ./home/config/fish/login ;
       interactiveShellInit = ''
-          stty start undef
-          stty stop undef
-          stty -ixon
-          set -x fish_color_search_match  'normal' '--background=878787'
-          bind \e\; 'commandline -r -t (commandline -t | sed \"s/:\(\d*\)/ +\1/\")'
+        stty start undef
+        stty stop undef
+        stty -ixon
+        set -x fish_color_search_match  'normal' '--background=878787'
+        bind \e\; 'commandline -r -t (commandline -t | sed \"s/:\(\d*\)/ +\1/\")'
       '' + "\n" + configs ./home/config/fish/interactive ;
 
     };
