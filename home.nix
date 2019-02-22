@@ -18,6 +18,7 @@ in
       home/services/restart-taffybar.nix
       home/services/trayer.nix
       home/services/scdaemon-notify.nix
+      home/services/nm-applet.nix
 
       home/programs/scdaemon.nix
     ];
@@ -118,136 +119,136 @@ in
         path = "~/.config/git/secret";
           # condition = ? # something about "if it exists"?
           }
-          ];
-      # can be attrs converted...
-      extraConfig = ''
-      [core]
-      fsyncobjectfiles = false
-      [branch]
-      autosetupmerge = true
-      [color]
-      branch = true
-      diff = true
-      grep = true
-      interactive = true
-      status = true
-      ui = true
-      [rerere]
-      enabled = true
-      [init]
-      templatedir = ~/.git_template
+        ];
+        # can be attrs converted...
+        extraConfig = ''
+          [core]
+          fsyncobjectfiles = false
+          [branch]
+          autosetupmerge = true
+          [color]
+          branch = true
+          diff = true
+          grep = true
+          interactive = true
+          status = true
+          ui = true
+          [rerere]
+          enabled = true
+          [init]
+          templatedir = ~/.git_template
 
-      [bash]
-      showDirtyState = true
+          [bash]
+          showDirtyState = true
 
-      [tag]
-      forceSignAnnotated = true
+          [tag]
+          forceSignAnnotated = true
 
-      [push]
-      default = current
-      followTags = true
+          [push]
+          default = current
+          followTags = true
 
-      [diff "rawtext"]
-      textconv =    "~/.config/git/trimwhite.sh"
+          [diff "rawtext"]
+          textconv =    "~/.config/git/trimwhite.sh"
 
-      [filter "trimwhite"]
-      clean =    "~/.config/git/trimwhite.sh"
-      [help]
-      autocorrect = -1
+          [filter "trimwhite"]
+          clean =    "~/.config/git/trimwhite.sh"
+          [help]
+          autocorrect = -1
 
-      [interactive]
-      singlekey = true
+          [interactive]
+          singlekey = true
 
-      [merge]
-      tool = meld
-      conflictstyle = diff3
+          [merge]
+          tool = meld
+          conflictstyle = diff3
 
-      [mergetool "mymeld"]
-      cmd = meld --diff $LOCAL $BASE $REMOTE --output=$MERGED --diff $BASE $LOCAL --diff $BASE $REMOTE
+          [mergetool "mymeld"]
+          cmd = meld --diff $LOCAL $BASE $REMOTE --output=$MERGED --diff $BASE $LOCAL --diff $BASE $REMOTE
 
-      [mergetool]
-      keepBackup = false
-      prompt = false
+          [mergetool]
+          keepBackup = false
+          prompt = false
 
-      [rebase]
-      autosquash = yes
-      [diff]
-      tool = meld
-      rename = copy
-      algorithm = patience
-      [url "git@github.com:"]
-      insteadOf = https://github.com/
+          [rebase]
+          autosquash = yes
+          [diff]
+          tool = meld
+          rename = copy
+          algorithm = patience
+          [url "git@github.com:"]
+          insteadOf = https://github.com/
 
-      [jira]
-      user = jlester@opentable.com
-      server = https://opentable.atlassian.net
+          [jira]
+          user = jlester@opentable.com
+          server = https://opentable.atlassian.net
           # password should be in ./secret
           [github]
           user = nyarly
-          '';
-          };
+        '';
+      };
 
-          direnv = {
-          enable = true;
-          stdlib = builtins.readFile ./home/config/direnvrc;
-          };
+      direnv = {
+        enable = true;
+        stdlib = builtins.readFile ./home/config/direnvrc;
+      };
 
-    # XXX Add chruby support (chruby module)
-    fish = with builtins; let
-    configs        = path: concatStringsSep "\n" (map (p: readFile (path + "/${p}")) (configScripts path));
-    configScripts  = path: filterDir (configMatch "fish") (readDir path);
-    filterDir      = f: ds: filter (n: f n ds.${n}) (attrNames ds);
-    configMatch    = ext: path: type: let
-      extPattern = ".*[.]${ext}$";
-      isDir = type != "directory";
-      isExt = match extPattern path != null;
-      in
-      isDir && isExt;
+      # XXX Add chruby support (chruby module)
+      fish = with builtins; let
+        configs        = path: concatStringsSep "\n" (map (p: readFile (path + "/${p}")) (configScripts path));
+        configScripts  = path: filterDir (configMatch "fish") (readDir path);
+        filterDir      = f: ds: filter (n: f n ds.${n}) (attrNames ds);
+        configMatch    = ext: path: type: let
+          extPattern = ".*[.]${ext}$";
+          isDir = type != "directory";
+          isExt = match extPattern path != null;
+        in
+        isDir && isExt;
       in
       {
-      enable = true;
-      shellInit = ''
-      ulimit -n 4096
-      function fish_greeting; end
-      __refresh_gpg_agent_info
-      set -g __fish_git_prompt_show_informative_status yes
-      set -gx EDITOR ~/.nix-profile/bin/nvim
-      set -gx PAGER "less -RF"
-      set -gx MANPATH "" $MANPATH /run/current-system/sw/share/man
-      set -gx RIPGREP_CONFIG_PATH ~/.config/ripgreprc
-      '';
+        enable = true;
+        shellInit = ''
+          ulimit -n 4096
+          function fish_greeting; end
+          __refresh_gpg_agent_info
+          set -g __fish_git_prompt_show_informative_status yes
+          set -gx EDITOR ~/.nix-profile/bin/nvim
+          set -gx PAGER "less -RF"
+          set -gx MANPATH "" $MANPATH /run/current-system/sw/share/man
+          set -gx RIPGREP_CONFIG_PATH ~/.config/ripgreprc
+        '';
         loginShellInit = configs ./home/config/fish/login ;
         interactiveShellInit = ''
-        stty start undef
-        stty stop undef
-        stty -ixon
-        set -x fish_color_search_match  'normal' '--background=878787'
-        bind \e\; 'commandline -r -t (commandline -t | sed \"s/:\(\d*\)/ +\1/\")'
+          stty start undef
+          stty stop undef
+          stty -ixon
+          set -x fish_color_search_match  'normal' '--background=878787'
+          bind \e\; 'commandline -r -t (commandline -t | sed \"s/:\(\d*\)/ +\1/\")'
         '' + "\n" + configs ./home/config/fish/interactive ;
 
       };
 
       fisher = {
-      enable = true;
-      packages = ''
-      fishpkg/fish-get
-      oh-my-fish/plugin-fasd
-      jethrokuan/fzf
-      nyarly/fish-bang-bang
-      nyarly/fish-rake-complete
-      '';
+        enable = true;
+        packages = ''
+          fishpkg/fish-get
+          oh-my-fish/plugin-fasd
+          jethrokuan/fzf
+          nyarly/fish-bang-bang
+          nyarly/fish-rake-complete
+        '';
       };
 
       neovim = {
-      enable = true;
-      configure = {
-      customRC = lib.concatStringsSep "\n" (map (p: "\"${p}\n${builtins.readFile p}\n") [
-        ./home/config/neovim/init.vim
-        ./home/config/neovim/ftdetect/extra_ruby.vim
-        ./home/config/neovim/filetype-settings/go.vim
-        ./home/config/neovim/filetype-settings/javascript.vim
-        ./home/config/neovim/filetype-settings/ruby.vim
-        ./home/config/neovim/filetype-settings/rust.vim
+        enable = true;
+        configure = {
+          customRC = lib.concatStringsSep "\n" (map (p: "\"${p}\n${builtins.readFile p}\n") [
+            ./home/config/neovim/init.vim
+            ./home/config/neovim/ftdetect/extra_ruby.vim
+            ./home/config/neovim/filetype-settings/go.vim
+            ./home/config/neovim/filetype-settings/javascript.vim
+            ./home/config/neovim/filetype-settings/ruby.vim
+            ./home/config/neovim/filetype-settings/rust.vim
           #./home/config/neovim/mapping-scratch.vim
           ./home/config/neovim/motion-join.vim
           ./home/config/neovim/syntax-inspect.vim
@@ -417,6 +418,7 @@ in
       };
     };
 
+    nm-applet.enable = true;
     restartTaffybar.enable = true;
 
     gpg-agent = {
@@ -484,9 +486,8 @@ in
 
   # TODO
   #
-  # systemd
-  #   # keynav.service # Seldom used, very flaky. Alternatives?
-  #   nm-applet.service
-  #   scdaemon-notify.service
-  #   xembedsniproxy.service # maybe a better choice than trayer?
+  # # keynav.service # Seldom used, very flaky. Alternatives?
+  # xembedsniproxy.service # maybe a better choice than trayer?
+  # transitional configs
+  # NeoVim spit n polish
 }
