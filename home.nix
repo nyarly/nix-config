@@ -38,6 +38,27 @@ in
         enable = true;
       };
 
+      htop = {
+        enable = true;
+        cpuCountFromZero = true;
+        delay = 15;
+        fields = [
+          "PID" "USER" "PRIORITY" "NICE"
+          "M_SIZE" "M_RESIDENT" "M_SHARE"
+          "STATE" "PERCENT_CPU" "PERCENT_MEM"
+          "UTIME" "COMM"
+        ];
+        hideThreads = true;
+        hideUserlandThreads = true;
+        meters = {
+          left = [ "AllCPUs" "Memory" "Swap" ];
+          right = [ "Tasks" "LoadAverage" "Uptime" ];
+        };
+        shadowOtherUsers = true;
+        showProgramPath = false;
+        sortKey = "PERCENT_MEM";
+      };
+
       ssh = {
         enable = true;
         controlMaster = "auto";
@@ -485,6 +506,22 @@ in
 
 
   # TODO
+
+  # mimeapps.conf ?
+  # xmonad config
+  # taffybar config
+  # hexchat
+  # fontconfig?
+  # gconf ? (nm-manager)
+  # gocode
+  # fish functions
+  # fish completions
+  # fish dir cleanup
+
+  # clobber runit
+  # clobber mr
+  # clobber vcsh
+
   #
   # # keynav.service # Seldom used, very flaky. Alternatives?
   # xembedsniproxy.service # maybe a better choice than trayer?
