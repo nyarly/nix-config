@@ -496,23 +496,22 @@ in
 
   xsession = {
     enable = true;
-    windowManager.command = let
-      xmonad = pkgs.xmonad-with-packages.override {
-        packages = self: [ self.xmonad-contrib self.taffybar ];
-      };
-    in
-    "${xmonad}/bin/xmonad";
+    windowManager.xmonad = {
+      enable = true;
+      enableContribAndExtras = true;
+      extraPackages = pkgs: [ pkgs.taffybar ];
+      config = home/config/xmonad.hs;
+    };
   };
 
 
   # TODO
 
-  # mimeapps.conf ?
-  # xmonad config
   # taffybar config
   # hexchat
   # fontconfig?
   # gconf ? (nm-manager)
+  # mimeapps.conf ?
   # gocode
   # fish functions
   # fish completions
@@ -524,7 +523,10 @@ in
 
   #
   # # keynav.service # Seldom used, very flaky. Alternatives?
+  #    xmonad config?
   # xembedsniproxy.service # maybe a better choice than trayer?
+  #   taffybar has a whole "set up the SNItray first" thing,
+  #   which HM might support well.
   # transitional configs
   # NeoVim spit n polish
 }
