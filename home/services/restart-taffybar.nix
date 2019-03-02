@@ -9,7 +9,6 @@ with lib;
 {
   # meta.maintainers = [ maintainers.nyarly ];
 
-
   options = {
     services.restartTaffybar = {
       enable = mkEnableOption "Periodic restart of Taffybar";

@@ -440,6 +440,8 @@ in
     };
 
     nm-applet.enable = true;
+
+    taffybar.enable = true;
     restartTaffybar.enable = true;
 
     gpg-agent = {
@@ -492,6 +494,20 @@ in
   xdg.configFile = {
     "nvim/plugin/airline.vim".source = ./home/config/neovim/plugin-config/airline.vim;
     "git/trimwhite.sh".source = ./home/config/git/trimwhite.sh;
+    "taffybar/taffybar.hs" = {
+      source = ./home/config/taffybar/taffybar.hs;
+      onChange = ''
+          echo "Restarting taffybar"
+          $DRY_RUN_CMD systemctl --user restart taffybar
+      '';
+    };
+    "taffybar/taffybar.css" = {
+      source = ./home/config/taffybar/taffybar.css;
+      onChange = ''
+          echo "Restarting taffybar"
+          $DRY_RUN_CMD systemctl --user restart taffybar
+      '';
+    };
   } // loadConfigs ./home/config/transitional;
 
   xsession = {
@@ -507,7 +523,6 @@ in
 
   # TODO
 
-  # taffybar config
   # hexchat
   # fontconfig?
   # gconf ? (nm-manager)
