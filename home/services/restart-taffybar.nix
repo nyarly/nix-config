@@ -38,6 +38,10 @@ with lib;
         Type="oneshot";
         ExecStart="/run/current-system/sw/bin/systemctl --user try-restart taffybar";
       };
+
+      Install = {
+        WantedBy = "graphical-session.target";
+      };
     };
   };
 }
