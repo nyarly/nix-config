@@ -9,6 +9,7 @@ let
     inherit (pkgs) fetchgit;
     inherit (vimUtils) buildVimPluginFrom2Nix;
   };
+
 in
   {
     imports = [
@@ -523,6 +524,7 @@ in
 
   # TODO
 
+  # git_template
   # hexchat
   # fontconfig?
   # gconf ? (nm-manager)
