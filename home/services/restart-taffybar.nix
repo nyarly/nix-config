@@ -24,6 +24,10 @@ with lib;
       Timer = {
         OnCalendar="*-*-* 02:00:00";
       };
+
+      Install = {
+        WantedBy = ["graphical-session.target"];
+      };
     };
 
     systemd.user.services.restart-taffybar = {
@@ -36,6 +40,10 @@ with lib;
       Service = {
         Type="oneshot";
         ExecStart="/run/current-system/sw/bin/systemctl --user try-restart taffybar";
+      };
+
+      Install = {
+        WantedBy = ["graphical-session.target"];
       };
     };
   };
