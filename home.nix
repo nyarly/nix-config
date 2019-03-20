@@ -311,6 +311,9 @@ in
         ]);
 
         packages.jdlPackages = with pkgs.vimPlugins; with localNvimPlugins; {
+          opt = [
+            tagbar
+          ];
           start = [
             ag-vim
             ale
@@ -344,14 +347,11 @@ in
             sparkup
             sideways-vim
             tabular
-            tagbar
             textile-vim
             tmuxline-vim
             ultisnips
             vim-abolish
             vim-actionscript
-            vim-airline
-            vim-airline-themes
             vim-coffee-script
             vim-delve
             vim-endwise
@@ -373,6 +373,8 @@ in
             vim-surround
             vim-unimpaired
             webapi-vim
+            vim-airline
+            vim-airline-themes
           ];
         };
       };

@@ -114,6 +114,9 @@ layout_ruby() {
 
 save_function use_nix old_use_nix
 use_nix() {
+  if [ -n $DONT_NIX ]; then
+    return
+  fi
   GC_DIR=$(pwd)/.nix-gc
   echo GC root dir in $GC_DIR
   rm -rf $GC_DIR
