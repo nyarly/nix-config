@@ -114,7 +114,8 @@ layout_ruby() {
 
 save_function use_nix old_use_nix
 use_nix() {
-  if [ -n $DONT_NIX ]; then
+  if [ -n "$DONT_NIX" ]; then
+    echo "Not using nix-shell because DONT_NIX is set."
     return
   fi
   GC_DIR=$(pwd)/.nix-gc
