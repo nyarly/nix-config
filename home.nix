@@ -31,6 +31,7 @@ in
       indent
       wmctrl
       xmlstarlet
+      wxcam
     ];
 
     programs = {
