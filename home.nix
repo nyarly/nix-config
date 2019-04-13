@@ -336,7 +336,7 @@ in
             IndentAnything
             jobmake
             jq-vim
-            lldb-nvim
+            # lldb-nvim # Can't find lldb...
             nginx-vim
             promptline-vim
             rainbow
@@ -353,7 +353,7 @@ in
             vim-abolish
             vim-actionscript
             vim-coffee-script
-            vim-delve
+            # vim-delve
             vim-endwise
             vim-fish
             vim-fugitive
