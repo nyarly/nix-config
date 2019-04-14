@@ -273,43 +273,43 @@ in
             ./home/config/neovim/filetype-settings/javascript.vim
             ./home/config/neovim/filetype-settings/ruby.vim
             ./home/config/neovim/filetype-settings/rust.vim
-          #./home/config/neovim/mapping-scratch.vim
-          ./home/config/neovim/motion-join.vim
-          ./home/config/neovim/syntax-inspect.vim
-          #./home/config/neovim/scratch.vim
-          ./home/config/neovim/indent-jump.vim
-          ./home/config/neovim/80cols.vim
-          ./home/config/neovim/taxo-quickfix.vim
-          ./home/config/neovim/out2file.vim
-          ./home/config/neovim/bufarg.vim
-          ./home/config/neovim/trim-white.vim
-          ./home/config/neovim/sticky-window.vim
-          ./home/config/neovim/mapping.vim
-          ./home/config/neovim/matchit.vim
-          ./home/config/neovim/xterm-color-table.vim
-          ./home/config/neovim/toggle-folding.vim
-          ./home/config/neovim/center-jump.vim
-          ./home/config/neovim/SimpleFold.vim
-          ./home/config/neovim/blase-swapfile.vim
-          ./home/config/neovim/plugin-config/ultisnips.vim
-          ./home/config/neovim/plugin-config/yankring.vim
-          ./home/config/neovim/plugin-config/tagbar.vim
-          ./home/config/neovim/plugin-config/ag.vim
-          ./home/config/neovim/plugin-config/deoplete.vim
-          ./home/config/neovim/plugin-config/jobmake.vim
-          ./home/config/neovim/plugin-config/gpg.vim
-          ./home/config/neovim/plugin-config/fzf.vim
-          ./home/config/neovim/plugin-config/quickfixsigns.vim
-          ./home/config/neovim/plugin-config/neocomplete.vim
-          ./home/config/neovim/plugin-config/ale.vim
-          ./home/config/neovim/plugin-config/ranger.vim
-          #./home/config/neovim/plugin-config/airline.vim
-          ./home/config/neovim/plugin-config/indent-guides.vim
-          ./home/config/neovim/plugin-config/rainbow.vim
-          ./home/config/neovim/plugin-config/tmuxline.vim
-          ./home/config/neovim/plugin-config/sideways.vim
-          ./home/config/neovim/plugin-config/legend.vim
-          ./home/config/neovim/plugin-config/ctrlp.vim
+            #./home/config/neovim/mapping-scratch.vim
+            ./home/config/neovim/motion-join.vim
+            ./home/config/neovim/syntax-inspect.vim
+            #./home/config/neovim/scratch.vim
+            ./home/config/neovim/indent-jump.vim
+            ./home/config/neovim/80cols.vim
+            ./home/config/neovim/taxo-quickfix.vim
+            ./home/config/neovim/out2file.vim
+            ./home/config/neovim/bufarg.vim
+            ./home/config/neovim/trim-white.vim
+            ./home/config/neovim/sticky-window.vim
+            ./home/config/neovim/mapping.vim
+            ./home/config/neovim/matchit.vim
+            ./home/config/neovim/xterm-color-table.vim
+            ./home/config/neovim/toggle-folding.vim
+            ./home/config/neovim/center-jump.vim
+            ./home/config/neovim/SimpleFold.vim
+            ./home/config/neovim/blase-swapfile.vim
+            ./home/config/neovim/plugin-config/ultisnips.vim
+            ./home/config/neovim/plugin-config/yankring.vim
+            ./home/config/neovim/plugin-config/tagbar.vim
+            ./home/config/neovim/plugin-config/ag.vim
+            ./home/config/neovim/plugin-config/deoplete.vim
+            ./home/config/neovim/plugin-config/jobmake.vim
+            ./home/config/neovim/plugin-config/gpg.vim
+            ./home/config/neovim/plugin-config/fzf.vim
+            ./home/config/neovim/plugin-config/quickfixsigns.vim
+            ./home/config/neovim/plugin-config/neocomplete.vim
+            ./home/config/neovim/plugin-config/ale.vim
+            ./home/config/neovim/plugin-config/ranger.vim
+            #./home/config/neovim/plugin-config/airline.vim
+            ./home/config/neovim/plugin-config/indent-guides.vim
+            ./home/config/neovim/plugin-config/rainbow.vim
+            ./home/config/neovim/plugin-config/tmuxline.vim
+            ./home/config/neovim/plugin-config/sideways.vim
+            ./home/config/neovim/plugin-config/legend.vim
+            ./home/config/neovim/plugin-config/ctrlp.vim
         ]);
 
         packages.jdlPackages = with pkgs.vimPlugins; with localNvimPlugins; {
@@ -324,6 +324,7 @@ in
             deoplete-go
             deoplete-nvim
             deoplete-rust
+            direnv-vim
             Dockerfile-vim
             echodoc
             errormarker-vim
@@ -338,7 +339,7 @@ in
             IndentAnything
             jobmake
             jq-vim
-            lldb-nvim # Can't find lldb...
+            lldb-nvim
             nginx-vim
             promptline-vim
             rainbow
@@ -504,6 +505,7 @@ in
       source = ./home/config/taffybar/taffybar.hs;
       onChange = ''
           echo "Restarting taffybar"
+          $DRY_RUN_CMD rm ~/.cache/taffybar/taffybar-linux-x86_64
           $DRY_RUN_CMD systemctl --user restart taffybar
       '';
     };
