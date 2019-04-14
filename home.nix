@@ -10,6 +10,15 @@ let
     inherit (vimUtils) buildVimPluginFrom2Nix;
   };
 
+  lorriSrc = builtins.fetchGit {
+    url = "https://github.com/target/lorri.git";
+    ref = "rolling-release";
+  };
+
+  lorri = pkgs.callPackage lorriSrc {
+    src = lorriSrc;
+  };
+
 in
   {
     imports = [
@@ -33,6 +42,7 @@ in
       xmlstarlet
       wxcam
       plasma-desktop #needed for xembed-sni-proxy
+      lorri
     ];
 
     programs = {
