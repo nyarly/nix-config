@@ -45,8 +45,8 @@ main = do
     clock = textClockNew Nothing "<span fgcolor='orange'>%a %b %_d P %H:%M</span>" 1
     zebra = textClockNewWith (ClockConfig (Just utc) Nothing) "<span fgcolor='silver'>%a %b %_d Z %H:%M</span>" 1
     -- The right way seems to set up an sni listener in systemd?
-    tray = sniTrayThatStartsWatcherEvenThoughThisIsABadWayToDoIt
-    -- tray = sniTrayNew
+    -- tray = sniTrayThatStartsWatcherEvenThoughThisIsABadWayToDoIt
+    tray = sniTrayNew
     cpu = pollingGraphNew cpuCfg 0.5 cpuCallback
     mem = pollingGraphNew memCfg 1 memCallback
     -- batt = batteryBarNew defaultBatteryConfig 30

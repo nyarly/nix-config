@@ -32,6 +32,7 @@ in
       wmctrl
       xmlstarlet
       wxcam
+      plasma-desktop #needed for xembed-sni-proxy
     ];
 
     programs = {
@@ -337,7 +338,7 @@ in
             IndentAnything
             jobmake
             jq-vim
-            # lldb-nvim # Can't find lldb...
+            lldb-nvim # Can't find lldb...
             nginx-vim
             promptline-vim
             rainbow
@@ -447,6 +448,7 @@ in
 
     taffybar.enable = true;
     restartTaffybar.enable = true;
+    xembed-sni-proxy.enable = true;
 
     gpg-agent = {
       enable = true;
@@ -481,7 +483,7 @@ in
     };
 
     trayer = {
-      enable = true;
+      enable = false;
       setDockType = false;
       setPartialStrut = false;
       widthType = "pixel";

@@ -42,7 +42,7 @@ in
     buildInputs = [ pluginnames2Nix ];
   }
 
-# nix-shell nvim-plugins-shell.nix --command "adhoc-vim-plugins -c '0/# vam/,\$d | x! personal-nvim-plugins-list.nix'"
+# nix-shell nvim-plugins-shell.nix --command "yes '' | adhoc-vim-plugins -c '0/# vam/,\$d | x! personal-nvim-plugins-list.nix'"
 #
 # The resulting output needs to be wrapped in
 #{fetchgit, buildVimPluginFrom2Nix}:
@@ -50,5 +50,4 @@ in
 #   ...
 #}
 
-# It would be nice to set this up as a nix expression and be done, but the pluginnames2Nix thing
-# uses Vim's `echom` in its scripts and RC file, which triggers a "Press ENTER" from Vim.
+# TODO: make this into a build expression and have done with it.

@@ -16,9 +16,9 @@ if test -d "$HOME/.nix-profile"
   # <nixpkgs> paths work when the user has fetched the Nixpkgs
   # channel.
   if test -n $NIX_PATH;
-    set NIX_PATH {$NIX_PATH}:nixpkgs=$HOME/.nix-defexpr/channels/nixpkgs
+    set NIX_PATH $HOME/.nix-defexpr/channels:{$NIX_PATH}:nixpkgs=$HOME/.nix-defexpr/channels/nixpkgs
   else
-    set NIX_PATH nixpkgs=$HOME/.nix-defexpr/channels/nixpkgs
+    set NIX_PATH $HOME/.nix-defexpr/channels:nixpkgs=$HOME/.nix-defexpr/channels/nixpkgs
   end
 
   set SSL_CERT_FILE /etc/ssl/certs/ca-certificates.crt
