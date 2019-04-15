@@ -15,7 +15,7 @@ if test -d "$HOME/.nix-profile"
   # Append ~/.nix-defexpr/channels/nixpkgs to $NIX_PATH so that
   # <nixpkgs> paths work when the user has fetched the Nixpkgs
   # channel.
-  if test -n $NIX_PATH;
+  if test -n "$NIX_PATH";
     set NIX_PATH $HOME/.nix-defexpr/channels:{$NIX_PATH}:nixpkgs=$HOME/.nix-defexpr/channels/nixpkgs
   else
     set NIX_PATH $HOME/.nix-defexpr/channels:nixpkgs=$HOME/.nix-defexpr/channels/nixpkgs
