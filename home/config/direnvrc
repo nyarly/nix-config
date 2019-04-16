@@ -31,10 +31,6 @@ use_docker-machine(){
   eval $(docker-machine env --shell bash $env)
 }
 
-#NEXT STEP: convert projects to use .direnvrc, and change out prompt.sh so that we check for bundler on entering the dir
-#bundle_setup should trigger a direnv update
-
-
 session_name(){
   export TMUX_SESSION_NAME="${*:?session_name needs a name as argument}"
 }

@@ -10,6 +10,7 @@ let
     inherit (vimUtils) buildVimPluginFrom2Nix;
   };
 
+  myBundix = pkgs.callPackage ./home/packages/bundix.nix {};
 in
   {
     imports = [
@@ -33,7 +34,9 @@ in
       wmctrl
       xmlstarlet
       wxcam
+      myBundix
       plasma-desktop #needed for xembed-sni-proxy
+      tlaplusToolbox
     ];
 
     programs = {
