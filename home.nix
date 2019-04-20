@@ -10,6 +10,7 @@ let
     inherit (vimUtils) buildVimPluginFrom2Nix;
   };
 
+  myBundix = pkgs.callPackage ./home/packages/bundix.nix {};
 in
   {
     imports = [
@@ -25,6 +26,8 @@ in
       home/programs/scdaemon.nix
     ];
 
+    nixpkgs.config = import ./config.nix;
+
     home.packages = with pkgs; [
       pv
       exa
@@ -33,7 +36,7 @@ in
       wmctrl
       xmlstarlet
       wxcam
-      bundix
+      myBundix
       plasma-desktop #needed for xembed-sni-proxy
       hicolor-icon-theme
       tlaplusToolbox
