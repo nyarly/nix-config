@@ -27,6 +27,17 @@ in
     ];
 
     nixpkgs.config = import ./config.nix;
+    nixpkgs.overlays = with builtins; (
+      let
+        content = readDir ./overlays;
+      in
+        map (n: import (./overlays + ("/" + n)))
+          (
+            filter
+              (n: match ".*\\.nix" n != null || pathExists (./overlays + ("/" + n + "/default.nix")))
+              (attrNames content)
+          )
+    );
 
     home.packages = with pkgs; [
       pv
@@ -36,7 +47,7 @@ in
       wmctrl
       xmlstarlet
       wxcam
-      myBundix
+      bundix
       plasma-desktop #needed for xembed-sni-proxy
       hicolor-icon-theme
       tlaplusToolbox
