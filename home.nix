@@ -11,6 +11,8 @@ let
   };
 
   myBundix = pkgs.callPackage ./home/packages/bundix.nix {};
+
+  rhet-butler = pkgs.callPackage ./home/packages/rhet-butler.nix {};
 in
   {
     imports = [
@@ -51,6 +53,7 @@ in
       plasma-desktop #needed for xembed-sni-proxy
       hicolor-icon-theme
       tlaplusToolbox
+      rhet-butler
     ];
 
     programs = {
