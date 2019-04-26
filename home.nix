@@ -12,7 +12,7 @@ let
 
   myBundix = pkgs.callPackage ./home/packages/bundix.nix {};
 
-  rhet-butler = pkgs.callPackage ./home/packages/rhet-butler.nix {};
+  rhet-butler = pkgs.callPackage ./home/packages/rhet-butler {};
 in
   {
     imports = [

@@ -1,19 +1,12 @@
-{ buildRubyGem, fetchFromGitHub, lib }:
+{ bundlerApp, fetchFromGitHub, lib }:
 
-buildRubyGem rec {
-  name = "${gemName}-${version}";
-  gemName = "rhet-butler";
-  version = "edge";
+bundlerApp rec {
+  pname = "rhet-butler";
 
-  src = fetchFromGitHub {
-    owner = "nyarly";
-    repo = "rhet-butler";
-    rev = "master";
-    sha256 = "12sjp8qhlmd25yhx6p6g06arlrb7i1iip5vw8rhmyvxv2a2dcnad";
-  };
+  gemdir = ./.;
 
   meta = {
-    inherit version;
+    version = "edge";
     description	= "A web tech presentation system";
     longDescription	= ''
       Rhet Butler is a presentation assistant. Build a slide deck in simple YAML,
