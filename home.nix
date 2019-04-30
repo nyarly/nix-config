@@ -54,6 +54,7 @@ in
       hicolor-icon-theme
       tlaplusToolbox
       rhet-butler
+      signal-desktop
     ];
 
     programs = {
@@ -400,6 +401,21 @@ in
             vim-airline
             vim-airline-themes
           ];
+        };
+      };
+    };
+
+    taskwarrior = {
+      enable = true;
+      colorTheme = "solarized-light-256";
+      config = {
+        confirmation= false;
+        taskd = {
+          server = "tasks.madhelm.net:53589";
+          certificate = "${config.home.homeDirectory}/.task/keys/public.cert";
+          key = "${config.home.homeDirectory}/.task/keys/private.key";
+          ca = "${config.home.homeDirectory}/.task/keys/ca.cert";
+          credentials = "madhelm/judson/8a57d212-0116-49e2-ae55-4bbcbe6dfc01";
         };
       };
     };

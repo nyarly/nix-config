@@ -170,11 +170,9 @@
     groups = ["default"];
     platforms = [];
     source = {
-      fetchSubmodules = false;
-      rev = "189c7ea38c4369a66ada6d8cca04f626334fc582";
-      sha256 = "12sjp8qhlmd25yhx6p6g06arlrb7i1iip5vw8rhmyvxv2a2dcnad";
-      type = "git";
-      url = "https://github.com/nyarly/rhet-butler";
+      remotes = ["https://rubygems.org"];
+      sha256 = "0a1da747kw0zsabg8i6c7xbqm6nrr71676qafxaxlcb2kj9jrwa5";
+      type = "gem";
     };
     version = "0.14.0";
   };

@@ -5,8 +5,10 @@ bundlerApp rec {
 
   gemdir = ./.;
 
+  exes = [ "rhet-butler" ];
+
   meta = {
-    version = "edge";
+    version = "0.14.0";
     description	= "A web tech presentation system";
     longDescription	= ''
       Rhet Butler is a presentation assistant. Build a slide deck in simple YAML,

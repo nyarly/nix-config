@@ -7,6 +7,7 @@ let
   lorriSrc = builtins.fetchGit {
     url = "https://github.com/target/lorri.git";
     ref = "rolling-release";
+    rev = "094a903d19eb652a79ad6e7db6ad1ee9ad78d26c";
   };
 
   lorri = pkgs.callPackage lorriSrc {
