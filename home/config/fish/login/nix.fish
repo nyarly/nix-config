@@ -40,8 +40,8 @@ if test -d "$HOME/.nix-profile"
     end
   end
 
-  if test -n "$nixpath_channels";
-    if test -n "$NIX_PATH";
+  if test -n "$nixpath_channels"
+    if test -n "$NIX_PATH"
       set NIX_PATH $NIX_PATH:$nixpath_channels
     else
       set NIX_PATH $nixpath_channels
