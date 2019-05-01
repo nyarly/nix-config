@@ -32,16 +32,20 @@ if test -d "$HOME/.nix-profile"
     end
   end
 
-  if test -n "$NIX_PATH" -a -n "$bare_channels";
-    set NIX_PATH $bare_channels:$NIX_PATH
-  else
-    set NIX_PATH $bare_channels
+  if test -n "$bare_channels"
+    if test -n "$NIX_PATH"
+      set NIX_PATH $bare_channels:$NIX_PATH
+    else
+      set NIX_PATH $bare_channels
+    end
   end
 
-  if test -n "$NIX_PATH" -a -n "$nixpath_channels";
-    set NIX_PATH $NIX_PATH:$nixpath_channels
-  else
-    set NIX_PATH $nixpath_channels
+  if test -n "$nixpath_channels";
+    if test -n "$NIX_PATH";
+      set NIX_PATH $NIX_PATH:$nixpath_channels
+    else
+      set NIX_PATH $nixpath_channels
+    end
   end
 
   set SSL_CERT_FILE /etc/ssl/certs/ca-certificates.crt
