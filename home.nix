@@ -55,6 +55,7 @@ in
       tlaplusToolbox
       rhet-butler
       signal-desktop
+      vit
     ];
 
     programs = {
