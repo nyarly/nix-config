@@ -437,7 +437,7 @@ in
           show_age_threshold = 60;
           word_wrap = "yes";
           ignore_newline = "no";
-          geometry = "300x5-4+4";
+          geometry = "300x5-4+24";
           shrink = "yes";
           transparency = 0;
           idle_threshold = 120;
