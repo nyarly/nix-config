@@ -223,7 +223,8 @@ in
           tool = meld
           rename = copy
           algorithm = patience
-          [url "git@github.com:"]
+
+          [url "ssh://git@github.com"]
           insteadOf = https://github.com/
 
           [jira]
@@ -234,6 +235,8 @@ in
           user = nyarly
         '';
       };
+      #[url "git@github.com:"]
+      #insteadOf = https://github.com/
 
       direnv = {
         enable = true;
