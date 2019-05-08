@@ -225,7 +225,7 @@ in
           algorithm = patience
 
           [url "ssh://git@github.com"]
-          insteadOf = https://github.com/
+          insteadOf = https://github.com
 
           [jira]
           user = jlester@opentable.com
