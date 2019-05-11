@@ -50,6 +50,7 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList ([
        ((modm, xK_z), spawn "i3lock -i ~/Data/Wallpaper/rotsnakes-tile.png -t &"),
        ((modm, xK_a), spawn "dmenu-screenlayout &"),
        ((modm, xK_grave), spawn "dmenu-scripts &"),
+       ((modm, xK_t), spawn "ontask &"),
        ((modm, xK_g), myActivateMenu),
        ((modm, xK_b), myBringMenu),
        ((modm .|. shiftMask, xK_j ), mainDown ),
