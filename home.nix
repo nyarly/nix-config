@@ -56,6 +56,7 @@ in
       rhet-butler
       signal-desktop
       vit
+      xorg.xmessage
     ];
 
     programs = {

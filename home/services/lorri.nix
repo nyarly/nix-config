@@ -24,11 +24,12 @@ in
     };
     config = mkIf cfg.enable {
       programs.direnv.stdlib = ''
+        # from services/lorri.nix
         use_lorri() {
           unit="lorri@$(systemd-escape $(pwd))"
           systemctl --user start $unit
           eval "$(lorri direnv)"
-          journalctl -n 3 --user-unit $unit
+          journalctl --no-pager -n 3 --user-unit $unit
         }
       '';
 
