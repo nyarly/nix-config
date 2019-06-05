@@ -540,6 +540,7 @@ in
     ".local/share/fonts/monofur/monof56.ttf".source = ./home/fonts/monof55.ttf;
     ".local/share/fonts/monofur/monof55.ttf".source = ./home/fonts/monof56.ttf;
     ".ssh/yubi-fd7a96.pub".source = ./home/ssh/yubi-fd7a96.pub;
+    ".git_template/hooks/pre-push".source = home/config/git/hooks/pre-push;
   };
 
   xdg.configFile = {

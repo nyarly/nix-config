@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+
+if [ "$(git config --get branch.master.foolhardy)" = 'true' ]; then
+  exit 0
+fi
+
+
+while read local lsha remote rsha; do
+  case $remote in
+    **/master)
+      echo 'Refusing to push to master!'
+      echo "  If it's that kind of joint:"
+      echo "  'git config --type bool branch.master.foolhardy true'"
+      exit 1 ;;
+  esac
+done
