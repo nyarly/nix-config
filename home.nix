@@ -48,6 +48,7 @@ in
       indent
       wmctrl
       xmlstarlet
+      xmlformat
       wxcam
       bundix
       plasma-desktop #needed for xembed-sni-proxy
@@ -57,6 +58,18 @@ in
       signal-desktop
       vit
       xorg.xmessage
+      # cadre #not in nixpkgs?
+      tasksh
+      graphviz
+      illum
+      pinfo
+      tasksh
+      teensy-loader-cli
+      nftables
+      inetutils
+      ipvsadm
+      lshw
+      mtr
     ];
 
     programs = {
