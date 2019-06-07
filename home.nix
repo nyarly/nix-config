@@ -63,7 +63,6 @@ in
       graphviz
       illum
       pinfo
-      tasksh
       teensy-loader-cli
       nftables
       inetutils
