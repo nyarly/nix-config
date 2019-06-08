@@ -30,6 +30,7 @@ let
     "vim-scripts/nginx.vim"
     "vim-scripts/rfc-syntax"
     "vito-c/jq.vim"
+    "hwayne/tla.vim"
   ];
   wrapVundle = pname: "{'name': 'github:${pname}'}";
   vamFile = builtins.toFile "plugins.txt" (builtins.concatStringsSep "\n" (map wrapVundle plugins));

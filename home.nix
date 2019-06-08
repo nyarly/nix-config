@@ -378,6 +378,7 @@ in
             sideways-vim
             tabular
             textile-vim
+            tla-vim
             tmuxline-vim
             ultisnips
             vim-abolish
