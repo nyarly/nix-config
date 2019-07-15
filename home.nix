@@ -270,6 +270,11 @@ in
       in
       {
         enable = true;
+
+        package = (pkgs.fish.overrideAttrs (oldAttrs: {
+          cmakeFlags = [];
+        }));
+
         shellInit = ''
           ulimit -n 4096
           function fish_greeting; end
