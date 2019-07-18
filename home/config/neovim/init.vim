@@ -40,6 +40,10 @@ set undofile
 set clipboard+=unnamed
 set clipboard+=unnamedplus
 
+" per https://www.hillelwayne.com/post/intermediate-vim/
+set lazyredraw
+set smartcase
+
 set t_ut= "Needed to get non-text background colors to work correctly in urxvt + tmux
 
 let g:solarized_termcolors=16

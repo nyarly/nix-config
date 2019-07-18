@@ -77,4 +77,9 @@ nnoremap / /\v
 vnoremap / /\v
 cmap w!! %!sudo tee > /dev/null %
 
+nnoremap Q @@
+nnoremap s "_d
+nnoremap ss "_dd
+nnoremap S "_D
+
 autocmd BufReadPost,BufNewFile * call s:SetMappings()

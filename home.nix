@@ -98,7 +98,13 @@ in
         sortKey = "PERCENT_MEM";
       };
 
-      ssh = {
+      ssh = let
+        pubkeys = [
+            "~/.ssh/yubi-fd7a96.pub"
+            "~/.ssh/yubi-574947.pub"
+          ];
+      in
+      {
         enable = true;
         controlMaster = "auto";
         controlPath = "~/.ssh/control/%r@%h:%p.socket";
@@ -121,7 +127,7 @@ in
           };
 
           "github.com" = {
-            identityFile = "~/.ssh/yubi-fd7a96.pub";
+            identityFile = pubkeys;
 
             extraOptions = {
               LogLevel = "QUIET";
@@ -131,7 +137,7 @@ in
           };
 
           "bitbucket.org" = {
-            identityFile = "~/.ssh/monotone_something";
+            identityFile = pubkeys;
 
             extraOptions = {
               LogLevel = "QUIET";
@@ -141,7 +147,7 @@ in
 
           "*.opentable.com sc-ssh-jump-01 *.otenv.com *.ot.tools" = {
             user = "jlester";
-            identityFile = "~/.ssh/yubi-fd7a96.pub";
+            identityFile = pubkeys;
             identitiesOnly = true;
             extraOptions = {
               ServerAliveInterval = "15";
@@ -558,6 +564,7 @@ in
     ".local/share/fonts/monofur/monof56.ttf".source = ./home/fonts/monof55.ttf;
     ".local/share/fonts/monofur/monof55.ttf".source = ./home/fonts/monof56.ttf;
     ".ssh/yubi-fd7a96.pub".source = ./home/ssh/yubi-fd7a96.pub;
+    ".ssh/yubi-574947.pub".source = ./home/ssh/yubi-574947.pub;
     ".git_template/hooks/pre-push".source = home/config/git/hooks/pre-push;
   };
 
