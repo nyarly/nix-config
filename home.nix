@@ -42,6 +42,7 @@ in
     );
 
     home.packages = with pkgs; [
+      arduino
       pv
       exa
       hexchat
