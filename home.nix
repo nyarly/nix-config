@@ -445,7 +445,7 @@ in
           certificate = "${config.home.homeDirectory}/.task/keys/public.cert";
           key = "${config.home.homeDirectory}/.task/keys/private.key";
           ca = "${config.home.homeDirectory}/.task/keys/ca.cert";
-          credentials = "madhelm/judson/8a57d212-0116-49e2-ae55-4bbcbe6dfc01";
+          credentials="madhelm/judson/8dc2777a-85db-410e-8f36-889d64a8cca7";
         };
       };
     };
