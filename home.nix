@@ -404,6 +404,7 @@ in
             textile-vim
             tla-vim
             tmuxline-vim
+            typescript-vim
             ultisnips
             vim-abolish
             vim-actionscript
