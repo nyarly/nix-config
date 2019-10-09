@@ -449,6 +449,10 @@ in
           credentials = "madhelm/judson/8dc2777a-85db-410e-8f36-889d64a8cca7";
         };
       };
+
+      extraConfig = ''
+      context.mezzo = project:Mezzo
+      '';
     };
   };
 
