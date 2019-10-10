@@ -42,35 +42,116 @@ in
     );
 
     home.packages = with pkgs; [
+      adobe-reader
       arduino
-      pv
+      direnv
+      dynamic-colors
       exa
-      hexchat
-      indent
-      wmctrl
-      xmlstarlet
-      xmlformat
-      wxcam
-      bundix
-      plasma-desktop #needed for xembed-sni-proxy
-      hicolor-icon-theme
-      tlaplusToolbox
-      rhet-butler
-      signal-desktop
-      vit
-      xorg.xmessage
-      # cadre #not in nixpkgs?
-      tasksh
+      fasd
+      fzf
       graphviz
+      hexchat
+      hicolor-icon-theme
       illum
-      pinfo
-      teensy-loader-cli
-      nftables
+      indent
       inetutils
       ipvsadm
-      lshw
-      mtr
-    ];
+      kakoune
+      manpages
+      nftables
+      pinfo
+      plasma-desktop #needed for xembed-sni-proxy
+      pv
+      qrencode
+      ranger
+      rhet-butler
+      ripgrep
+      signal-desktop
+      socat
+      tasksh
+      teensy-loader-cli
+      tlaplusToolbox
+      tmux
+      vit
+      wmctrl
+      xmlformat
+      xmlstarlet
+      xorg.xmessage
+
+      # Programming
+      go2nix
+      npm2nix
+      pypi2nix
+      bundix
+      carnix
+      yarn2nix
+
+      pprof
+      bundler
+      gitAndTools.hub
+      gitFull
+      pijul
+      gist
+      html-tidy
+      sqlite-interactive
+
+      # Extra nix tools
+      nix-prefetch-scripts
+      nox
+      nixops
+
+      # rustChannels.stable?
+      # racer
+      # rls
+      # rustChannels.stable.rustfmt
+      rustChannels.stable.rust
+
+      apacheKafka
+      docker_compose
+      fswatch
+      git-crypt
+      gnumake
+      go
+      jq
+      kafkacat
+      kona
+      lldb
+      maven
+      ruby
+      universal-ctags
+
+      # ec2_ami_tools # unfree Amazon license
+      # ec2_api_tools
+
+      # Fonts
+      fira-code #source for monofur ideas
+
+      # GUI
+      dmenu
+      dunst
+      feh
+      keynav
+      trayer
+      taffybar
+
+      fontforge
+      fontforge-fonttools
+      fontforge-gtk
+      gimp
+      gnome3.dconf
+      gnome3.dconf-editor
+      gnugo
+      graphviz
+      gucharmap
+      inkscape
+      meld
+      nitrogen
+      scrot
+      shutter
+      solvespace
+      vlc
+      wxcam
+  ];
 
     programs = {
       # Let Home Manager install and manage itself.
@@ -278,9 +359,7 @@ in
       {
         enable = true;
 
-        package = (pkgs.fish.overrideAttrs (oldAttrs: {
-          cmakeFlags = [];
-        }));
+        package = (pkgs.fish.overrideAttrs (oldAttrs: { cmakeFlags = []; }));
 
         shellInit = ''
           ulimit -n 4096
