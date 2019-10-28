@@ -58,6 +58,7 @@ in
       ipvsadm
       kakoune
       manpages
+      moreutils
       nftables
       pinfo
       plasma-desktop #needed for xembed-sni-proxy
