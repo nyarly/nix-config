@@ -101,10 +101,6 @@ in
       nox
       nixops
 
-      # rustChannels.stable?
-      # racer
-      # rls
-      # rustChannels.stable.rustfmt
       rustChannels.stable.rust
 
       apacheKafka
@@ -471,6 +467,7 @@ in
             jobmake
             jq-vim
             lldb-nvim
+            LanguageClient-neovim
             nginx-vim
             promptline-vim
             rainbow
