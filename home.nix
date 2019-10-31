@@ -437,6 +437,7 @@ in
             ./home/config/neovim/plugin-config/sideways.vim
             ./home/config/neovim/plugin-config/legend.vim
             ./home/config/neovim/plugin-config/ctrlp.vim
+            ./home/config/neovim/plugin-config/language-client.vim
         ]);
 
         packages.jdlPackages = with pkgs.vimPlugins; with localNvimPlugins; {
