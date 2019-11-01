@@ -15,4 +15,5 @@ autocmd FileType * call LC_maps()
 
 let g:LanguageClient_serverCommands = {
       \ 'rust': ['rls'],
+      \ 'ruby': ['tcp://localhost:7658'],
       \ }
