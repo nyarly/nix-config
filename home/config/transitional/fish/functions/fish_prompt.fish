@@ -25,11 +25,19 @@ function fish_prompt
   echo -n ' '
   if test -n "$IN_NIX_SHELL"
     set expr (echo $out | sed 's/[^-]*-\([^-]*\).*/\1/')
+
+    set shell_nix (realpath shell.nix)
+    set glyph (lorri stream_events_ -k snapshot | jq -r \
+    "(if .completed?.nix_file == \"$shell_nix\" then \"✔\" else null end),
+    (if .failure?.nix_file == \"$shell_nix\" then  \"✘\" else null end),
+    (if .started?.nix_file == \"$shell_nix\" then \"⏳\" else null end) | values")
+
     if test -z $expr
-      echo -n '<nix-shell>'
+      echo -n "<nix-shell $glyph>"
     else
-      echo -n "[$expr]"
+      echo -n "[$expr $glyph]"
     end
+
   end
   term_reset
   set_color $prompt_bg

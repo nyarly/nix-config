@@ -1,20 +1,36 @@
-
 { config, lib, pkgs, ... }:
 
 with lib;
 
 let
   lorriSrc = builtins.fetchGit {
-    url = "https://github.com/target/lorri.git";
-    ref = "rolling-release";
-    rev = "094a903d19eb652a79ad6e7db6ad1ee9ad78d26c";
+    url = "https://github.com/nyarly/lorri.git";
+    ref = "stream_events";
+    rev = "af7afa708695bdba93c7b5677a773b0d3814ba07";
   };
 
-  lorri = pkgs.callPackage lorriSrc {
-    src = lorriSrc;
-  };
+  lorri = (lowPrio ((import lorriSrc) {}));
+
+  daemonPath = lib.makeSearchPath "bin" (with pkgs; [ nix gnutar gzip git mercurial ]);
+
+  notifyPath = lib.makeSearchPath "bin" [ pkgs.bash pkgs.jq pkgs.findutils pkgs.libnotify lorri ];
 
   cfg = config.services.lorri;
+
+  notifyScript = pkgs.writeTextFile {
+    name = "lorri_notify";
+    executable = true;
+    text = ''
+            #! /usr/bin/env bash
+
+            lorri stream_events_ --kind live |\
+            jq --unbuffered \
+            '((.completed?|values|"Build complete in \(.nix_file)"),
+            (.failure? |values|"Build failed in \(.nix_file)"))' |\
+            xargs -n 1 notify-send "Lorri Build"
+    '';
+  };
+
 in
   {
     options = {
@@ -22,14 +38,12 @@ in
         enable = mkEnableOption "lorri";
       };
     };
+
     config = mkIf cfg.enable {
       programs.direnv.stdlib = ''
         # from services/lorri.nix
         use_lorri() {
-          unit="lorri@$(systemd-escape $(pwd))"
-          systemctl --user start $unit
           eval "$(lorri direnv)"
-          journalctl --no-pager -n 3 --user-unit $unit
         }
       '';
 
@@ -37,28 +51,43 @@ in
         lorri
       ];
 
-      systemd.user.services = {
-        "lorri@" = {
-          Unit = {
-            ConditionPathExists="%I";
-            ConditionUser="!@system";
-            Description="Lorri Watch";
-          };
+      systemd.user.sockets.lorri = {
+        Unit = { Description = "lorri build daemon"; };
+        Socket = { ListenStream = "%t/lorri/daemon.socket"; };
+        Install = { WantedBy = [ "sockets.target" ]; };
+      };
 
-          Service = {
-            Environment= [
-              "LOCALE_ARCHIVE=/nix/store/k1mlzmf7czx6xpizqwnj4fyd62c65qlw-glibc-locales-2.27/lib/locale/locale-archive"
-              "PATH=/run/wrappers/bin:%h/.nix-profile/bin:/nix/var/nix/profiles/default/bin:/run/current-system/sw/bin:/nix/store/6w3670wdhf83b9xj0wnyq4s9yz7gfvr6-libnotify-0.7.7/bin:/nix/store/d9s1kq1bnwqgxwcvv4zrc36ysnxg8gv7-coreutils-8.30/bin:/nix/store/krhqmaqal0gklh15rs2bwrqzz8mg9lrn-findutils-4.6.0/bin:/nix/store/wnjv27b3j6jfdl0968xpcymlc7chpqil-gnugrep-3.3/bin:/nix/store/x1khw8x0465xhkv6w31af75syyyxc65j-gnused-4.7/bin:/nix/store/rl4ky8x58ixnfjssliygq7iwyd30l3gn-systemd-239.20190219/bin:/run/wrappers/sbin:%h/.nix-profile/sbin:/nix/var/nix/profiles/default/sbin:/run/current-system/sw/sbin:/nix/store/6w3670wdhf83b9xj0wnyq4s9yz7gfvr6-libnotify-0.7.7/sbin:/nix/store/d9s1kq1bnwqgxwcvv4zrc36ysnxg8gv7-coreutils-8.30/sbin:/nix/store/krhqmaqal0gklh15rs2bwrqzz8mg9lrn-findutils-4.6.0/sbin:/nix/store/wnjv27b3j6jfdl0968xpcymlc7chpqil-gnugrep-3.3/sbin:/nix/store/x1khw8x0465xhkv6w31af75syyyxc65j-gnused-4.7/sbin:/nix/store/rl4ky8x58ixnfjssliygq7iwyd30l3gn-systemd-239.20190219/sbin"
-              #"TZ=Asia/Singapore"
-              #"TZDIR=/nix/store/izrzziiaa27bf9rbdb8hy867vxfjfzbi-tzdata-2018g/share/zoneinfo"
-            ];
+      systemd.user.services.lorri = {
+        Unit = {
+          Description = "lorri build daemon";
+          Documentation = "https://github.com/target/lorri";
+          ConditionUser = "!@system";
+          Requires = "lorri.socket";
+          After = "lorri.socket";
+          RefuseManualStart = true;
+        };
 
-            ExecStart="%h/.nix-profile/bin/lorri watch";
-            PrivateTmp=true;
-            ProtectSystem="full";
-            Restart="on-failure";
-            WorkingDirectory="%I";
-          };
+        Service = {
+          ExecStart = "${lorri}/bin/lorri daemon";
+          PrivateTmp = true;
+          ProtectSystem = "strict";
+          WorkingDirectory = "%h";
+          Restart = "on-failure";
+          Environment = "PATH=${daemonPath} RUST_BACKTRACE=1";
+        };
+      };
+
+      systemd.user.services.lorri-notify = {
+        Unit = {
+          Description = "lorri build notifications";
+          After = "lorri.service";
+          Requires = "lorri.service";
+        };
+
+        Service = {
+          ExecStart = toString notifyScript;
+          Restart = "on-failure";
+          Environment = "PATH=${notifyPath} RUST_BACKTRACE=1";
         };
       };
     };

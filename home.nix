@@ -257,8 +257,20 @@ in
           key = "9A3F82AA";
           signByDefault = true;
         };
-        ignores = [ ".envrc" ".ctrlp-root" ".vim-role" ".cadre" ".sw?" "!.swf"
-        "failed_specs" "rspec_status" "*Session.vim" "errors.err" ".nix-gc/" ];
+        ignores = [
+          ".envrc"
+          ".ctrlp-root"
+          ".vim-role"
+          ".cadre"
+          ".sw?"
+          "!.swf"
+          "failed_specs"
+          "rspec_status"
+          "*Session.vim"
+          "errors.err"
+          ".nix-gc/"
+          ".taskrc"
+        ];
         includes = [
         {
         path = "~/.config/git/secret";
