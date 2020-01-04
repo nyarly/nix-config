@@ -3,7 +3,7 @@
 let
   vimUtils = pkgs.callPackage (<nixpkgs> + "/pkgs/misc/vim-plugins/vim-utils.nix") {};
 
-  loadConfigs = pkgs.callPackage ./home/loadConfigs.nix {};
+  inherit (pkgs.callPackage ./home/loadConfigs.nix {}) transitionalConfigs configFiles;
 
   localNvimPlugins = pkgs.callPackage ./personal-nvim-plugins.nix {
     inherit (pkgs) fetchgit;
@@ -13,6 +13,8 @@ let
   myBundix = pkgs.callPackage ./home/packages/bundix.nix {};
 
   rhet-butler = pkgs.callPackage ./home/packages/rhet-butler {};
+
+  updated-signal = pkgs.callPackage ./home/packages/signal-desktop.nix {};
 in
   {
     imports = [
@@ -67,7 +69,6 @@ in
       ranger
       rhet-butler
       ripgrep
-      signal-desktop
       socat
       tasksh
       teensy-loader-cli
@@ -78,6 +79,9 @@ in
       xmlformat
       xmlstarlet
       xorg.xmessage
+
+      #signal-desktop # expired in stable
+      updated-signal
 
       # Programming
       go2nix
@@ -127,7 +131,8 @@ in
       dmenu
       dunst
       feh
-      keynav
+      #keynav
+      rofi
       trayer
       taffybar
 
@@ -662,7 +667,7 @@ in
     ".ssh/yubi-fd7a96.pub".source = ./home/ssh/yubi-fd7a96.pub;
     ".ssh/yubi-574947.pub".source = ./home/ssh/yubi-574947.pub;
     ".git_template/hooks/pre-push".source = home/config/git/hooks/pre-push;
-  };
+  } // configFiles ./home/bin "bin";
 
   xdg.configFile = {
     "nvim/plugin/airline.vim".source = ./home/config/neovim/plugin-config/airline.vim;
@@ -682,7 +687,7 @@ in
           $DRY_RUN_CMD systemctl --user restart taffybar
       '';
     };
-  } // loadConfigs ./home/config/transitional;
+  } // transitionalConfigs ./home/config/transitional;
 
   xsession = {
     enable = true;

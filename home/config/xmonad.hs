@@ -34,12 +34,12 @@ myLayout = avoidStruts $ ifWider 1900 (toggle tall ||| full) (Mirror $ toggle ta
     full = named "Full" $ noBorders Full
     toggle = toggleLayouts full
 
-myBringMenu = bringMenuArgs ["-i", "-l", "45"]
-myActivateMenu = actionMenu def { menuArgs = ["-i", "-l", "45"] } activateWindow
-
--- decorateName ws w = do
---   name <- show <$> getName w
---   return $ name ++ " [" ++ W.tag ws ++ "]"
+wMenuArgs = def {
+  menuCommand = "rofi",
+  menuArgs = ["-dmenu"]
+}
+myBringMenu = actionMenu wMenuArgs bringWindow
+myActivateMenu = actionMenu wMenuArgs activateWindow
 
 activateWindow w ws = W.shiftMaster (W.focusWindow w ws)
 
@@ -48,8 +48,8 @@ mainDown = windows (W.focusUp     . W.swapDown)
 
 myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList ([
        ((modm, xK_z), spawn "i3lock -i ~/Data/Wallpaper/rotsnakes-tile.png -t &"),
-       ((modm, xK_a), spawn "dmenu-screenlayout &"),
-       ((modm, xK_grave), spawn "dmenu-scripts &"),
+       ((modm, xK_a), spawn "rofi-screenlayout &"),
+       ((modm, xK_grave), spawn "rofi-scripts &"),
        ((modm, xK_r), spawn "ontask &"),
        ((modm, xK_g), myActivateMenu),
        ((modm, xK_b), myBringMenu),

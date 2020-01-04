@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+active=$(task +ACTIVE export | jq -r '[.[]|select(.status == "pending")]|max_by(.urgency)| .project + ": " + .description')
+
+if [ "$active" == ": " ]; then
+  urgent=$(task export | jq -r '[.[]|select(.status == "pending")]|max_by(.urgency)| .project + ": " + .description')
+  notify-send "No Active Task" "Most urgent task: $urgent"
+  exit
+fi
+
+notify-send "Active Task" "$active"
