@@ -85,14 +85,14 @@ in
 
       # Programming
       go2nix
-      npm2nix
+      #npm2nix
       pypi2nix
       bundix
       carnix
-      yarn2nix
+      #yarn2nix
 
       pprof
-      bundler
+      # bundler
       gitAndTools.hub
       gitFull
       pijul

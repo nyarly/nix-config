@@ -19,6 +19,6 @@ let
   buildXdgConfig = src: tgt: path: lib.nameValuePair (addName [tgt] path) { source = src + "/${path}"; };
 in
   {
-    transitionalConfigs = dir: lib.traceVal ( listToAttrs (map (buildXdgConfig dir ".") (sternPathsUnder dir [])));
+    transitionalConfigs = dir: listToAttrs (map (buildXdgConfig dir ".") (sternPathsUnder dir []));
     configFiles = src: tgt: listToAttrs (map (buildXdgConfig src tgt) (laxPathsUnder src []));
   }
