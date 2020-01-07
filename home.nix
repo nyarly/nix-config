@@ -46,7 +46,6 @@ in
     home.packages = with pkgs; [
       adobe-reader
       arduino
-      direnv
       dynamic-colors
       exa
       fasd
