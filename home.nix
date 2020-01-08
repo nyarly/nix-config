@@ -656,7 +656,7 @@ in
       widthType = "pixel";
     };
 
-    lorri.enable = true;
+    jdl-lorri.enable = true;
   };
 
   home.file = {
