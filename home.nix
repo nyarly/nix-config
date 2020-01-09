@@ -282,75 +282,63 @@ in
           }
         ];
         # can be attrs converted...
-        extraConfig = ''
-          [core]
-          fsyncobjectfiles = false
-          [branch]
-          autosetupmerge = true
-          [color]
-          branch = true
-          diff = true
-          grep = true
-          interactive = true
-          status = true
-          ui = true
-          [rerere]
-          enabled = true
-          [init]
-          templatedir = ~/.git_template
+        extraConfig = {
+          core.fsyncobjectfiles = false;
+          branch.autosetupmerge = true;
+          color = {
+            branch = true;
+            diff = true;
+            grep = true;
+            interactive = true;
+            status = true;
+            ui = true;
+          };
+          rerere.enabled = true;
+          init.templatedir = "~/.git_template";
+          bash.showDirtyState = true;
+          tag.forceSignAnnotated = true;
+          push = {
+            default = "current";
+            followTags = true;
+          };
+          help.autocorrect = -1;
+          interactive.singlekey = true;
+          merge = {
+            tool = "meld";
+            conflictstyle = "diff3";
+          };
+          mergetool = {
+            keepBackup = false;
+            prompt = false;
+          };
+          rebase.autosquash = true;
 
-          [bash]
-          showDirtyState = true
+          diff = {
+            tool = "meld";
+            rename = "copy";
+            algorithm = "patience";
+          };
 
-          [tag]
-          forceSignAnnotated = true
+          url = {
+            "ssh://git@github.com" = {
+              insteadOf = "https://github.com";
+            };
+          };
 
-          [push]
-          default = current
-          followTags = true
+          diff.rawtext.textconv = "~/.config/git/trimwhite.sh";
 
-          [diff "rawtext"]
-          textconv =    "~/.config/git/trimwhite.sh"
+          filter.trimwhite.clean = "~/.config/git/trimwhite.sh";
 
-          [filter "trimwhite"]
-          clean =    "~/.config/git/trimwhite.sh"
-          [help]
-          autocorrect = -1
+          mergetool.mymeld.cmd = "meld --diff $LOCAL $BASE $REMOTE --output=$MERGED --diff $BASE $LOCAL --diff $BASE $REMOTE";
 
-          [interactive]
-          singlekey = true
+          jira = {
+            user = "jlester@opentable.com";
+            server = "https://opentable.atlassian.net";
+          };
 
-          [merge]
-          tool = meld
-          conflictstyle = diff3
-
-          [mergetool "mymeld"]
-          cmd = meld --diff $LOCAL $BASE $REMOTE --output=$MERGED --diff $BASE $LOCAL --diff $BASE $REMOTE
-
-          [mergetool]
-          keepBackup = false
-          prompt = false
-
-          [rebase]
-          autosquash = yes
-          [diff]
-          tool = meld
-          rename = copy
-          algorithm = patience
-
-          [url "ssh://git@github.com"]
-          insteadOf = https://github.com
-
-          [jira]
-          user = jlester@opentable.com
-          server = https://opentable.atlassian.net
-          # password should be in ./secret
-          [github]
-          user = nyarly
-        '';
+          github.user = "nyarly";
+        };
       };
-      #[url "git@github.com:"]
-      #insteadOf = https://github.com/
 
       direnv = {
         enable = true;
@@ -390,6 +378,7 @@ in
           stty stop undef
           stty -ixon
           set -x fish_color_search_match  'normal' '--background=878787'
+          set -x GIT_SSH ssh # Otherwise Go overrides ControlMaster
           bind \e\; 'commandline -r -t (commandline -t | sed \"s/:\(\d*\)/ +\1/\")'
         '' + "\n" + configs ./home/config/fish/interactive ;
 
@@ -666,6 +655,7 @@ in
     ".ssh/yubi-fd7a96.pub".source = ./home/ssh/yubi-fd7a96.pub;
     ".ssh/yubi-574947.pub".source = ./home/ssh/yubi-574947.pub;
     ".git_template/hooks/pre-push".source = home/config/git/hooks/pre-push;
+    "Data/Wallpaper/rotsnakes-tile.png".source = home/blobs/rotsnakes-tile.png;
   } // configFiles ./home/bin "bin";
 
   xdg.configFile = {
