@@ -37,13 +37,14 @@ main = do
     }
 
     myWorkspacesConfig = defaultWorkspacesConfig {
-      minIcons = 1
+      getWindowIconPixbuf = scaledWindowIconPixbufGetter getWindowIconPixbufFromEWMH
+        , minIcons = 1
         , widgetGap=0
         , showWorkspaceFn = hideEmpty
     }
     workspaces = workspacesNew myWorkspacesConfig
-    clock = textClockNew Nothing "<span fgcolor='orange'>%a %b %_d P %H:%M</span>" 1
-    zebra = textClockNewWith (ClockConfig (Just utc) Nothing) "<span fgcolor='silver'>%a %b %_d Z %H:%M</span>" 1
+    clock = textClockNewWith defaultClockConfig { clockFormatString = "<span fgcolor='orange'>%a %b %_d Z %H:%M</span>" }
+    zebra = textClockNewWith defaultClockConfig { clockTimeZone = (Just utc), clockFormatString = "<span fgcolor='silver'>%a %b %_d Z %H:%M</span>" }
     -- The right way seems to set up an sni listener in systemd?
     tray = sniTrayThatStartsWatcherEvenThoughThisIsABadWayToDoIt
     -- tray = sniTrayNew

@@ -133,7 +133,6 @@ in
       #keynav
       rofi
       trayer
-      taffybar
 
       fontforge
       fontforge-fonttools
