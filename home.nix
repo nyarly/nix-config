@@ -653,9 +653,9 @@ in
     ".local/share/fonts/monofur/monof55.ttf".source = ./home/fonts/monof56.ttf;
     ".ssh/yubi-fd7a96.pub".source = ./home/ssh/yubi-fd7a96.pub;
     ".ssh/yubi-574947.pub".source = ./home/ssh/yubi-574947.pub;
-    ".git_template/hooks/pre-push".source = home/config/git/hooks/pre-push;
     "Data/Wallpaper/rotsnakes-tile.png".source = home/blobs/rotsnakes-tile.png;
-  } // configFiles ./home/bin "bin";
+  } // configFiles ./home/bin "bin"
+    // configFiles ./home/config/git/hooks ".git_template/hooks";
 
   xdg.configFile = {
     "nvim/plugin/airline.vim".source = ./home/config/neovim/plugin-config/airline.vim;
