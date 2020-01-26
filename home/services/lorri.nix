@@ -6,7 +6,7 @@ let
   lorriSrc = builtins.fetchGit {
     url = "https://github.com/nyarly/lorri.git";
     ref = "stream_events";
-    rev = "a227d9a5b3ad74ef8e04d820d4950abcab80d77c";
+    rev = "bd15b507d463b6797774dee80daf72f1c8b0650f";
   };
 
   lorri = (lowPrio ((import lorriSrc) {}));
