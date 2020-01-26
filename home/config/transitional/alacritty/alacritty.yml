@@ -110,9 +110,6 @@ font:
     x: 0
     y: 0
 
-# Should display the render timer
-# render_timer: false
-
 # Colors (Tomorrow Night Bright)
 draw_bold_text_with_bright_colors: true
 

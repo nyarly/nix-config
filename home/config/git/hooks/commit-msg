@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+
+cp "$1" "$1.bak"
+
+if egrep -qv '^#|^(\s|\[[^]]*\])*$' "$1"; then
+  echo -n ""
+else
+  echo "Aborting commit due to empty commit message"
+  exit 1
+fi
+
+branch=$(git rev-parse --abbrev-ref HEAD)
+if ticket=$(git config --get-all "branch.${branch}.jira-ticket"); then
+  echo $ticket >> $1
+fi
