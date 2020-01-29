@@ -25,8 +25,8 @@ let
 
             lorri stream_events_ --kind live |\
             jq --unbuffered \
-            '((.completed?|values|"Build complete in \(.nix_file)"),
-            (.failure? |values|"Build failed in \(.nix_file)"))' |\
+            '((.completed?|values|"Build complete in \(.nix_file.Shell)"),
+            (.failure? |values|"Build failed in \(.nix_file.Shell)"))' |\
             xargs -n 1 notify-send "Lorri Build"
     '';
   };

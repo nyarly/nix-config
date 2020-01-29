@@ -27,10 +27,7 @@ function fish_prompt
     set expr (echo $out | sed 's/[^-]*-\([^-]*\).*/\1/')
 
     set shell_nix (realpath shell.nix)
-    set glyph (lorri stream_events_ -k snapshot | jq -r \
-    "(if .completed?.nix_file == \"$shell_nix\" then \"✔\" else null end),
-    (if .failure?.nix_file == \"$shell_nix\" then  \"✘\" else null end),
-    (if .started?.nix_file == \"$shell_nix\" then \"⏳\" else null end) | values")
+    set glyph ( lorri_glyph $shell_nix )
 
     if test -z $expr
       echo -n "<nix-shell $glyph>"
