@@ -2,6 +2,8 @@ if &shell =~# 'fish$'
   set shell=/bin/sh
 endif
 
+"packloadall " plugins are added as packages before init.vim
+
 runtime! ftdetect/UltiSnips.vim
 
 set autowrite

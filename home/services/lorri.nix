@@ -6,7 +6,7 @@ let
   lorriSrc = builtins.fetchGit {
     url = "https://github.com/nyarly/lorri.git";
     ref = "stream_events";
-    rev = "6b57420bd0d888273ab9f8943618ca54c8d2d3d2";
+    rev = "5563ab2e05547a3caac0f95e224571d2bc713252";
   };
 
   lorri = (lowPrio ((import lorriSrc) {}));
@@ -17,16 +17,16 @@ let
 
   cfg = config.services.jdl-lorri;
 
+  jqFiles = builtins.readFile ./notify-filter.jq;
+
   notifyScript = pkgs.writeTextFile {
     name = "lorri_notify";
     executable = true;
     text = ''
             #! /usr/bin/env bash
 
-            lorri stream_events_ --kind live |\
-            jq --unbuffered \
-            '((.completed?|values|"Build complete in \(.nix_file.Shell)"),
-            (.failure? |values|"Build failed in \(.nix_file.Shell)"))' |\
+            lorri internal__stream_events --kind live |\
+            jq --unbuffered '${jqFiles}' |\
             xargs -n 1 notify-send "Lorri Build"
     '';
   };

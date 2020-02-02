@@ -35,7 +35,7 @@ in
       enable = mkEnableOption "Configure the GnuPG scdaemon";
 
       logFile = mkOption {
-        type = types.nullOr types.string;
+        type = types.nullOr types.lines;
         default = null;
       };
 

@@ -39,6 +39,8 @@ function! s:RgThisFile()
   exec "Rg " . name
 endfunction
 
+nmap <Leader>F <Plug>(ale-fix)
+
 tnoremap <A-n> <C-\><C-n><C-w>c
 tnoremap <A-x> <C-\><C-n><C-w>c
 tnoremap <A-h> <C-\><C-n><C-w>h

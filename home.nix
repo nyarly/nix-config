@@ -61,6 +61,7 @@ in
       manpages
       moreutils
       nftables
+      pass
       pinfo
       plasma-desktop #needed for xembed-sni-proxy
       pv
@@ -117,6 +118,7 @@ in
       kona
       lldb
       maven
+      go-jira
       ruby
       universal-ctags
 
@@ -132,6 +134,7 @@ in
       feh
       #keynav
       rofi
+      rofi-pass
       trayer
 
       fontforge
@@ -396,296 +399,244 @@ in
 
       neovim = {
         enable = true;
-        configure = {
-          customRC = lib.concatStringsSep "\n" (map (p: "\"${p}\n${builtins.readFile p}\n") [
-            ./home/config/neovim/init.vim
-            ./home/config/neovim/ftdetect/extra_ruby.vim
-            ./home/config/neovim/filetype-settings/go.vim
-            ./home/config/neovim/filetype-settings/javascript.vim
-            ./home/config/neovim/filetype-settings/ruby.vim
-            ./home/config/neovim/filetype-settings/rust.vim
-            #./home/config/neovim/mapping-scratch.vim
-            ./home/config/neovim/motion-join.vim
-            ./home/config/neovim/syntax-inspect.vim
-            #./home/config/neovim/scratch.vim
-            ./home/config/neovim/indent-jump.vim
-            ./home/config/neovim/80cols.vim
-            ./home/config/neovim/taxo-quickfix.vim
-            ./home/config/neovim/out2file.vim
-            ./home/config/neovim/bufarg.vim
-            ./home/config/neovim/trim-white.vim
-            ./home/config/neovim/sticky-window.vim
-            ./home/config/neovim/mapping.vim
-            ./home/config/neovim/matchit.vim
-            ./home/config/neovim/xterm-color-table.vim
-            ./home/config/neovim/toggle-folding.vim
-            ./home/config/neovim/center-jump.vim
-            ./home/config/neovim/SimpleFold.vim
-            ./home/config/neovim/blase-swapfile.vim
-            ./home/config/neovim/plugin-config/ultisnips.vim
-            ./home/config/neovim/plugin-config/yankring.vim
-            ./home/config/neovim/plugin-config/tagbar.vim
-            ./home/config/neovim/plugin-config/ag.vim
-            ./home/config/neovim/plugin-config/deoplete.vim
-            ./home/config/neovim/plugin-config/jobmake.vim
-            ./home/config/neovim/plugin-config/gpg.vim
-            ./home/config/neovim/plugin-config/fzf.vim
-            ./home/config/neovim/plugin-config/quickfixsigns.vim
-            ./home/config/neovim/plugin-config/neocomplete.vim
-            ./home/config/neovim/plugin-config/ale.vim
-            ./home/config/neovim/plugin-config/ranger.vim
-            #./home/config/neovim/plugin-config/airline.vim
-            ./home/config/neovim/plugin-config/indent-guides.vim
-            ./home/config/neovim/plugin-config/rainbow.vim
-            ./home/config/neovim/plugin-config/tmuxline.vim
-            ./home/config/neovim/plugin-config/sideways.vim
-            ./home/config/neovim/plugin-config/legend.vim
-            ./home/config/neovim/plugin-config/ctrlp.vim
-            ./home/config/neovim/plugin-config/language-client.vim
-        ]);
+        extraConfig = (import home/config/neovim/manifest.nix) lib;
 
-        packages.jdlPackages = with pkgs.vimPlugins; with localNvimPlugins; {
-          opt = [
-            tagbar
-          ];
-          start = [
-            ag-vim
-            ale
-            vim-closetag
-            Colorizer
-            deoplete-go
-            deoplete-nvim
-            deoplete-rust
-            direnv-vim
-            Dockerfile-vim
-            echodoc
-            errormarker-vim
-            #floobits-neovim # I think it needs it's Python lib...
-            fzfWrapper
-            fzf-vim
-            gist-vim
-            gnupg
-            godoctor-vim
-            gundo
-            html5-vim
-            IndentAnything
-            jobmake
-            jq-vim
-            lldb-nvim
-            LanguageClient-neovim
-            nginx-vim
-            promptline-vim
-            rainbow
-            ranger-vim
-            rfc-syntax
-            rust-vim
-            semweb-vim
-            sparkup
-            sideways-vim
-            tabular
-            textile-vim
-            tla-vim
-            tmuxline-vim
-            typescript-vim
-            ultisnips
-            vim-abolish
-            vim-actionscript
-            vim-coffee-script
-            # vim-delve
-            vim-endwise
-            vim-fish
-            vim-fugitive
-            vim-go
-            vim-indent-guides
-            vim-javascript
-            vim-jsx
-            vim-legend
-            vim-markdown
-            vim-nix
-            vim-obsession
-            vim-puppet
-            vim-ragtag
-            vim-repeat
-            vim-scala
-            vim-sensible
-            vim-surround
-            vim-unimpaired
-            webapi-vim
-            vim-airline
-            vim-airline-themes
-          ];
-        };
+        plugins = with pkgs.vimPlugins; with localNvimPlugins; [
+          ale
+          Colorizer
+          deoplete-go
+          deoplete-nvim
+          direnv-vim
+          Dockerfile-vim
+          echodoc
+          errormarker-vim
+          fzf-vim
+          fzfWrapper
+          gist-vim
+          gnupg
+          godoctor-vim
+          gundo
+          html5-vim
+          IndentAnything
+          indentLine # indent markers
+          jobmake
+          jq-vim
+          lldb-nvim
+          nginx-vim
+          rainbow
+          ranger-vim
+          rfc-syntax
+          rust-vim
+          semweb-vim
+          sideways-vim
+          sparkup
+          tabular
+          tagbar
+          textile-vim
+          tla-vim
+          tmuxline-vim
+          typescript-vim
+          ultisnips
+          vim-abolish
+          #vim-actionscript
+          vim-airline
+          vim-airline-themes
+          vim-closetag
+          #vim-coffee-script
+          # vim-delve
+          vim-endwise
+          vim-fish
+          vim-fugitive
+          vim-go
+          #vim-indent-guides
+          vim-javascript
+          vim-jsx
+          vim-legend
+          vim-markdown
+          vim-nix
+          vim-obsession
+          vim-puppet
+          vim-ragtag
+          vim-repeat
+          vim-scala
+          vim-sensible
+          vim-surround
+          vim-unimpaired
+          webapi-vim
+          # deoplete-rust # ALE?
+          # floobits-neovim # I think it needs it's Python lib...
+          # LanguageClient-neovim # ALE is all-in-one
+        ];
       };
-    };
 
-    taskwarrior = {
-      enable = true;
-      colorTheme = "solarized-light-256";
-      config = {
-        confirmation= false;
-        taskd = {
-          server = "tasks.madhelm.net:53589";
-          certificate = "${config.home.homeDirectory}/.task/keys/public.cert";
-          key = "${config.home.homeDirectory}/.task/keys/private.key";
-          ca = "${config.home.homeDirectory}/.task/keys/ca.cert";
-          credentials = "madhelm/judson/8dc2777a-85db-410e-8f36-889d64a8cca7";
+        taskwarrior = {
+          enable = true;
+          colorTheme = "solarized-light-256";
+          config = {
+            confirmation= false;
+            taskd = {
+              server = "tasks.madhelm.net:53589";
+              certificate = "${config.home.homeDirectory}/.task/keys/public.cert";
+              key = "${config.home.homeDirectory}/.task/keys/private.key";
+              ca = "${config.home.homeDirectory}/.task/keys/ca.cert";
+              credentials = "madhelm/judson/8dc2777a-85db-410e-8f36-889d64a8cca7";
+            };
+          };
+
+          extraConfig = ''
+            context.mezzo = project:Mezzo
+          '';
         };
       };
 
-      extraConfig = ''
-      context.mezzo = project:Mezzo
-      '';
-    };
-  };
+      services = {
+        dunst = {
+          enable = true;
+          settings = {
+            global = {
+              font = "DejaVu Sans Book 10";
+              markup = "full";
+              format = ''<b>%s</b>\n%b'';
+              sort = "yes";
+              indicate_hidden = "yes";
+              alignment = "left";
+              bounce_freq = 0;
+              show_age_threshold = 60;
+              word_wrap = "yes";
+              ignore_newline = "no";
+              geometry = "300x5-4+24";
+              shrink = "yes";
+              transparency = 0;
+              idle_threshold = 120;
+              monitor = 0;
+              follow = "keyboard";
+              sticky_history = "yes";
+              history_length = 20;
+              show_indicators = "yes";
+              line_height = 4;
+              separator_height = 2;
+              padding = 8;
+              horizontal_padding = 8;
+              frame_width = 3;
+              frame_color = "#aaaaaa";
+              separator_color = "frame";
+              startup_notification = false;
+              dmenu = "/run/current-system/sw/bin/dmenu -p dunst:";
+              browser = "/run/current-system/sw/bin/chromium";
+              icon_position = "right";
+              max_icon_size = 48;
+            };
+            shortcuts = {
+              close = "ctrl+space";
+              close_all = "ctrl+shift+space";
+              history = "ctrl+grave";
+              context = "ctrl+shift+period";
+            };
+            urgency_low = {
+              background = "#222222";
+              foreground = "#888888";
+              timeout = 10;
+            };
+            urgency_normal = {
+              background = "#285577";
+              foreground = "#ffffff";
+              timeout = 10;
+            };
+            urgency_critical = {
+              background = "#900000";
+              foreground = "#ffffff";
+              timeout = 0;
+            };
+          };
+        };
 
-  services = {
-    dunst = {
-      enable = true;
-      settings = {
-        global = {
-          font = "DejaVu Sans Book 10";
-          markup = "full";
-          format = ''<b>%s</b>\n%b'';
-          sort = "yes";
-          indicate_hidden = "yes";
-          alignment = "left";
-          bounce_freq = 0;
-          show_age_threshold = 60;
-          word_wrap = "yes";
-          ignore_newline = "no";
-          geometry = "300x5-4+24";
-          shrink = "yes";
-          transparency = 0;
-          idle_threshold = 120;
-          monitor = 0;
-          follow = "keyboard";
-          sticky_history = "yes";
-          history_length = 20;
-          show_indicators = "yes";
-          line_height = 4;
-          separator_height = 2;
-          padding = 8;
-          horizontal_padding = 8;
-          frame_width = 3;
-          frame_color = "#aaaaaa";
-          separator_color = "frame";
-          startup_notification = false;
-          dmenu = "/run/current-system/sw/bin/dmenu -p dunst:";
-          browser = "/run/current-system/sw/bin/chromium";
-          icon_position = "right";
-          max_icon_size = 48;
+        nm-applet.enable = true;
+
+        taffybar.enable = true;
+        restartTaffybar.enable = true;
+        xembed-sni-proxy.enable = true;
+
+        gpg-agent = {
+          enable = true;
+          defaultCacheTtlSsh = 28800;
+          defaultCacheTtl = 28800;
+          maxCacheTtl = 86400;
+          maxCacheTtlSsh = 86400;
+          enableSshSupport = true;
+          extraConfig = ''
+            write-env-file ${config.home.homeDirectory}/.gpg-agent-info
+          '';
         };
-        shortcuts = {
-          close = "ctrl+space";
-          close_all = "ctrl+shift+space";
-          history = "ctrl+grave";
-          context = "ctrl+shift+period";
+
+        scdaemonNotify.enable = true;
+
+        nitrogen = {
+          enable = true;
+          extraConfig = ''
+            [geometry]
+            posx=1920
+            posy=960
+            sizex=538
+            sizey=958
+
+            [nitrogen]
+            view=icon
+            recurse=true
+            sort=alpha
+            icon_caps=false
+            dirs=${config.home.homeDirectory}/Data/Wallpaper;
+          '';
         };
-        urgency_low = {
-          background = "#222222";
-          foreground = "#888888";
-          timeout = 10;
+
+        trayer = {
+          enable = false;
+          setDockType = false;
+          setPartialStrut = false;
+          widthType = "pixel";
         };
-        urgency_normal = {
-          background = "#285577";
-          foreground = "#ffffff";
-          timeout = 10;
+
+        jdl-lorri.enable = true;
+      };
+
+      home.file = {
+        ".tmux.conf".source = ./home/config/tmux.conf;
+        ".local/share/fonts/monofur/monof56.ttf".source = ./home/fonts/monof55.ttf;
+        ".local/share/fonts/monofur/monof55.ttf".source = ./home/fonts/monof56.ttf;
+        ".ssh/yubi-fd7a96.pub".source = ./home/ssh/yubi-fd7a96.pub;
+        ".ssh/yubi-574947.pub".source = ./home/ssh/yubi-574947.pub;
+        "Data/Wallpaper/rotsnakes-tile.png".source = home/blobs/rotsnakes-tile.png;
+      } // configFiles ./home/bin "bin"
+      // configFiles ./home/config/git/hooks ".git_template/hooks";
+
+      xdg.configFile = {
+#        "nvim/plugin/airline.vim".source = ./home/config/neovim/plugin-config/airline.vim;
+        "git/trimwhite.sh".source = ./home/config/git/trimwhite.sh;
+        "taffybar/taffybar.hs" = {
+          source = ./home/config/taffybar/taffybar.hs;
+          onChange = ''
+            echo "Restarting taffybar"
+            $DRY_RUN_CMD rm ~/.cache/taffybar/taffybar-linux-x86_64
+            $DRY_RUN_CMD systemctl --user restart taffybar
+          '';
         };
-        urgency_critical = {
-          background = "#900000";
-          foreground = "#ffffff";
-          timeout = 0;
+        "taffybar/taffybar.css" = {
+          source = ./home/config/taffybar/taffybar.css;
+          onChange = ''
+            echo "Restarting taffybar"
+            $DRY_RUN_CMD systemctl --user restart taffybar
+          '';
+        };
+      } // transitionalConfigs ./home/config/transitional;
+
+      xsession = {
+        enable = true;
+        windowManager.xmonad = {
+          enable = true;
+          enableContribAndExtras = true;
+          extraPackages = pkgs: [ pkgs.taffybar ];
+          config = home/config/xmonad.hs;
         };
       };
-    };
-
-    nm-applet.enable = true;
-
-    taffybar.enable = true;
-    restartTaffybar.enable = true;
-    xembed-sni-proxy.enable = true;
-
-    gpg-agent = {
-      enable = true;
-      defaultCacheTtlSsh = 28800;
-      defaultCacheTtl = 28800;
-      maxCacheTtl = 86400;
-      maxCacheTtlSsh = 86400;
-      enableSshSupport = true;
-      extraConfig = ''
-        write-env-file ${config.home.homeDirectory}/.gpg-agent-info
-      '';
-    };
-
-    scdaemonNotify.enable = true;
-
-    nitrogen = {
-      enable = true;
-      extraConfig = ''
-        [geometry]
-        posx=1920
-        posy=960
-        sizex=538
-        sizey=958
-
-        [nitrogen]
-        view=icon
-        recurse=true
-        sort=alpha
-        icon_caps=false
-        dirs=${config.home.homeDirectory}/Data/Wallpaper;
-      '';
-    };
-
-    trayer = {
-      enable = false;
-      setDockType = false;
-      setPartialStrut = false;
-      widthType = "pixel";
-    };
-
-    jdl-lorri.enable = true;
-  };
-
-  home.file = {
-    ".tmux.conf".source = ./home/config/tmux.conf;
-    ".local/share/fonts/monofur/monof56.ttf".source = ./home/fonts/monof55.ttf;
-    ".local/share/fonts/monofur/monof55.ttf".source = ./home/fonts/monof56.ttf;
-    ".ssh/yubi-fd7a96.pub".source = ./home/ssh/yubi-fd7a96.pub;
-    ".ssh/yubi-574947.pub".source = ./home/ssh/yubi-574947.pub;
-    "Data/Wallpaper/rotsnakes-tile.png".source = home/blobs/rotsnakes-tile.png;
-  } // configFiles ./home/bin "bin"
-    // configFiles ./home/config/git/hooks ".git_template/hooks";
-
-  xdg.configFile = {
-    "nvim/plugin/airline.vim".source = ./home/config/neovim/plugin-config/airline.vim;
-    "git/trimwhite.sh".source = ./home/config/git/trimwhite.sh;
-    "taffybar/taffybar.hs" = {
-      source = ./home/config/taffybar/taffybar.hs;
-      onChange = ''
-          echo "Restarting taffybar"
-          $DRY_RUN_CMD rm ~/.cache/taffybar/taffybar-linux-x86_64
-          $DRY_RUN_CMD systemctl --user restart taffybar
-      '';
-    };
-    "taffybar/taffybar.css" = {
-      source = ./home/config/taffybar/taffybar.css;
-      onChange = ''
-          echo "Restarting taffybar"
-          $DRY_RUN_CMD systemctl --user restart taffybar
-      '';
-    };
-  } // transitionalConfigs ./home/config/transitional;
-
-  xsession = {
-    enable = true;
-    windowManager.xmonad = {
-      enable = true;
-      enableContribAndExtras = true;
-      extraPackages = pkgs: [ pkgs.taffybar ];
-      config = home/config/xmonad.hs;
-    };
-  };
 
 
   # TODO
@@ -700,16 +651,10 @@ in
   # fish completions
   # fish dir cleanup
 
-  # clobber runit
-  # clobber mr
-  # clobber vcsh
-
-  #
   # # keynav.service # Seldom used, very flaky. Alternatives?
   #    xmonad config?
   # xembedsniproxy.service # maybe a better choice than trayer?
   #   taffybar has a whole "set up the SNItray first" thing,
   #   which HM might support well.
   # transitional configs
-  # NeoVim spit n polish
 }
