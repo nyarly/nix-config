@@ -61,7 +61,11 @@ in
       manpages
       moreutils
       nftables
-      pass
+      (pass.withExtensions (ext: with ext; [
+        pass-update
+        pass-genphrase
+        pass-otp
+      ]))
       pinfo
       plasma-desktop #needed for xembed-sni-proxy
       pv
