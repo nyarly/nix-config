@@ -9,5 +9,5 @@ function __jira_issues
     end
   end
 
-  jira-cli view --search-jql $jql --format '%key SEP %summary [%status]' ^/tmp/jira_issues.err | sed 's/ SEP /\t/'
+  jira view --query $jql --template view-completion ^/tmp/jira_issues.err
 end

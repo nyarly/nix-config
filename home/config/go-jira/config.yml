@@ -1,0 +1,6 @@
+endpoint: https://opentable.atlassian.net
+user: jlester
+login: jlester@opentable.com
+password-source: pass
+password-name: Opentable/jira-token
+authentication-method: api-token

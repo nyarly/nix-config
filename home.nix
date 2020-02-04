@@ -15,6 +15,8 @@ let
   rhet-butler = pkgs.callPackage ./home/packages/rhet-butler {};
 
   updated-signal = pkgs.callPackage ./home/packages/signal-desktop.nix {};
+  updated-go-jira = pkgs.callPackage ./home/packages/go-jira.nix {};
+
 in
   {
     imports = [
@@ -122,7 +124,7 @@ in
       kona
       lldb
       maven
-      go-jira
+      updated-go-jira
       ruby
       universal-ctags
 
@@ -609,8 +611,10 @@ in
         ".ssh/yubi-fd7a96.pub".source = ./home/ssh/yubi-fd7a96.pub;
         ".ssh/yubi-574947.pub".source = ./home/ssh/yubi-574947.pub;
         "Data/Wallpaper/rotsnakes-tile.png".source = home/blobs/rotsnakes-tile.png;
-      } // configFiles ./home/bin "bin"
-      // configFiles ./home/config/git/hooks ".git_template/hooks";
+      } // configFiles home/bin "bin"
+      // configFiles home/config/git/hooks ".git_template/hooks"
+      // configFiles home/config/go-jira ".jira.d";
+
 
       xdg.configFile = {
 #        "nvim/plugin/airline.vim".source = ./home/config/neovim/plugin-config/airline.vim;
