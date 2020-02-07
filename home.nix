@@ -16,6 +16,7 @@ let
 
   updated-signal = pkgs.callPackage ./home/packages/signal-desktop.nix {};
   updated-go-jira = pkgs.callPackage ./home/packages/go-jira.nix {};
+  onepassword = pkgs.callPackage ./home/packages/onepassword.nix {};
 
 in
   {
@@ -46,6 +47,8 @@ in
     );
 
     home.packages = with pkgs; [
+      onepassword
+
       adobe-reader
       arduino
       dynamic-colors
