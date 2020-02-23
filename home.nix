@@ -382,6 +382,7 @@ in
           set -gx PAGER "less -RF"
           set -gx MANPATH "" $MANPATH /run/current-system/sw/share/man
           set -gx RIPGREP_CONFIG_PATH ~/.config/ripgreprc
+          set -gx PASSWORD_STORE_X_SELECTION primary
         '';
         loginShellInit = configs ./home/config/fish/login ;
         interactiveShellInit = ''
@@ -614,6 +615,7 @@ in
         ".ssh/yubi-fd7a96.pub".source = ./home/ssh/yubi-fd7a96.pub;
         ".ssh/yubi-574947.pub".source = ./home/ssh/yubi-574947.pub;
         "Data/Wallpaper/rotsnakes-tile.png".source = home/blobs/rotsnakes-tile.png;
+        ".task/keys/ca.cert".source = home/task/keys/ca.cert;
       } // configFiles home/bin "bin"
       // configFiles home/config/git/hooks ".git_template/hooks"
       // configFiles home/config/go-jira ".jira.d";
@@ -636,6 +638,9 @@ in
             echo "Restarting taffybar"
             $DRY_RUN_CMD systemctl --user restart taffybar
           '';
+        };
+        "rofi-pass/config" = {
+          source = ./home/config/rofi-pass;
         };
       } // transitionalConfigs ./home/config/transitional;
 
