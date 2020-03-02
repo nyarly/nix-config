@@ -1,14 +1,12 @@
 lib:
 lib.concatStringsSep "\n" (map (p: "\"${p}\n${builtins.readFile p}\n") [
   ./plugin-config/ultisnips.vim
-  ./plugin-config/yankring.vim
   ./plugin-config/tagbar.vim
-  ./plugin-config/deoplete.vim
   ./plugin-config/jobmake.vim
   ./plugin-config/gpg.vim
   ./plugin-config/fzf.vim
   ./plugin-config/quickfixsigns.vim
-  ./plugin-config/neocomplete.vim
+  ./plugin-config/deoplete.vim
   ./plugin-config/ale.vim
   ./plugin-config/ranger.vim
   ./plugin-config/rainbow.vim
@@ -20,6 +18,7 @@ lib.concatStringsSep "\n" (map (p: "\"${p}\n${builtins.readFile p}\n") [
   ./plugin-config/IndentLine.vim
   ./init.vim
   ./packloadall.vim
+  ./plugin-config/deoplete-loaded.vim
   ./ftdetect/extra_ruby.vim
   ./filetype-settings/go.vim
   ./filetype-settings/javascript.vim
