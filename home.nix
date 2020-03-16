@@ -3,20 +3,21 @@
 let
   vimUtils = pkgs.callPackage (<nixpkgs> + "/pkgs/misc/vim-plugins/vim-utils.nix") {};
 
-  inherit (pkgs.callPackage ./home/loadConfigs.nix {}) transitionalConfigs configFiles;
+  inherit (pkgs.callPackage home/loadConfigs.nix {}) transitionalConfigs configFiles;
 
   localNvimPlugins = pkgs.callPackage ./personal-nvim-plugins.nix {
     inherit (pkgs) fetchgit;
     inherit (vimUtils) buildVimPluginFrom2Nix;
   };
 
-  myBundix = pkgs.callPackage ./home/packages/bundix.nix {};
+  myBundix = pkgs.callPackage home/packages/bundix.nix {};
 
-  rhet-butler = pkgs.callPackage ./home/packages/rhet-butler {};
+  rhet-butler = pkgs.callPackage home/packages/rhet-butler {};
 
-  updated-signal = pkgs.callPackage ./home/packages/signal-desktop.nix {};
-  updated-go-jira = pkgs.callPackage ./home/packages/go-jira.nix {};
-  onepassword = pkgs.callPackage ./home/packages/onepassword.nix {};
+  updated-signal = pkgs.callPackage home/packages/signal-desktop.nix {};
+  updated-go-jira = pkgs.callPackage home/packages/go-jira.nix {};
+  onepassword = pkgs.callPackage home/packages/onepassword.nix {};
+  licensezero = pkgs.callPackage home/packages/licensezero {};
 
 in
   {
@@ -49,10 +50,16 @@ in
     home.packages = with pkgs; [
       onepassword
 
+      # The modern shell
+      procs
+      bat
+      exa
+
+      licensezero
+
       adobe-reader
       arduino
       dynamic-colors
-      exa
       fasd
       fzf
       graphviz
@@ -353,7 +360,7 @@ in
 
       direnv = {
         enable = true;
-        stdlib = builtins.readFile ./home/config/direnvrc;
+        stdlib = builtins.readFile home/config/direnvrc;
       };
 
       # XXX Add chruby support (chruby module)
@@ -384,7 +391,7 @@ in
           set -gx RIPGREP_CONFIG_PATH ~/.config/ripgreprc
           set -gx PASSWORD_STORE_X_SELECTION primary
         '';
-        loginShellInit = configs ./home/config/fish/login ;
+        loginShellInit = configs home/config/fish/login ;
         interactiveShellInit = ''
           stty start undef
           stty stop undef
@@ -392,7 +399,7 @@ in
           set -x fish_color_search_match  'normal' '--background=878787'
           set -x GIT_SSH ssh # Otherwise Go overrides ControlMaster
           bind \e\; 'commandline -r -t (commandline -t | sed \"s/:\(\d*\)/ +\1/\")'
-        '' + "\n" + configs ./home/config/fish/interactive ;
+        '' + "\n" + configs home/config/fish/interactive ;
 
       };
 
@@ -609,11 +616,11 @@ in
       };
 
       home.file = {
-        ".tmux.conf".source = ./home/config/tmux.conf;
-        ".local/share/fonts/monofur/monof56.ttf".source = ./home/fonts/monof55.ttf;
-        ".local/share/fonts/monofur/monof55.ttf".source = ./home/fonts/monof56.ttf;
-        ".ssh/yubi-fd7a96.pub".source = ./home/ssh/yubi-fd7a96.pub;
-        ".ssh/yubi-574947.pub".source = ./home/ssh/yubi-574947.pub;
+        ".tmux.conf".source = home/config/tmux.conf;
+        ".local/share/fonts/monofur/monof56.ttf".source = home/fonts/monof55.ttf;
+        ".local/share/fonts/monofur/monof55.ttf".source = home/fonts/monof56.ttf;
+        ".ssh/yubi-fd7a96.pub".source = home/ssh/yubi-fd7a96.pub;
+        ".ssh/yubi-574947.pub".source = home/ssh/yubi-574947.pub;
         "Data/Wallpaper/rotsnakes-tile.png".source = home/blobs/rotsnakes-tile.png;
         ".task/keys/ca.cert".source = home/task/keys/ca.cert;
       } // configFiles home/bin "bin"
@@ -622,10 +629,10 @@ in
 
 
       xdg.configFile = {
-#        "nvim/plugin/airline.vim".source = ./home/config/neovim/plugin-config/airline.vim;
-        "git/trimwhite.sh".source = ./home/config/git/trimwhite.sh;
+#        "nvim/plugin/airline.vim".source = home/config/neovim/plugin-config/airline.vim;
+        "git/trimwhite.sh".source = home/config/git/trimwhite.sh;
         "taffybar/taffybar.hs" = {
-          source = ./home/config/taffybar/taffybar.hs;
+          source = home/config/taffybar/taffybar.hs;
           onChange = ''
             echo "Restarting taffybar"
             $DRY_RUN_CMD rm ~/.cache/taffybar/taffybar-linux-x86_64
@@ -633,16 +640,16 @@ in
           '';
         };
         "taffybar/taffybar.css" = {
-          source = ./home/config/taffybar/taffybar.css;
+          source = home/config/taffybar/taffybar.css;
           onChange = ''
             echo "Restarting taffybar"
             $DRY_RUN_CMD systemctl --user restart taffybar
           '';
         };
         "rofi-pass/config" = {
-          source = ./home/config/rofi-pass;
+          source = home/config/rofi-pass;
         };
-      } // transitionalConfigs ./home/config/transitional;
+      } // transitionalConfigs home/config/transitional;
 
       xsession = {
         enable = true;
