@@ -2,9 +2,10 @@
 pkgs.signal-desktop.overrideAttrs (oldAttrs: rec {
   name = "signal-desktop-${version}";
   pname = "signal-desktop";
-  version = "1.30.0";
+  version = "1.33.2";
   src = fetchurl {
-    url = "https://updates.signal.org/desktop/apt/pool/main/s/signal-desktop/signal-desktop_1.30.0_amd64.deb";
-    sha256 = "1gbvna40sc83s7mwip5281yn4bs0k19fj061y0xzwkvh0yk06x3i"; # lib.fakeSha256;
+    url = "https://updates.signal.org/desktop/apt/pool/main/s/signal-desktop/signal-desktop_${version}_amd64.deb";
+    sha256 = "02h2pvzcx9vb6chrdld37mmmm9vlnkck4rgwx05ii6zz652ibb9r";
+    #sha256 = lib.fakeSha256;
   };
 })

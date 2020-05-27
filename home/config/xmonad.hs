@@ -4,6 +4,7 @@ import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.EwmhDesktops        (ewmh)
 import XMonad.Hooks.ManageDocks
 import XMonad.Layout
+import XMonad.Layout.Reflect
 import XMonad.Layout.Fullscreen
 import XMonad.Layout.PerScreen
 import XMonad.Layout.Named
@@ -26,7 +27,7 @@ startup = do
 myWorkspaces = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0"]
 workspacesWithKeys = zip myWorkspaces [xK_1,xK_2,xK_3,xK_4,xK_5,xK_6,xK_7,xK_8,xK_9,xK_0]
 
-myLayout = avoidStruts $ ifWider 1900 (toggle tall ||| full) (Mirror $ toggle tall ||| full)
+myLayout = avoidStruts $ ifWider 1900 (toggle tall ||| full) (reflectVert $ Mirror $ toggle tall ||| full)
   where
     basic = smartBorders $ fullscreenFocus $ Tall 1 (3 /100) (3/4)
     tall = named "Tall" $ basic

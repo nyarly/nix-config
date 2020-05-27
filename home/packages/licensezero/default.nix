@@ -1,4 +1,4 @@
-{ lib, stdenv, callPackage, buildGoModule, fetchFromGitHub, nodejs, git, which, coreutils }:
+{ lib, stdenv, callPackage, buildGoModule, fetchFromGitHub, nodejs, git }:
 
 let
   js = (callPackage ./npm.nix {});
@@ -16,7 +16,7 @@ in
       sha256 = "1ga1zchhi312fswj6j24ali8x5j1b8vc29cxwz25hnpjz2yx0251";
     };
 
-    buildInputs = [ js.package nodejs git which coreutils ];
+    buildInputs = [ js.package nodejs git ];
 
     buildPhase = ''
       cp -a ${js.package}/lib/node_modules/licensezerojs/node_modules node_modules
