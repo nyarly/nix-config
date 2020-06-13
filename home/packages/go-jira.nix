@@ -4,7 +4,7 @@ buildGoModule rec {
   pname = "go-jira";
   version = "1.0.23";
 
-  modSha256 = "0vzxz1b37crlbd6v6fdgi4q5c20jj5y4ds9pbgbhf3zdm8i25z2f";
+  modSha256 = "0pfzcca351dcn4cgga0vbgi2j161ghgdjjbmaa6n90jrcl7gzm73";
   subPackages = [ "cmd/jira" ];
 
   src = fetchFromGitHub {

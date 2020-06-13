@@ -25,7 +25,7 @@ in
       home/fisher.nix
 
       home/services/nitrogen.nix
-      home/services/restart-taffybar.nix
+      # home/services/restart-taffybar.nix
       home/services/trayer.nix
       home/services/scdaemon-notify.nix
       home/services/nm-applet.nix
@@ -356,6 +356,7 @@ in
           set -gx MANPATH "" $MANPATH /run/current-system/sw/share/man
           set -gx RIPGREP_CONFIG_PATH ~/.config/ripgreprc
           set -gx PASSWORD_STORE_X_SELECTION primary
+          set -gx PATH /home/judson/bin $PATH
         '';
         loginShellInit = configs home/config/fish/login ;
         interactiveShellInit = ''
@@ -794,21 +795,21 @@ in
       xdg.configFile = {
 #        "nvim/plugin/airline.vim".source = home/config/neovim/plugin-config/airline.vim;
         "git/trimwhite.sh".source = home/config/git/trimwhite.sh;
-        "taffybar/taffybar.hs" = {
-          source = home/config/taffybar/taffybar.hs;
-          onChange = ''
-            echo "Restarting taffybar"
-            $DRY_RUN_CMD rm ~/.cache/taffybar/taffybar-linux-x86_64
-            $DRY_RUN_CMD systemctl --user restart taffybar
-          '';
-        };
-        "taffybar/taffybar.css" = {
-          source = home/config/taffybar/taffybar.css;
-          onChange = ''
-            echo "Restarting taffybar"
-            $DRY_RUN_CMD systemctl --user restart taffybar
-          '';
-        };
+#        "taffybar/taffybar.hs" = {
+#          source = home/config/taffybar/taffybar.hs;
+#          onChange = ''
+#            echo "Restarting taffybar"
+#            $DRY_RUN_CMD rm ~/.cache/taffybar/taffybar-linux-x86_64
+#            $DRY_RUN_CMD systemctl --user restart taffybar
+#          '';
+#        };
+#        "taffybar/taffybar.css" = {
+#          source = home/config/taffybar/taffybar.css;
+#          onChange = ''
+#            echo "Restarting taffybar"
+#            $DRY_RUN_CMD systemctl --user restart taffybar
+#          '';
+#        };
         "rofi-pass/config" = {
           source = home/config/rofi-pass;
         };
@@ -819,7 +820,9 @@ in
         windowManager.xmonad = {
           enable = true;
           enableContribAndExtras = true;
-          extraPackages = pkgs: [ pkgs.taffybar ];
+          extraPackages = pkgs: [
+            # pkgs.taffybar
+          ];
           config = home/config/xmonad.hs;
         };
       };

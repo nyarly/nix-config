@@ -16,7 +16,7 @@ import qualified XMonad.StackSet as W
 
 -- c.f. http://hackage.haskell.org/package/xmonad-contrib-0.13/docs/XMonad-Actions-CycleWS.html
 
-import System.Taffybar.Support.PagerHints (pagerHints)
+-- import System.Taffybar.Support.PagerHints (pagerHints)
 
 startup :: X ()
 startup = do
@@ -121,7 +121,7 @@ myManageHook = composeAll [
 
 main = xmonad $
        ewmh $
-       pagerHints $
+       -- pagerHints $
        docks $
        def { modMask = mod4Mask  -- super instead of alt (usually Windows key)
            , terminal = "alacritty"
