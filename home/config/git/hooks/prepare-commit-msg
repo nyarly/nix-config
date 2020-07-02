@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+
+file=$1
+source=$2
+#commit_sha=$3
+
+#exit if source == 'commit'
+if [ "${source}" == "commit" ]; then
+  exit 0
+fi
+
+path=$(git symbolic-ref HEAD)
+if [ $? -ne 0 ]; then
+  exit 0
+fi
+
+jiras=$(git config --get-all "branch.${current}.jira-ticket" | sort -u)
+if [ $? -eq 0 ]; then
+  for jira_id in $jiras; do
+    awk "/^#/ && !x {print \"$jira_id\"; x=1} 1" "$file" > "$file.tmp"
+    mv "$file.tmp" "$file"
+  done
+  awk "/^#/ && !x {print \"# Jira commands like #comment 'string' or #<transition>\"; x=1} 1" "$file" > "$file.tmp"
+  mv "$file.tmp" "$file"
+fi

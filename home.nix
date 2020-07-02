@@ -225,7 +225,7 @@ in
       git = {
         enable = true;
         package = pkgs.gitAndTools.gitFull;
-        userName = "Judson";
+        userName = "Judson Lester";
         userEmail = "nyarly@gmail.com";
         aliases = {
           ctags = "!.git/hooks/ctags";
@@ -315,8 +315,8 @@ in
           mergetool.mymeld.cmd = "meld --diff $LOCAL $BASE $REMOTE --output=$MERGED --diff $BASE $LOCAL --diff $BASE $REMOTE";
 
           jira = {
-            user = "jlester@opentable.com";
-            server = "https://opentable.atlassian.net";
+            user = "judson.lester@ymeadows.com";
+            server = "https://ymeadows.atlassian.net";
           };
 
           github.user = "nyarly";
