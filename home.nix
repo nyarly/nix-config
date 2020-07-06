@@ -314,10 +314,7 @@ in
 
           mergetool.mymeld.cmd = "meld --diff $LOCAL $BASE $REMOTE --output=$MERGED --diff $BASE $LOCAL --diff $BASE $REMOTE";
 
-          jira = {
-            user = "judson.lester@ymeadows.com";
-            server = "https://ymeadows.atlassian.net";
-          };
+          # jira = { }; go-jira has its own config
 
           github.user = "nyarly";
         };

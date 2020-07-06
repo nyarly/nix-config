@@ -53,3 +53,20 @@ if $(echo $GIT_DIR | grep -qv '.config/vcsh/repo.d') && git status -s | grep '^\
   echo "Error: These files are untracked.  Add them to the repo or to .gitignore"
   exit 1
 fi
+
+branch=$(git rev-parse --abbrev-ref HEAD)
+
+if [ "$branch" == "master" ]; then
+  echo "We don't use master branches anymore."
+  echo "consider: git branch -m master main"
+  echo "consider: git push origin --delete master"
+  exit 1
+fi
+
+
+protected=$(git config --get "branch.${branch}.protected")
+
+if [ "$protected" == "true" ]; then
+  echo "Branch ${branch} is protected. Create a new branch to commit to."
+  exit 1
+fi

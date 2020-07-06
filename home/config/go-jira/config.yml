@@ -1,6 +1,6 @@
-endpoint: https://opentable.atlassian.net
-user: jlester
-login: jlester@opentable.com
+endpoint: https://ymeadows.atlassian.net
+user: judson.lester
+login: judson.lester@ymeadows.com
 password-source: pass
-password-name: Opentable/jira-token
+password-name: YMeadows/jira-token
 authentication-method: api-token
