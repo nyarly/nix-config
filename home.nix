@@ -49,7 +49,7 @@ in
 
     home.packages = with pkgs; [
       # The modern shell
-      procs
+      unstable.procs
       bat
       exa
 
@@ -259,14 +259,15 @@ in
           ".taskrc"
         ];
         includes = [
-        {
-        path = "~/.config/git/secret";
           # condition = ? # something about "if it exists"?
-          }
+          { path = "~/.config/git/secret"; }
         ];
         # can be attrs converted...
         extraConfig = {
-          core.fsyncobjectfiles = false;
+          core = {
+            fsyncobjectfiles = false;
+            hooksPath = "~/.config/git/hooks";
+          };
           branch.autosetupmerge = true;
           color = {
             branch = true;
@@ -464,9 +465,7 @@ in
             };
           };
 
-          extraConfig = ''
-            context.mezzo = project:Mezzo
-          '';
+          extraConfig = builtins.readFile home/config/taskrc-contexts;
         };
       };
 
@@ -786,6 +785,7 @@ in
         ".task/keys/ca.cert".source = home/task/keys/ca.cert;
       } // configFiles home/bin "bin"
       // configFiles home/config/git/hooks ".git_template/hooks"
+      // configFiles home/config/git/hooks ".config/git/hooks"
       // configFiles home/config/go-jira ".jira.d";
 
 

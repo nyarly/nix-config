@@ -157,3 +157,4 @@ align = "Left"
 [style]
 header = "BrightGreen"
 unit = "BrightGreen"
+tree = "BrightBlack"
