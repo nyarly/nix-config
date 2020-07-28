@@ -366,6 +366,17 @@ in
           bind \e\; 'commandline -r -t (commandline -t | sed \"s/:\(\d*\)/ +\1/\")'
         '' + "\n" + configs home/config/fish/interactive ;
 
+        plugins = [
+          {
+            name = "fish-kubectl-completions";
+            src = pkgs.fetchFromGitHub {
+              owner = "evanlucas";
+              repo = "fish-kubectl-completions";
+              rev = "bc7014cf80ede4e2de7795892afded5db947472b";
+              sha256 = "1jk6kly62h8qpwqz71fpa7wyb3xwkfsp6b3q8p3ciqv62c0drfkk";
+            };
+          }
+        ];
       };
 
       fisher = {
@@ -780,13 +791,14 @@ in
         ".tmux.conf".source = home/config/tmux.conf;
         ".local/share/fonts/monofur/monof56.ttf".source = home/fonts/monof55.ttf;
         ".local/share/fonts/monofur/monof55.ttf".source = home/fonts/monof56.ttf;
-        ".ssh/yubi-fd7a96.pub".source = home/ssh/yubi-fd7a96.pub;
-        ".ssh/yubi-574947.pub".source = home/ssh/yubi-574947.pub;
         "Data/Wallpaper/rotsnakes-tile.png".source = home/blobs/rotsnakes-tile.png;
         ".task/keys/ca.cert".source = home/task/keys/ca.cert;
+        ".ssh/yubi-fd7a96.pub".source = home/ssh/yubi-fd7a96.pub;
+        ".ssh/yubi-574947.pub".source = home/ssh/yubi-574947.pub;
         ".gnupg/yubi-fd7a96.pub".source = home/gnupg/yubi-fd7a96.pub.gpg;
         ".gnupg/yubi-574947.pub".source = home/gnupg/yubi-574947.pub.gpg;
-      } // configFiles home/bin "bin"
+      }
+      // configFiles home/bin "bin"
       // configFiles home/config/git/hooks ".git_template/hooks"
       // configFiles home/config/git/hooks ".config/git/hooks"
       // configFiles home/config/go-jira ".jira.d";
@@ -797,7 +809,9 @@ in
         "rofi-pass/config" = {
           source = home/config/rofi-pass;
         };
-      } // transitionalConfigs home/config/transitional;
+      }
+      // configFiles home/config/hexchat "hexchat"
+      // transitionalConfigs home/config/transitional;
 
       xsession = {
         enable = true;
@@ -823,6 +837,7 @@ in
   # fish functions
   # fish completions
   # fish dir cleanup
+  # convert from fisher to fish.plugins
 
   # # keynav.service # Seldom used, very flaky. Alternatives?
   #    xmonad config?

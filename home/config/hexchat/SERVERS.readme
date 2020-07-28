@@ -1,0 +1,22 @@
+v=2.14.3
+
+N=JDL-ZNC
+U=judson/freenode
+P=
+L=7
+E=UTF-8 (Unicode)
+F=60
+D=0
+S=madhelm.net/5000
+
+N=freenode
+P=
+L=6
+E=UTF-8 (Unicode)
+F=87
+D=0
+S=chat.freenode.net
+S=irc.freenode.net
+J=#lorri
+J=#nixos
+J=#home-manager
