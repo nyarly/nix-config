@@ -1,6 +1,6 @@
 endpoint: https://ymeadows.atlassian.net
-user: judson.lester
 login: judson.lester@ymeadows.com
 password-source: pass
 password-name: YMeadows/jira-token
 authentication-method: api-token
+jira-deployment-type: cloud

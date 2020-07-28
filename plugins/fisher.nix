@@ -1,4 +1,4 @@
-{pkgs, ...}:
+{pkgs, lib, ...}:
 let
   fisherBuilder = builtins.toFile "fisherBuilder.sh" ''
     source $stdenv/setup
@@ -82,5 +82,10 @@ in
       rev = "5f1999c952f9602c753dbec830f6396adb3c692e";
       sha256 = "1hyf4h9xd4x70l0pfqxf4ahm3ykb29p8xb24s3034djsvawzsv4n";
       deps = { inherit "nyarly/fish-cache-file"; };
+    };
+    "lgathy/google-cloud-sdk-fish-completion" = mkFisherPkg {
+      pkgName = "lgathy/google-cloud-sdk-fish-completion";
+      rev = "bc24b0bf7da2addca377d89feece4487ca0b1e9c";
+      sha256 = "03zzggi64fhk0yx705h8nbg3a02zch9y49cdvzgnmpi321vz71h4";
     };
   }

@@ -376,6 +376,7 @@ in
           jethrokuan/fzf
           nyarly/fish-bang-bang
           nyarly/fish-rake-complete
+          lgathy/google-cloud-sdk-fish-completion
         '';
       };
 
@@ -783,6 +784,8 @@ in
         ".ssh/yubi-574947.pub".source = home/ssh/yubi-574947.pub;
         "Data/Wallpaper/rotsnakes-tile.png".source = home/blobs/rotsnakes-tile.png;
         ".task/keys/ca.cert".source = home/task/keys/ca.cert;
+        ".gnupg/yubi-fd7a96.pub".source = home/gnupg/yubi-fd7a96.pub.gpg;
+        ".gnupg/yubi-574947.pub".source = home/gnupg/yubi-574947.pub.gpg;
       } // configFiles home/bin "bin"
       // configFiles home/config/git/hooks ".git_template/hooks"
       // configFiles home/config/git/hooks ".config/git/hooks"
@@ -790,23 +793,7 @@ in
 
 
       xdg.configFile = {
-#        "nvim/plugin/airline.vim".source = home/config/neovim/plugin-config/airline.vim;
         "git/trimwhite.sh".source = home/config/git/trimwhite.sh;
-#        "taffybar/taffybar.hs" = {
-#          source = home/config/taffybar/taffybar.hs;
-#          onChange = ''
-#            echo "Restarting taffybar"
-#            $DRY_RUN_CMD rm ~/.cache/taffybar/taffybar-linux-x86_64
-#            $DRY_RUN_CMD systemctl --user restart taffybar
-#          '';
-#        };
-#        "taffybar/taffybar.css" = {
-#          source = home/config/taffybar/taffybar.css;
-#          onChange = ''
-#            echo "Restarting taffybar"
-#            $DRY_RUN_CMD systemctl --user restart taffybar
-#          '';
-#        };
         "rofi-pass/config" = {
           source = home/config/rofi-pass;
         };
