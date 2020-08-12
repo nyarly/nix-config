@@ -17,17 +17,9 @@ if test -d "$HOME/.nix-profile"
   # channel.
 
   set -l bare_channels $HOME/.nix-defexpr/channels
-  set -l nixpath_channels nixpkgs=$bare_channels
   for p in $NIX_PATH
     if test "$p" = "$bare_channels"
       set -e bare_channels
-      break
-    end
-  end
-
-  for p in $NIX_PATH
-    if test "$p" = "$nixpath_channels"
-      set -e nixpath_channels
       break
     end
   end
@@ -37,14 +29,6 @@ if test -d "$HOME/.nix-profile"
       set NIX_PATH $bare_channels:$NIX_PATH
     else
       set NIX_PATH $bare_channels
-    end
-  end
-
-  if test -n "$nixpath_channels"
-    if test -n "$NIX_PATH"
-      set NIX_PATH $NIX_PATH:$nixpath_channels
-    else
-      set NIX_PATH $nixpath_channels
     end
   end
 
