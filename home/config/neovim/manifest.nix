@@ -16,6 +16,7 @@ lib.concatStringsSep "\n" (map (p: "\"${p}\n${builtins.readFile p}\n") [
   ./plugin-config/ctrlp.vim
   ./plugin-config/airline.vim
   ./plugin-config/IndentLine.vim
+  ./plugin-config/vim-markdown.vim
   ./init.vim
   ./packloadall.vim
   ./plugin-config/deoplete-loaded.vim
