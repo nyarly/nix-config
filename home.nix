@@ -58,6 +58,7 @@ in
       mailpile
 
       adobe-reader
+      bash
       dynamic-colors
       fasd
       fzf
@@ -121,7 +122,6 @@ in
       # GUI
       dunst
       feh
-      #keynav
       rofi
       rofi-pass
       trayer
@@ -139,9 +139,7 @@ in
 
     programs = {
       # Let Home Manager install and manage itself.
-      home-manager = {
-        enable = true;
-      };
+      home-manager.enable = true;
 
       htop = {
         enable = true;
@@ -470,6 +468,14 @@ in
       };
 
       services = {
+        nm-applet.enable = true;
+
+        scdaemonNotify.enable = true;
+
+        jdl-lorri.enable = true;
+
+        keynav.enable = true;
+
         dunst = {
           enable = true;
           settings = {
@@ -529,8 +535,6 @@ in
             };
           };
         };
-
-        nm-applet.enable = true;
 
         polybar = {
           enable = true;
@@ -610,8 +614,8 @@ in
               format-underline = colors.orange;
             };
 
-            "module/date" = {
-              type = "internal/date";
+          "module/date" = {
+            type = "internal/date";
               interval = 5;
               date = "";
               date-alt = " %Y-%m-%d";
@@ -752,8 +756,6 @@ in
           '';
         };
 
-        scdaemonNotify.enable = true;
-
         nitrogen = {
           enable = true;
           extraConfig = ''
@@ -771,8 +773,6 @@ in
             dirs=${config.home.homeDirectory}/Data/Wallpaper;
           '';
         };
-
-        jdl-lorri.enable = true;
       };
 
       home.file = {
@@ -783,10 +783,23 @@ in
         ".ssh/yubi-574947.pub".source = home/ssh/yubi-574947.pub;
         "Data/Wallpaper/rotsnakes-tile.png".source = home/blobs/rotsnakes-tile.png;
         ".task/keys/ca.cert".source = home/task/keys/ca.cert;
+        ".ssh/control" = {
+          recursive = true;
+          source = home/ssh/control;
+        };
       } // configFiles home/bin "bin"
       // configFiles home/config/git/hooks ".git_template/hooks"
       // configFiles home/config/git/hooks ".config/git/hooks"
       // configFiles home/config/go-jira ".jira.d";
+
+      home.activation = {
+        chownSSH = lib.hm.dag.entryAfter ["writeBoundary"] ''
+          $DRY_RUN_CMD chmod -R og= $HOME/.ssh
+        '';
+        chownGPG = lib.hm.dag.entryAfter ["writeBoundary"] ''
+          $DRY_RUN_CMD chmod -R og= $HOME/.gnupg
+        '';
+      };
 
 
       xdg.configFile = {
@@ -837,8 +850,6 @@ in
   # fish completions
   # fish dir cleanup
 
-  # # keynav.service # Seldom used, very flaky. Alternatives?
-  #    xmonad config?
   # xembedsniproxy.service # maybe a better choice than trayer?
   #   taffybar has a whole "set up the SNItray first" thing,
   #   which HM might support well.
