@@ -58,6 +58,7 @@ in
       mailpile
 
       adobe-reader
+      bash
       dynamic-colors
       fasd
       fzf
@@ -121,7 +122,6 @@ in
       # GUI
       dunst
       feh
-      #keynav
       rofi
       rofi-pass
       trayer
@@ -139,9 +139,7 @@ in
 
     programs = {
       # Let Home Manager install and manage itself.
-      home-manager = {
-        enable = true;
-      };
+      home-manager.enable = true;
 
       htop = {
         enable = true;
@@ -482,6 +480,14 @@ in
       };
 
       services = {
+        nm-applet.enable = true;
+
+        scdaemonNotify.enable = true;
+
+        jdl-lorri.enable = true;
+
+        keynav.enable = true;
+
         dunst = {
           enable = true;
           settings = {
@@ -541,8 +547,6 @@ in
             };
           };
         };
-
-        nm-applet.enable = true;
 
         polybar = {
           enable = true;
@@ -764,8 +768,6 @@ in
           '';
         };
 
-        scdaemonNotify.enable = true;
-
         nitrogen = {
           enable = true;
           extraConfig = ''
@@ -783,25 +785,36 @@ in
             dirs=${config.home.homeDirectory}/Data/Wallpaper;
           '';
         };
-
-        jdl-lorri.enable = true;
       };
 
       home.file = {
         ".tmux.conf".source = home/config/tmux.conf;
         ".local/share/fonts/monofur/monof56.ttf".source = home/fonts/monof55.ttf;
         ".local/share/fonts/monofur/monof55.ttf".source = home/fonts/monof56.ttf;
-        "Data/Wallpaper/rotsnakes-tile.png".source = home/blobs/rotsnakes-tile.png;
-        ".task/keys/ca.cert".source = home/task/keys/ca.cert;
         ".ssh/yubi-fd7a96.pub".source = home/ssh/yubi-fd7a96.pub;
         ".ssh/yubi-574947.pub".source = home/ssh/yubi-574947.pub;
         ".gnupg/yubi-fd7a96.pub".source = home/gnupg/yubi-fd7a96.pub.gpg;
         ".gnupg/yubi-574947.pub".source = home/gnupg/yubi-574947.pub.gpg;
+        "Data/Wallpaper/rotsnakes-tile.png".source = home/blobs/rotsnakes-tile.png;
+        ".task/keys/ca.cert".source = home/task/keys/ca.cert;
+        ".ssh/control" = {
+          recursive = true;
+          source = home/ssh/control;
+        };
       }
       // configFiles home/bin "bin"
       // configFiles home/config/git/hooks ".git_template/hooks"
       // configFiles home/config/git/hooks ".config/git/hooks"
       // configFiles home/config/go-jira ".jira.d";
+
+      home.activation = {
+        chownSSH = lib.hm.dag.entryAfter ["writeBoundary"] ''
+          $DRY_RUN_CMD chmod -R og= $HOME/.ssh
+        '';
+        chownGPG = lib.hm.dag.entryAfter ["writeBoundary"] ''
+          $DRY_RUN_CMD chmod -R og= $HOME/.gnupg
+        '';
+      };
 
 
       xdg.configFile = {
@@ -839,8 +852,6 @@ in
   # fish dir cleanup
   # convert from fisher to fish.plugins
 
-  # # keynav.service # Seldom used, very flaky. Alternatives?
-  #    xmonad config?
   # xembedsniproxy.service # maybe a better choice than trayer?
   #   taffybar has a whole "set up the SNItray first" thing,
   #   which HM might support well.

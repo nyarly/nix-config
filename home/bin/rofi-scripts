@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
 
-cd ~/bin/dmenu-entries
+cd ~/bin/rofi-entries
 ls | stest -x | rofi -dmenu | sed 's+^+./+' | ${SHELL:-"/bin/sh"} &
