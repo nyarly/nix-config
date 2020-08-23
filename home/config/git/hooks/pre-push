@@ -6,6 +6,7 @@ fi
 
 
 while read local lsha remote rsha; do
+  echo "dbg: Push to ${remote}"
   case $remote in
     **/master)
       echo 'Refusing to push to master!'

@@ -97,6 +97,7 @@ in
       carnix
 
       gitAndTools.hub
+      gitAndTools.gh
       gitFull
       gist
       html-tidy
@@ -842,18 +843,19 @@ in
   # TODO
 
   # git_template
-  # hexchat
-  # fontconfig?
-  # gconf ? (nm-manager)
-  # mimeapps.conf ?
   # gocode
   # fish functions
   # fish completions
   # fish dir cleanup
   # convert from fisher to fish.plugins
+  # patchShebangs on ~/bin/
 
   # xembedsniproxy.service # maybe a better choice than trayer?
   #   taffybar has a whole "set up the SNItray first" thing,
   #   which HM might support well.
+  # polybar template service files (to help with crashes)
   # transitional configs
+  # fontconfig?
+  # gconf ? (nm-manager)
+  # mimeapps.conf ?
 }
