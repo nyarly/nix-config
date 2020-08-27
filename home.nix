@@ -5,6 +5,8 @@ let
 
   inherit (pkgs.callPackage home/loadConfigs.nix {}) transitionalConfigs configFiles;
 
+  binScripts = pkgs.callPackage home/binScripts.nix {};
+
   localNvimPlugins = pkgs.callPackage ./personal-nvim-plugins.nix {
     inherit (pkgs) fetchgit;
     inherit (vimUtils) buildVimPluginFrom2Nix;
@@ -135,7 +137,8 @@ in
       shutter
       solvespace
       wxcam
-  ];
+    ] ++
+    (builtins.attrValues (lib.traceVal binScripts));
 
     programs = {
       # Let Home Manager install and manage itself.
@@ -747,7 +750,7 @@ in
             "module/taskwarrior" = {
               interval = 30;
               type = "custom/script";
-              exec = "${config.home.homeDirectory}/bin/task_polybar.sh";
+              exec = "${binScripts["task_polybar.sh"]}/bin/task_polybar.sh";
               format = "<label>";
               format-foreground = colors.foreground;
               format-underline = colors.yellow;
