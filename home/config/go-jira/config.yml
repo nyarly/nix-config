@@ -4,3 +4,5 @@ password-source: pass
 password-name: YMeadows/jira-token
 authentication-method: api-token
 jira-deployment-type: cloud
+overrides:
+  reporter: 5ede88ebe31f620aba633cb7
