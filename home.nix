@@ -5,7 +5,7 @@ let
 
   inherit (pkgs.callPackage home/loadConfigs.nix {}) transitionalConfigs configFiles;
 
-  binScripts = pkgs.callPackage home/binScripts.nix {};
+  binScripts = lib.filterAttrs (n: v: lib.isDerivation v) (pkgs.callPackage home/binScripts.nix {});
 
   localNvimPlugins = pkgs.callPackage ./personal-nvim-plugins.nix {
     inherit (pkgs) fetchgit;
@@ -139,7 +139,7 @@ in
       solvespace
       wxcam
     ] ++
-    (builtins.attrValues (lib.traceVal binScripts));
+    (builtins.attrValues (lib.traceValSeqN 3 binScripts));
 
     programs = {
       # Let Home Manager install and manage itself.
