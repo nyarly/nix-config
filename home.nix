@@ -139,7 +139,7 @@ in
       solvespace
       wxcam
     ] ++
-    (builtins.attrValues (lib.traceValSeqN 3 binScripts));
+    (builtins.attrValues binScripts);
 
     programs = {
       # Let Home Manager install and manage itself.
@@ -653,6 +653,7 @@ in
 
   # TODO
 
+  # Document whole system setup (Doc drive dev, yo)
   # git_template
   # gocode
   # fish functions

@@ -9,7 +9,6 @@ let
     dontUnpack = true;
 
     installPhase = ''
-      set -x
       mkdir -p $out/bin
       cp $src $out/bin/${name}
       chmod +x $out/bin/${name}

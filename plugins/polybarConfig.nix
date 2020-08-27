@@ -185,7 +185,7 @@ in
   "module/taskwarrior" = {
     interval = 30;
     type = "custom/script";
-    exec = "${config.home.homeDirectory}/bin/task_polybar.sh";
+    exec = "${config.home.homeDirectory}/.nix-profile/bin/task_polybar.sh";
     format = "<label>";
     format-foreground = colors.foreground;
     format-underline = colors.yellow;
