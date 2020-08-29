@@ -63,11 +63,10 @@ if [ "$branch" == "master" ]; then
   echo "  git branch -m master main"
   echo "  git push -u ${github_rn} main"
   echo "  hub api -XPATCH repos/${github_repo} -f default_branch=main"
-  echo "  git remote origin set-head main # (or -a)"
+  echo "  git remote set-head origin main # (or -a)"
   echo "  git push origin --delete master"
   exit 1
 fi
-
 
 protected=$(git config --get "branch.${branch}.protected")
 

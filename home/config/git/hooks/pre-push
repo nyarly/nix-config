@@ -1,17 +1,18 @@
 #!/usr/bin/env bash
 
-if [ "$(git config --get branch.master.foolhardy)" = 'true' ]; then
-  exit 0
-fi
-
-
 while read local lsha remote rsha; do
   echo "dbg: Push to ${remote}"
   case $remote in
-    **/master)
-      echo 'Refusing to push to master!'
-      echo "  If it's that kind of joint:"
-      echo "  'git config --type bool branch.master.foolhardy true'"
-      exit 1 ;;
+    **/{master,main,staging,prod,production})
+      if [ "$(git config --get branch.${remote}.foolhardy)" != 'true' ] && # old form
+        [  "$(git config --get branch.${remote}.protected)" != 'false' ]; then
+        echo "Refusing to push to ${remote}!"
+        echo "  If it's that kind of joint:"
+        echo "  git config --type bool branch.${remote}.protected false"
+        echo "  Otherwise, what about:"
+        echo "  git config --type bool branch.${remote}.protected true"
+        exit 1
+      fi
+      ;;
   esac
 done
