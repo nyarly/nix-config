@@ -3,7 +3,7 @@
 while read local lsha remote rsha; do
   echo "dbg: Push to ${remote}"
   case $remote in
-    **/{master,main,staging,prod,production})
+    **/master | **/main | **/staging | **/prod | **/production)
       if [ "$(git config --get branch.${remote}.foolhardy)" != 'true' ] && # old form
         [  "$(git config --get branch.${remote}.protected)" != 'false' ]; then
         echo "Refusing to push to ${remote}!"
