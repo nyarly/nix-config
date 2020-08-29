@@ -58,13 +58,25 @@ if [ "$branch" == "master" ]; then
   github_rn=$(echo $github_remote | cut -d" " -f1)
   github_repo=$(echo $github_remote | cut -d" " -f2)
 
+  fixsh=$(mktemp --tmpdir to-main.XXXXXX)
+  cat <<-EOF > "$fixsh"
+  git branch -m master main
+  git push --no-verify -u ${github_rn} main
+  hub api -XPATCH repos/${github_repo} -f default_branch=main
+  git remote set-head origin main # (or -a)
+  git push --no-verify origin --delete master
+EOF
+
+  branchfix=$(mktemp --tmpdir to-main.XXXXXX.sh)
+  echo "#!/usr/bin/env bash" > "$branchfix"
+  echo "set -x" >> "$branchfix"
+  cat "$fixsh" >> "$branchfix"
+  chmod +x "$branchfix"
+
   echo "We don't use master branches anymore."
   echo "consider:"
-  echo "  git branch -m master main"
-  echo "  git push -u ${github_rn} main"
-  echo "  hub api -XPATCH repos/${github_repo} -f default_branch=main"
-  echo "  git remote set-head origin main # (or -a)"
-  echo "  git push origin --delete master"
+  cat "$fixsh"
+  echo "which you can run from $branchfix"
   exit 1
 fi
 
