@@ -32,6 +32,7 @@ in
       home/services/scdaemon-notify.nix
       home/services/nm-applet.nix
       home/services/lorri.nix
+      home/services/my-polybar.nix
 
       home/programs/scdaemon.nix
     ];
@@ -59,7 +60,7 @@ in
 
       mailpile
 
-      adobe-reader
+      #adobe-reader #marked insecure
       bash
       dynamic-colors
       fasd
@@ -552,19 +553,13 @@ in
           };
         };
 
-        polybar = {
+        myPolybar = {
           enable = true;
           package = with pkgs; polybar.override {
             pulseSupport = true;
             githubSupport = true;
             inherit curl libpulseaudio;
           };
-          # but see https://github.com/polybar/polybar/issues/763#issuecomment-450940924
-          script = ''
-            for m in $(polybar --list-monitors | ${pkgs.coreutils}/bin/cut -d":" -f1); do
-              MONITOR=$m polybar --reload main &
-            done
-          '';
           config = import plugins/polybarConfig.nix { inherit lib config pkgs; };
         };
 
