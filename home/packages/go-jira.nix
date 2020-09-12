@@ -2,7 +2,7 @@
 
 buildGoModule rec {
   pname = "go-jira";
-  version = "1.0.23";
+  version = "1.0.24";
 
   modSha256 = "0pfzcca351dcn4cgga0vbgi2j161ghgdjjbmaa6n90jrcl7gzm73";
   subPackages = [ "cmd/jira" ];
@@ -11,7 +11,7 @@ buildGoModule rec {
     owner = "go-jira";
     repo = "jira";
     rev = "v${version}";
-    sha256 = "0qk5ifjxkqisvgv066rw8xj2zszc9mhc0by4338xjd7ng10jkk7b";
+    sha256 = "1qpimh39hsg75mb32hlvxmd7jj5b0cmhdkqz3dizfcnidllr3grd";
   };
 
   meta = with stdenv.lib; {

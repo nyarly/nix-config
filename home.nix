@@ -5,7 +5,6 @@ let
 
   inherit (pkgs.callPackage home/loadConfigs.nix {}) transitionalConfigs configFiles;
 
-  binScripts = lib.filterAttrs (n: v: lib.isDerivation v) (pkgs.callPackage home/binScripts.nix {});
 
   localNvimPlugins = pkgs.callPackage ./personal-nvim-plugins.nix {
     inherit (pkgs) fetchgit;
@@ -16,11 +15,14 @@ let
 
   rhet-butler = pkgs.callPackage home/packages/rhet-butler {};
 
-  updated-signal = pkgs.callPackage home/packages/signal-desktop.nix {};
-  updated-go-jira = pkgs.callPackage home/packages/go-jira.nix {};
+  updated = {
+    signal = pkgs.callPackage home/packages/signal-desktop.nix {};
+    go-jira = pkgs.callPackage home/packages/go-jira.nix {};
+  };
   onepassword = pkgs.callPackage home/packages/onepassword.nix {};
   licensezero = pkgs.callPackage home/packages/licensezero {};
 
+  binScripts = lib.filterAttrs (n: v: lib.isDerivation v) (pkgs.callPackage home/binScripts.nix { pkgs = pkgs // updated; });
 in
   {
     imports = [
@@ -50,28 +52,52 @@ in
           )
     );
 
+    # Removed from home.packages:
+    # Belongs in shell.nix:
+    #  licensezero
+    #  graphviz
+    #  html-tidy
+    #  sqlite-interactive
+    #  rustChannels.stable.rust
+    #  fswatch
+    #  gnumake
+    #  go
+    #  lldb
+    #  ruby
+    #  universal-ctags
+    #  inkscape
+    #  solvespace
+    #  gimp
+
+
+    # Not currently using
+    #  mailpile
+    #  fira-code #source for monofur ideas
+    #  gnugo
+    #  wxcam
+    #  dynamic-colors
+    #
+    # License issues
+    #  ec2_ami_tools # unfree Amazon license
+    #  ec2_api_tools
+    #  adobe-reader #marked insecure
+
+
     home.packages = with pkgs; [
       # The modern shell
       unstable.procs
       bat
       exa
+      fd
+      sd
 
-      licensezero
-
-      mailpile
-
-      #adobe-reader #marked insecure
       bash
-      dynamic-colors
       fasd
       fzf
-      graphviz
       hexchat
       hicolor-icon-theme
       illum # should be made a service
-      indent
       inetutils
-      ipvsadm
       manpages
       moreutils
       nftables
@@ -85,12 +111,12 @@ in
       ranger # in vim
       ripgrep
       tmux
-      vit
+
       wmctrl
       xorg.xmessage
 
       #signal-desktop # expired in stable
-      updated-signal
+      updated.signal
 
       # Programming
       # Need for direnv...
@@ -99,29 +125,12 @@ in
       bundix
       carnix
 
-      gitAndTools.hub
       gitAndTools.gh
       gitFull
       gist
-      html-tidy
-      sqlite-interactive
 
-      rustChannels.stable.rust
-
-      fswatch
-      gnumake
-      go
       jq
-      lldb
-      updated-go-jira
-      ruby
-      universal-ctags
-
-      # ec2_ami_tools # unfree Amazon license
-      # ec2_api_tools
-
-      # Fonts
-      fira-code #source for monofur ideas
+      updated.go-jira
 
       # GUI
       dunst
@@ -130,15 +139,10 @@ in
       rofi-pass
       trayer
 
-      gimp
-      gnugo
       gucharmap
-      inkscape
       meld
       nitrogen
       shutter
-      solvespace
-      wxcam
     ] ++
     (builtins.attrValues binScripts);
 

@@ -99,13 +99,12 @@ mainDown = windows (W.focusUp     . W.swapDown)
 
 myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList ([
        ((modm, xK_z), spawn "i3lock -i ~/Data/Wallpaper/rotsnakes-tile.png -t &"),
-       ((modm, xK_p), spawn "rofi -show run &"),
+       ((modm, xK_p), spawn "rofi -show run -modi 'run,window' -show-icons -matching fuzzy -sidebar-mode &"),
        ((modm, xK_a), spawn "~/bin/rofi-screenlayout &"),
        ((modm, xK_f), spawn "rofi-pass &"),
        ((modm, xK_grave), spawn "~/bin/rofi-scripts &"),
        ((modm, xK_r), spawn "ontask &"),
-       ((modm, xK_g), myActivateMenu),
-       ((modm, xK_b), myBringMenu),
+       ((modm, xK_g), spawn "rofi -show window -modi 'run,window' -show-icons -matching fuzzy -sidebar-mode &"),
        ((modm .|. shiftMask, xK_j ), mainDown ),
        ((modm .|. shiftMask, xK_k ), mainUp )
      ]

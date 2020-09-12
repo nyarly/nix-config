@@ -23,4 +23,5 @@ in
     "task_polybar.sh" = ["bash" "taskwarrior"];
     "rofi-screenlayout" = ["bash" "rofi" "dmenu"]; # Consider using Rofi directly
     "rofi-scripts" = ["bash" "rofi" "dmenu"];     # to remove dep on dmenu
+    "git-jira-branch" = ["bash" "gitFull" "go-jira"];
   }
