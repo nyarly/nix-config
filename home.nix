@@ -26,8 +26,6 @@ let
 in
   {
     imports = [
-      home/fisher.nix
-
       home/services/nitrogen.nix
       # home/services/restart-taffybar.nix
       home/services/trayer.nix
@@ -373,29 +371,7 @@ in
           bind \e\; 'commandline -r -t (commandline -t | sed \"s/:\(\d*\)/ +\1/\")'
         '' + "\n" + configs home/config/fish/interactive ;
 
-        plugins = [
-          {
-            name = "fish-kubectl-completions";
-            src = pkgs.fetchFromGitHub {
-              owner = "evanlucas";
-              repo = "fish-kubectl-completions";
-              rev = "bc7014cf80ede4e2de7795892afded5db947472b";
-              sha256 = "1jk6kly62h8qpwqz71fpa7wyb3xwkfsp6b3q8p3ciqv62c0drfkk";
-            };
-          }
-        ];
-      };
-
-      fisher = {
-        enable = true;
-        packages = ''
-          fishpkg/fish-get
-          oh-my-fish/plugin-fasd
-          jethrokuan/fzf
-          nyarly/fish-bang-bang
-          nyarly/fish-rake-complete
-          lgathy/google-cloud-sdk-fish-completion
-        '';
+        plugins = import home/config/fish-plugins.nix { inherit (pkgs) fetchFromGitHub; };
       };
 
       neovim = {
@@ -464,10 +440,10 @@ in
           vim-surround
           vim-unimpaired
           webapi-vim
-          # deoplete-rust # ALE?
-          # floobits-neovim # I think it needs it's Python lib...
-          # LanguageClient-neovim # ALE is all-in-one
         ];
+        # deoplete-rust # ALE?
+        # floobits-neovim # I think it needs it's Python lib...
+        # LanguageClient-neovim # ALE is all-in-one
       };
 
         taskwarrior = {
@@ -652,13 +628,12 @@ in
 
   # TODO
 
-  # Document whole system setup (Doc drive dev, yo)
+  # Document whole-system setup (Doc driven dev, yo)
   # git_template
   # gocode
   # fish functions
   # fish completions
   # fish dir cleanup
-  # convert from fisher to fish.plugins
   # patchShebangs on ~/bin/
 
   # xembedsniproxy.service # maybe a better choice than trayer?

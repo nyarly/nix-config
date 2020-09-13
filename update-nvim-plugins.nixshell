@@ -1,0 +1,10 @@
+#!/usr/bin/env nix-shell
+#!nix-shell nvim-plugins-shell.nix -i bash
+
+yes '' | adhoc-vim-plugins \
+  +'0' \
+  +":s/^/{fetchgit, buildVimPluginFrom2Nix}:\r{\r/" \
+  +'/# vam/,$d' \
+  +'GG' \
+  +':s/^/}/' \
+  +'x! personal-nvim-plugins.nix'

@@ -1,3 +1,4 @@
+# Used by ./update-nvim-plugins.nixshell! Just run that.
 {pkgs ? import <nixpkgs> {}}:
 with pkgs;
 let
@@ -42,13 +43,3 @@ in
   mkShell {
     buildInputs = [ pluginnames2Nix ];
   }
-
-# nix-shell nvim-plugins-shell.nix --command "yes '' | adhoc-vim-plugins -c '0/# vam/,\$d | x! personal-nvim-plugins-list.nix'"
-#
-# The resulting output needs to be wrapped in
-#{fetchgit, buildVimPluginFrom2Nix}:
-#{
-#   ...
-#}
-
-# TODO: make this into a build expression and have done with it.
