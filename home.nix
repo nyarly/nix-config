@@ -446,202 +446,201 @@ in
         # LanguageClient-neovim # ALE is all-in-one
       };
 
-        taskwarrior = {
-          enable = true;
-          colorTheme = "solarized-light-256";
-          config = {
-            confirmation= false;
-            taskd = {
-              server = "tasks.madhelm.net:53589";
-              certificate = "${config.home.homeDirectory}/.task/keys/public.cert";
-              key = "${config.home.homeDirectory}/.task/keys/private.key";
-              ca = "${config.home.homeDirectory}/.task/keys/ca.cert";
-              credentials = "madhelm/judson/8dc2777a-85db-410e-8f36-889d64a8cca7";
-            };
-          };
-
-          extraConfig = builtins.readFile home/config/taskrc-contexts;
-        };
-      };
-
-      services = {
-        nm-applet.enable = true;
-
-        scdaemonNotify.enable = true;
-
-        jdl-lorri.enable = true;
-
-        keynav.enable = true;
-
-        dunst = {
-          enable = true;
-          settings = {
-            global = {
-              font = "DejaVu Sans Book 10";
-              markup = "full";
-              format = ''<b>%s</b>\n%b'';
-              sort = "yes";
-              indicate_hidden = "yes";
-              alignment = "left";
-              bounce_freq = 0;
-              show_age_threshold = 60;
-              word_wrap = "yes";
-              ignore_newline = "no";
-              geometry = "300x5-4+24";
-              shrink = "yes";
-              transparency = 0;
-              idle_threshold = 120;
-              monitor = 0;
-              follow = "keyboard";
-              sticky_history = "yes";
-              history_length = 20;
-              show_indicators = "yes";
-              line_height = 4;
-              separator_height = 2;
-              padding = 8;
-              horizontal_padding = 8;
-              frame_width = 3;
-              frame_color = "#aaaaaa";
-              separator_color = "frame";
-              startup_notification = false;
-              dmenu = "/run/current-system/sw/bin/dmenu -p dunst:";
-              browser = "/run/current-system/sw/bin/chromium";
-              icon_position = "right";
-              max_icon_size = 48;
-            };
-            shortcuts = {
-              close = "ctrl+space";
-              close_all = "ctrl+shift+space";
-              history = "ctrl+grave";
-              context = "ctrl+shift+period";
-            };
-            urgency_low = {
-              background = "#222222";
-              foreground = "#888888";
-              timeout = 10;
-            };
-            urgency_normal = {
-              background = "#285577";
-              foreground = "#ffffff";
-              timeout = 10;
-            };
-            urgency_critical = {
-              background = "#900000";
-              foreground = "#ffffff";
-              timeout = 0;
-            };
-          };
-        };
-
-        myPolybar = {
-          enable = true;
-          package = with pkgs; polybar.override {
-            pulseSupport = true;
-            githubSupport = true;
-            inherit curl libpulseaudio;
-          };
-          config = import plugins/polybarConfig.nix { inherit lib config pkgs; };
-        };
-
-        gpg-agent = {
-          enable = true;
-          defaultCacheTtlSsh = 28800;
-          defaultCacheTtl = 28800;
-          maxCacheTtl = 86400;
-          maxCacheTtlSsh = 86400;
-          enableSshSupport = true;
-          extraConfig = ''
-            write-env-file ${config.home.homeDirectory}/.gpg-agent-info
-          '';
-        };
-
-        nitrogen = {
-          enable = true;
-          extraConfig = ''
-            [geometry]
-            posx=1920
-            posy=960
-            sizex=538
-            sizey=958
-
-            [nitrogen]
-            view=icon
-            recurse=true
-            sort=alpha
-            icon_caps=false
-            dirs=${config.home.homeDirectory}/Data/Wallpaper;
-          '';
-        };
-      };
-
-      home.file = {
-        ".tmux.conf".source = home/config/tmux.conf;
-        ".local/share/fonts/monofur/monof56.ttf".source = home/fonts/monof55.ttf;
-        ".local/share/fonts/monofur/monof55.ttf".source = home/fonts/monof56.ttf;
-        ".ssh/yubi-fd7a96.pub".source = home/ssh/yubi-fd7a96.pub;
-        ".ssh/yubi-574947.pub".source = home/ssh/yubi-574947.pub;
-        ".gnupg/yubi-fd7a96.pub".source = home/gnupg/yubi-fd7a96.pub.gpg;
-        ".gnupg/yubi-574947.pub".source = home/gnupg/yubi-574947.pub.gpg;
-        "Data/Wallpaper/rotsnakes-tile.png".source = home/blobs/rotsnakes-tile.png;
-        ".task/keys/ca.cert".source = home/task/keys/ca.cert;
-        ".ssh/control" = {
-          recursive = true;
-          source = home/ssh/control;
-        };
-      }
-      // configFiles home/bin "bin"
-      // configFiles home/config/git/hooks ".git_template/hooks"
-      // configFiles home/config/git/hooks ".config/git/hooks"
-      // configFiles home/config/go-jira ".jira.d";
-
-      home.activation = {
-        chownSSH = lib.hm.dag.entryAfter ["writeBoundary"] ''
-          $DRY_RUN_CMD chmod -R og= $HOME/.ssh
-        '';
-        chownGPG = lib.hm.dag.entryAfter ["writeBoundary"] ''
-          $DRY_RUN_CMD chmod -R og= $HOME/.gnupg
-        '';
-      };
-
-
-      xdg.configFile = {
-        "git/trimwhite.sh".source = home/config/git/trimwhite.sh;
-        "rofi-pass/config" = {
-          source = home/config/rofi-pass;
-        };
-      }
-      // configFiles home/config/hexchat "hexchat"
-      // transitionalConfigs home/config/transitional;
-
-      xsession = {
+      taskwarrior = {
         enable = true;
-        windowManager.xmonad = {
-          enable = true;
-          enableContribAndExtras = true;
-          extraPackages = pkgs: [
-            # pkgs.taffybar
-          ];
-          config = home/config/xmonad.hs;
+        colorTheme = "solarized-light-256";
+        config = {
+          confirmation= false;
+          taskd = {
+            server = "tasks.madhelm.net:53589";
+            certificate = "${config.home.homeDirectory}/.task/keys/public.cert";
+            key = "${config.home.homeDirectory}/.task/keys/private.key";
+            ca = "${config.home.homeDirectory}/.task/keys/ca.cert";
+            credentials = "madhelm/judson/8dc2777a-85db-410e-8f36-889d64a8cca7";
+          };
+        };
+
+        extraConfig = builtins.readFile home/config/taskrc-contexts;
+      };
+    };
+
+    services = {
+      nm-applet.enable = true;
+
+      scdaemonNotify.enable = true;
+
+      jdl-lorri.enable = true;
+
+      keynav.enable = true;
+
+      dunst = {
+        enable = true;
+        settings = {
+          global = {
+            font = "DejaVu Sans Book 10";
+            markup = "full";
+            format = ''<b>%s</b>\n%b'';
+            sort = "yes";
+            indicate_hidden = "yes";
+            alignment = "left";
+            bounce_freq = 0;
+            show_age_threshold = 60;
+            word_wrap = "yes";
+            ignore_newline = "no";
+            geometry = "300x5-4+24";
+            shrink = "yes";
+            transparency = 0;
+            idle_threshold = 120;
+            monitor = 0;
+            follow = "keyboard";
+            sticky_history = "yes";
+            history_length = 20;
+            show_indicators = "yes";
+            line_height = 4;
+            separator_height = 2;
+            padding = 8;
+            horizontal_padding = 8;
+            frame_width = 3;
+            frame_color = "#aaaaaa";
+            separator_color = "frame";
+            startup_notification = false;
+            dmenu = "/run/current-system/sw/bin/dmenu -p dunst:";
+            browser = "/run/current-system/sw/bin/chromium";
+            icon_position = "right";
+            max_icon_size = 48;
+          };
+          shortcuts = {
+            close = "ctrl+space";
+            close_all = "ctrl+shift+space";
+            history = "ctrl+grave";
+            context = "ctrl+shift+period";
+          };
+          urgency_low = {
+            background = "#222222";
+            foreground = "#888888";
+            timeout = 10;
+          };
+          urgency_normal = {
+            background = "#285577";
+            foreground = "#ffffff";
+            timeout = 10;
+          };
+          urgency_critical = {
+            background = "#900000";
+            foreground = "#ffffff";
+            timeout = 0;
+          };
         };
       };
 
+      myPolybar = {
+        enable = true;
+        package = with pkgs; polybar.override {
+          pulseSupport = true;
+          githubSupport = true;
+          inherit curl libpulseaudio;
+        };
+        config = import plugins/polybarConfig.nix { inherit lib config pkgs; };
+      };
 
-  # TODO
+      gpg-agent = {
+        enable = true;
+        defaultCacheTtlSsh = 28800;
+        defaultCacheTtl = 28800;
+        maxCacheTtl = 86400;
+        maxCacheTtlSsh = 86400;
+        enableSshSupport = true;
+        extraConfig = ''
+        write-env-file ${config.home.homeDirectory}/.gpg-agent-info
+        '';
+      };
 
-  # Document whole-system setup (Doc driven dev, yo)
-  # git_template
-  # gocode
-  # fish functions
-  # fish completions
-  # fish dir cleanup
-  # patchShebangs on ~/bin/
+      nitrogen = {
+        enable = true;
+        extraConfig = ''
+        [geometry]
+        posx=1920
+        posy=960
+        sizex=538
+        sizey=958
 
-  # xembedsniproxy.service # maybe a better choice than trayer?
-  #   taffybar has a whole "set up the SNItray first" thing,
-  #   which HM might support well.
-  # polybar template service files (to help with crashes)
-  # transitional configs
-  # fontconfig?
-  # gconf ? (nm-manager)
-  # mimeapps.conf ?
-}
+        [nitrogen]
+        view=icon
+        recurse=true
+        sort=alpha
+        icon_caps=false
+        dirs=${config.home.homeDirectory}/Data/Wallpaper;
+        '';
+      };
+    };
+
+    home.file = {
+      ".tmux.conf".source = home/config/tmux.conf;
+      ".local/share/fonts/monofur/monof56.ttf".source = home/fonts/monof55.ttf;
+      ".local/share/fonts/monofur/monof55.ttf".source = home/fonts/monof56.ttf;
+      ".ssh/yubi-fd7a96.pub".source = home/ssh/yubi-fd7a96.pub;
+      ".ssh/yubi-574947.pub".source = home/ssh/yubi-574947.pub;
+      ".gnupg/yubi-fd7a96.pub".source = home/gnupg/yubi-fd7a96.pub.gpg;
+      ".gnupg/yubi-574947.pub".source = home/gnupg/yubi-574947.pub.gpg;
+      "Data/Wallpaper/rotsnakes-tile.png".source = home/blobs/rotsnakes-tile.png;
+      ".task/keys/ca.cert".source = home/task/keys/ca.cert;
+      ".ssh/control" = {
+        recursive = true;
+        source = home/ssh/control;
+      };
+    }
+    // configFiles home/bin "bin"
+    // configFiles home/config/git/hooks ".git_template/hooks"
+    // configFiles home/config/git/hooks ".config/git/hooks"
+    // configFiles home/config/go-jira ".jira.d";
+
+    home.activation = {
+      chownSSH = lib.hm.dag.entryAfter ["writeBoundary"] ''
+      $DRY_RUN_CMD chmod -R og= $HOME/.ssh
+      '';
+      chownGPG = lib.hm.dag.entryAfter ["writeBoundary"] ''
+      $DRY_RUN_CMD chmod -R og= $HOME/.gnupg
+      '';
+    };
+
+
+    xdg.configFile = {
+      "git/trimwhite.sh".source = home/config/git/trimwhite.sh;
+      "rofi-pass/config" = {
+        source = home/config/rofi-pass;
+      };
+    }
+    // configFiles home/config/hexchat "hexchat"
+    // transitionalConfigs home/config/transitional;
+
+    xsession = {
+      enable = true;
+      windowManager.xmonad = {
+        enable = true;
+        enableContribAndExtras = true;
+        extraPackages = pkgs: [
+          # pkgs.taffybar
+        ];
+        config = home/config/xmonad.hs;
+      };
+    };
+  }
+
+# TODO
+
+# Document whole-system setup (Doc driven dev, yo)
+# git_template
+# gocode
+# fish functions
+# fish completions
+# fish dir cleanup
+# patchShebangs on ~/bin/
+
+# xembedsniproxy.service # maybe a better choice than trayer?
+#   taffybar has a whole "set up the SNItray first" thing,
+#   which HM might support well.
+# polybar template service files (to help with crashes)
+# transitional configs
+# fontconfig?
+# gconf ? (nm-manager)
+# mimeapps.conf ?
