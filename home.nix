@@ -5,7 +5,6 @@ let
 
   inherit (pkgs.callPackage home/loadConfigs.nix {}) transitionalConfigs configFiles;
 
-
   localNvimPlugins = pkgs.callPackage ./personal-nvim-plugins.nix {
     inherit (pkgs) fetchgit;
     inherit (vimUtils) buildVimPluginFrom2Nix;
@@ -23,6 +22,8 @@ let
   licensezero = pkgs.callPackage home/packages/licensezero {};
 
   binScripts = lib.filterAttrs (n: v: lib.isDerivation v) (pkgs.callPackage home/binScripts.nix { pkgs = pkgs // updated; });
+
+  unstable = import ./unstable.nix;
 in
   {
     imports = [
@@ -123,8 +124,8 @@ in
       bundix
       carnix
 
-      gitAndTools.gh
-      gitFull
+      unstable.gitAndTools.gh
+      unstable.gitFull
       gist
 
       jq
@@ -229,7 +230,7 @@ in
 
       git = {
         enable = true;
-        package = pkgs.gitAndTools.gitFull;
+        package = unstable.gitAndTools.gitFull;
         userName = "Judson Lester";
         userEmail = "nyarly@gmail.com";
         aliases = {
@@ -286,6 +287,9 @@ in
           init.templatedir = "~/.git_template";
           bash.showDirtyState = true;
           tag.forceSignAnnotated = true;
+          pull = {
+            rebase = false;
+          };
           push = {
             default = "current";
             followTags = true;
@@ -346,7 +350,7 @@ in
       {
         enable = true;
 
-        package = (pkgs.fish.overrideAttrs (oldAttrs: { cmakeFlags = []; }));
+        package = (unstable.fish.overrideAttrs (oldAttrs: { cmakeFlags = []; }));
 
         shellInit = ''
           ulimit -n 4096
@@ -421,6 +425,7 @@ in
           vim-closetag
           #vim-coffee-script
           # vim-delve
+          vim-cue
           vim-endwise
           vim-fish
           vim-fugitive

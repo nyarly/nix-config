@@ -24,4 +24,6 @@ in
     "rofi-screenlayout" = ["bash" "rofi" "dmenu"]; # Consider using Rofi directly
     "rofi-scripts" = ["bash" "rofi" "dmenu"];     # to remove dep on dmenu
     "git-jira-branch" = ["bash" "gitFull" "go-jira"];
+    "git-current-jira" = ["bash" "gitFull" "go-jira"];
+    "current-unstable.nix" = [ "bash" "gitFull" ];
   }

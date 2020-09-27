@@ -1,0 +1,5 @@
+#!/bin/bash
+
+for t in $(git config --get-all "branch.$(git branch --show-current).jira-ticket" ); do
+  jira "$t"
+done
