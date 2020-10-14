@@ -335,7 +335,6 @@ in
         stdlib = builtins.readFile home/config/direnvrc;
       };
 
-      # XXX Add chruby support (chruby module)
       fish = with builtins; let
         configs        = path: concatStringsSep "\n" (map (p: readFile (path + "/${p}")) (configScripts path));
         configScripts  = path: filterDir (configMatch "fish") (readDir path);
@@ -373,6 +372,7 @@ in
           set -x fish_color_search_match  'normal' '--background=878787'
           set -x GIT_SSH ssh # Otherwise Go overrides ControlMaster
           bind \e\; 'commandline -r -t (commandline -t | sed \"s/:\(\d*\)/ +\1/\")'
+          ${pkgs.direnv}/bin/direnv export fish | source
         '' + "\n" + configs home/config/fish/interactive ;
 
         plugins = import home/config/fish-plugins.nix { inherit (pkgs) fetchFromGitHub; };
