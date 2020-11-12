@@ -112,11 +112,11 @@
   };
 
   vim-cue = buildVimPluginFrom2Nix { # created by nix#NixDerivation
-    name = "vim-cue-2020-07-20";
+    name = "vim-cue-2020-10-25";
     src = fetchgit {
       url = "https://github.com/jjo/vim-cue";
-      rev = "339edaf79ff1287ce6a23baaa421e68463cf1a2e";
-      sha256 = "0jr30plym17fdg90smb7g35yi9iz9b7s4md6cxj83zg4vj2hyjh1";
+      rev = "9e8bef1198817b6bae1143fecd965403d65d2466";
+      sha256 = "0rq74znq9mx5p925jd120l5apjqdqp6xy6llzhf2gq5cxpg62hjl";
     };
     dependencies = [];
 
@@ -172,6 +172,17 @@
       url = "https://github.com/othree/html5.vim";
       rev = "7c9f6f38ce4f9d35db7eeedb764035b6b63922c6";
       sha256 = "1hgbvdpmn3yffk5ahz7hz36a7f5zjc1k3pan5ybgncmdq9f4rzq6";
+    };
+    dependencies = [];
+
+  };
+
+  vim-jsx-typescript = buildVimPluginFrom2Nix { # created by nix#NixDerivation
+    name = "vim-jsx-typescript-2020-07-08";
+    src = fetchgit {
+      url = "https://github.com/peitalin/vim-jsx-typescript";
+      rev = "07370d48c605ec027543b52762930165b1b27779";
+      sha256 = "190nyy7kr6i3xr6nrjlfv643s1c48kxlbh8ynk8p53yf32gcxwz7";
     };
     dependencies = [];
 
