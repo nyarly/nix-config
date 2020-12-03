@@ -284,7 +284,10 @@ in
             ui = true;
           };
           rerere.enabled = true;
-          init.templatedir = "~/.git_template";
+          init = {
+            templatedir = "~/.git_template";
+            defaultBranch = "main";
+          };
           bash.showDirtyState = true;
           tag.forceSignAnnotated = true;
           pull = {
@@ -299,6 +302,7 @@ in
           merge = {
             tool = "meld";
             conflictstyle = "diff3";
+            renormalize = true;
           };
           mergetool = {
             keepBackup = false;
@@ -372,7 +376,7 @@ in
           set -x fish_color_search_match  'normal' '--background=878787'
           set -x GIT_SSH ssh # Otherwise Go overrides ControlMaster
           bind \e\; 'commandline -r -t (commandline -t | sed \"s/:\(\d*\)/ +\1/\")'
-          echo "pre-loading direnv"
+          functions -e sd
           ${pkgs.direnv}/bin/direnv export fish | source
         '' + "\n" + configs home/config/fish/interactive ;
 

@@ -1,7 +1,7 @@
 { fetchFromGitHub }:
 let
   plugin = {
-      name, owner, repo, rev,
+      name, owner, rev, repo ? name,
       sha256 ? "0000000000000000000000000000000000000000000000000000"
     }:
     {
@@ -60,5 +60,23 @@ in
     repo = "google-cloud-sdk-fish-completion";
     rev = "bc24b0bf7da2addca377d89feece4487ca0b1e9c";
     sha256 = "03zzggi64fhk0yx705h8nbg3a02zch9y49cdvzgnmpi321vz71h4";
+  })
+  (plugin {
+    name = "fish-cache-file";
+    owner = "nyarly";
+    rev = "ff7490e7dd8a36ce770a8eb96ab5cdb0454e8a8d";
+    sha256 = "0rv4p0d1lc4h0w14857ry541jgwj0b26bhnbh1s8v4g1apm4rxg0";
+  })
+  (plugin {
+    name = "lookup";
+    owner = "nyarly";
+    rev = "c96adbfda19464bc9b463d67906634fbb9cddd5b";
+    sha256 = "0id3glqn126y4k9ql37pwzwlphf35sg785vhxyw90zsi37p7vz9s";
+  })
+  (plugin {
+    name = "fish-bang-bang";
+    owner = "nyarly";
+    rev = "12f08d9c81dc23fc44eb309964c7b418bbc97cbb";
+    sha256 = "0mzbz0kdg8ax6q1gzsfvpy25d3xqwkyx9hy0jmbkr9zvjf4qav7b";
   })
 ]
