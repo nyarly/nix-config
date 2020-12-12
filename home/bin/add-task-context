@@ -1,0 +1,32 @@
+#! /usr/bin/env fish
+
+function die -a msg
+  echo $0": "$msg
+  exit 1
+end
+
+if test (count $argv) -lt 1;
+  die "first argument: context name is required"
+end
+
+set -l context $argv[1]
+
+if not test -f .envrc
+  die "must be run in the same directory as a .envrc file"
+end
+
+function add_line  -a file match extra
+  if not grep -q "^\s*"$match $file
+    echo echo {$match}{$extra}" >>  "$file
+    echo {$match}{$extra} >> $file
+  else
+    echo $match already present in $file
+  end
+end
+
+add_line .envrc 'export TASKRC=' '$(pwd)/.taskrc'
+add_line .envrc "export _fish_abbr_ta" "=\"task add project:"$context" \""
+
+add_line .taskrc "include ~/.taskrc" ""
+add_line .taskrc "context." $context" = project:"$context
+add_line .taskrc "context=" $context

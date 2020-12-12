@@ -1,0 +1,39 @@
+#!/usr/bin/env fish
+
+task sync
+task burndown.daily
+
+function commute_status --arg d
+  cd $d
+
+  set -l default_branch main
+  for r in origin upstream
+    if [ -f .git/refs/remotes/{$r}/HEAD ]
+      set -l default_branch (git symbolic-ref refs/remotes/{$r}/HEAD | sed 's#.*/##')
+      break
+    end
+  end
+
+  set -l bt (git branch --format='%(if)%(upstream:track)%(then)%(refname:short) %(upstream:short) %(upstream:track)%(end)' --no-merged | grep -v '^\s*$')
+  set -l mt (git branch --format='%(if)%(upstream:track)%(then)%(refname:short) %(upstream:short) %(upstream:track)%(end)' | grep $default_branch)
+  set -l cs (git status --porcelain)
+
+  if test -n "$bt" -o -n "$mt" -o -n "$cs"
+    echo $d
+    for l in $bt
+      echo "  " $l
+    end
+    for l in $mt
+      echo "  " $l
+    end
+    for l in $cs
+      echo "  " $l
+    end
+  end
+
+  commute config diff --config-ttl 5s
+end
+
+for d in (commute list)
+  commute_status $d
+end

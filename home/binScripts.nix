@@ -19,6 +19,8 @@ let
   wrap = cfg: (lib.mapAttrs fromBin cfg);
 in
   wrap {
+    "add-task-context" = ["fish" "gnugrep"];
+    "end-of-day" = ["fish" "taskwarrior" "gitFull"]; # should include commute as well
     "ontask" = ["bash" "taskwarrior"];
     "task_polybar.sh" = ["bash" "taskwarrior"];
     "rofi-screenlayout" = ["bash" "rofi" "dmenu"]; # Consider using Rofi directly
