@@ -1,0 +1,6 @@
+#!/usr/bin/env fish
+
+test (count $argv) -eq 1; or exit 1
+set -l path $argv[1]
+test -L $path; and cp --remove-destination (readlink $path) $path
+chmod u+w $path

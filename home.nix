@@ -621,6 +621,7 @@ in
         source = home/config/rofi-pass;
       };
     }
+    // configFiles home/config/neovim/ftplugin "nvim/after/ftplugin"
     // configFiles home/config/hexchat "hexchat"
     // transitionalConfigs home/config/transitional;
 

@@ -19,6 +19,7 @@ let
   wrap = cfg: (lib.mapAttrs fromBin cfg);
 in
   wrap {
+    "materialize-config" = [ "fish" ];
     "add-task-context" = ["fish" "gnugrep"];
     "end-of-day" = ["fish" "taskwarrior" "gitFull"]; # should include commute as well
     "ontask" = ["bash" "taskwarrior"];
@@ -28,4 +29,5 @@ in
     "git-jira-branch" = ["bash" "gitFull" "go-jira"];
     "git-current-jira" = ["bash" "gitFull" "go-jira"];
     "current-unstable.nix" = [ "bash" "gitFull" ];
+    "toggle-scheme" = ["fish" "gnugrep" "gnused"];
   }
