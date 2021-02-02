@@ -623,6 +623,7 @@ in
     }
     // configFiles home/config/neovim/ftplugin "nvim/after/ftplugin"
     // configFiles home/config/hexchat "hexchat"
+    // configFiles home/config/fish/completions "fish/completions"
     // transitionalConfigs home/config/transitional;
 
     xsession = {
