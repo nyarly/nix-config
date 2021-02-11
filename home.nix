@@ -340,7 +340,8 @@ in
       };
 
       fish = with builtins; let
-        configs        = path: concatStringsSep "\n" (map (p: readFile (path + "/${p}")) (configScripts path));
+        configs        = path: concatStringsSep "\n" (map (p: includeFile (path + "/${p}")) (configScripts path));
+        includeFile = path: "# start: ${path}\n${readFile path}\n# end: ${path}";
         configScripts  = path: filterDir (configMatch "fish") (readDir path);
         filterDir      = f: ds: filter (n: f n ds.${n}) (attrNames ds);
         configMatch    = ext: path: type: let
@@ -376,7 +377,9 @@ in
           set -x fish_color_search_match  'normal' '--background=878787'
           set -x GIT_SSH ssh # Otherwise Go overrides ControlMaster
           bind \e\; 'commandline -r -t (commandline -t | sed \"s/:\(\d*\)/ +\1/\")'
-          functions -e sd
+          while [ (type -t sd) = function ]
+            functions -e sd
+          end
           ${pkgs.direnv}/bin/direnv export fish | source
         '' + "\n" + configs home/config/fish/interactive ;
 
