@@ -142,6 +142,7 @@ in
       meld
       nitrogen
       shutter
+      postman
     ] ++
     (builtins.attrValues binScripts);
 
@@ -401,7 +402,7 @@ in
           errormarker-vim
           fzf-vim
           fzfWrapper
-          gist-vim
+          vim-gist
           gnupg
           godoctor-vim
           gundo

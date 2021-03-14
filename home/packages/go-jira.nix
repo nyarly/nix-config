@@ -13,6 +13,7 @@ buildGoModule rec {
     rev = "v${version}";
     sha256 = "1qpimh39hsg75mb32hlvxmd7jj5b0cmhdkqz3dizfcnidllr3grd";
   };
+  vendorSha256 = "18jwxnkv94lsxfv57ga519knxm077cc8chp5c992ipk58a04nv18";
 
   meta = with stdenv.lib; {
     description = "Simple command line client for Atlassian's Jira service written in Go";

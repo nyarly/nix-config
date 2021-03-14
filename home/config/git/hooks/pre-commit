@@ -57,7 +57,7 @@ branch=$(git rev-parse --abbrev-ref HEAD)
 foreignrepo=$(git config --get "branch.master.in-rome")
 
 if [ "$branch" == "master" ] && [ "$foreignrepo" != "true" ]; then
-  github_remote=$(git remote -v | sed -n '/fetch)$/s/\(\w\+\).*github.com:\(.*\).git.*/\1 \2/p' | head -n 1)
+  github_remote=$(git remote -v | sed -n '/fetch)$/s/\(\w\+\).*github.com[/:]\(.*\).git.*/\1 \2/p' | head -n 1)
   github_rn=$(echo $github_remote | cut -d" " -f1)
   github_repo=$(echo $github_remote | cut -d" " -f2)
 
