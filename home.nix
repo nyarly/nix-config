@@ -81,6 +81,15 @@ in
     #  ec2_api_tools
     #  adobe-reader #marked insecure
 
+    gtk = {
+      iconTheme = {
+        package = pkgs.gnome3.gnome-themes-standard;
+      };
+      theme = {
+        package = pkgs.gnome3.gnome-themes-standard;
+      };
+    };
+
 
     home.packages = with pkgs; [
       # The modern shell
@@ -94,7 +103,6 @@ in
       fasd
       fzf
       hexchat
-      hicolor-icon-theme
       illum # should be made a service
       inetutils
       manpages
@@ -139,7 +147,7 @@ in
       trayer
 
       gucharmap
-      meld
+      unstable.meld
       nitrogen
       shutter
       postman
