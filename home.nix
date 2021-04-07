@@ -17,6 +17,7 @@ let
   updated = {
     signal = pkgs.callPackage home/packages/signal-desktop.nix {};
     go-jira = pkgs.callPackage home/packages/go-jira.nix {};
+    meld = pkgs.callPackage home/packages/meld.nix {};
   };
   onepassword = pkgs.callPackage home/packages/onepassword.nix {};
   licensezero = pkgs.callPackage home/packages/licensezero {};
@@ -138,6 +139,7 @@ in
 
       jq
       updated.go-jira
+      clair
 
       # GUI
       dunst
@@ -147,7 +149,7 @@ in
       trayer
 
       gucharmap
-      unstable.meld
+      updated.meld
       nitrogen
       shutter
       postman
