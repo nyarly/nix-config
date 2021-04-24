@@ -18,9 +18,11 @@ let
     signal = pkgs.callPackage home/packages/signal-desktop.nix {};
     go-jira = pkgs.callPackage home/packages/go-jira.nix {};
     meld = pkgs.callPackage home/packages/meld.nix {};
+    trivy = pkgs.callPackage home/packages/trivy.nix {};
   };
   onepassword = pkgs.callPackage home/packages/onepassword.nix {};
   licensezero = pkgs.callPackage home/packages/licensezero {};
+  rofi-taskwarrior = pkgs.callPackage home/packages/rofi-taskwarrior {};
 
   binScripts = lib.filterAttrs (n: v: lib.isDerivation v) (pkgs.callPackage home/binScripts.nix { pkgs = pkgs // updated; });
 
@@ -99,6 +101,7 @@ in
       exa
       fd
       sd
+      rofi-taskwarrior
 
       bash
       fasd
@@ -140,12 +143,13 @@ in
       jq
       updated.go-jira
       clair
+      updated.trivy
 
       # GUI
       dunst
       feh
-      rofi
-      rofi-pass
+      unstable.rofi
+      unstable.rofi-pass
       trayer
 
       gucharmap

@@ -103,7 +103,7 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList ([
        ((modm, xK_a), spawn "~/bin/rofi-screenlayout &"),
        ((modm, xK_f), spawn "rofi-pass &"),
        ((modm, xK_grave), spawn "~/bin/rofi-scripts &"),
-       ((modm, xK_r), spawn "ontask &"),
+       ((modm, xK_r), spawn "rofi -modi tasks:rofi-taskwarrior -show tasks &"),
        ((modm, xK_g), spawn "rofi -show window -modi 'run,window' -show-icons -matching fuzzy -sidebar-mode &"),
        ((modm .|. shiftMask, xK_j ), mainDown ),
        ((modm .|. shiftMask, xK_k ), mainUp )
