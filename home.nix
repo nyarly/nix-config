@@ -107,6 +107,7 @@ in
       fasd
       fzf
       hexchat
+      fractal
       illum # should be made a service
       inetutils
       manpages
@@ -126,15 +127,8 @@ in
       wmctrl
       xorg.xmessage
 
-      #signal-desktop # expired in stable
-      updated.signal
-
-      # Programming
-      # Need for direnv...
-      go2nix
-      pypi2nix
-      bundix
-      carnix
+      signal-desktop # expired in stable
+      # updated.signal
 
       unstable.gitAndTools.gh
       unstable.gitFull

@@ -21,7 +21,8 @@ import qualified XMonad.StackSet as W
 startup :: X ()
 startup = do
   spawn "systemctl --user restart xmonad.target"
-  spawn "xss-lock -- i3lock -i ~/Data/Wallpaper/rotsnakes-tile.png -t"
+  spawn "xset 600 10"
+  spawn "xss-lock -n dim-screen -- i3lock -i ~/Data/Wallpaper/rotsnakes-tile.png -t"
   spawn "tmux start-server"
 
 myWorkspaces = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0"]
@@ -98,12 +99,12 @@ mainDown = windows (W.focusUp     . W.swapDown)
 --
 
 myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList ([
-       ((modm, xK_z), spawn "i3lock -i ~/Data/Wallpaper/rotsnakes-tile.png -t &"),
+       ((modm, xK_z), spawn "loginctl lock-session"),
        ((modm, xK_p), spawn "rofi -show run -modi 'run,window' -show-icons -matching fuzzy -sidebar-mode &"),
        ((modm, xK_a), spawn "~/bin/rofi-screenlayout &"),
        ((modm, xK_f), spawn "rofi-pass &"),
        ((modm, xK_grave), spawn "~/bin/rofi-scripts &"),
-       ((modm, xK_r), spawn "rofi -modi tasks:rofi-taskwarrior -show tasks &"),
+       ((modm, xK_r), spawn "env TERMINAL=alacritty EDITOR=nvim rofi -modi tasks:rofi-taskwarrior -show tasks &"),
        ((modm, xK_g), spawn "rofi -show window -modi 'run,window' -show-icons -matching fuzzy -sidebar-mode &"),
        ((modm .|. shiftMask, xK_j ), mainDown ),
        ((modm .|. shiftMask, xK_k ), mainUp )

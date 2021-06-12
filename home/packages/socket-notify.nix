@@ -8,7 +8,7 @@ buildRustPackage rec {
 
   name = "${crateName}-${version}";
 
-  cargoSha256 = "0rh4ry2jlyj8fpdxn10n71alcwlcbsish80m1s903rj09s1jl7ff";
+  cargoSha256 = "138h2knzhwpa9jl164w71qyd28frfkwda4a35937dy9ky2g1z300";
 
   src = fetchFromGitHub {
     owner = "nyarly";

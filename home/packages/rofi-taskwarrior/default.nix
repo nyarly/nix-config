@@ -4,17 +4,17 @@ with rustPlatform;
 
 buildRustPackage rec {
   crateName = "rofi-taskwarrior";
-  version = "0.1.1";
+  version = "0.3.0";
 
   name = "${crateName}-${version}";
 
-  cargoSha256 = "1x24mfkic9w4sra5w8pd70kgr1pzrykkxfcnvbdyg3gr1c4annbf";
+  cargoSha256 = "01yzll238dy0q4cd8rskiqzj4q471mwc25pmrqaw4slqs32kz2d8";
 
   src = fetchFromGitHub {
     owner = "nyarly";
     repo = crateName;
     rev = version;
-    sha256 = "1b3a48m9f9j5rc2yv68gli3xizmbnb7gb92qjfvv3jgf4n0c1vl5";
+    sha256 = "19knn3kh4h9ylwzw7ng6z3910cip18pvwy2y5dkrz9zdgbrzjl4s";
   };
 
   nativeBuildInputs = [ pkgconfig ];
