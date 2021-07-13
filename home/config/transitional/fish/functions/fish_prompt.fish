@@ -1,9 +1,7 @@
-# Defined in /tmp/fish.rOIDpO/fish_prompt.fish @ line 2
 function fish_prompt
 	set -l prompt_bg white
 
   # colors here are used to match the solarized dynamic-colors scheme
-
   set_color -b brblue
   set_color $prompt_bg
   echo -n (date '+ %H:%M:%S ')
@@ -20,7 +18,10 @@ function fish_prompt
   echo -n '@'(hostname)' '
   set_color blue
   partial_path
-  __fish_git_prompt " "(tput setaf 3)"⭠"(tput setaf 4)" %.20s"
+  set -l git (command git rev-parse HEAD ^/dev/null)
+  test -n "$git"; and printf " "(tput setaf 3)"⭠"(tput setaf 4)" %.20s" (confit -c git_prompt -f statusline)
+  set_color -b $prompt_bg
+  set_color brblue
   __git_issue_id__ " [%s]"
   echo -n ' '
   if test -n "$IN_NIX_SHELL"
