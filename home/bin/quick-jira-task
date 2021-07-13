@@ -1,0 +1,19 @@
+#!/usr/bin/env fish
+
+test (count $argv) -ge 1; or exit 1
+set -l branchname $argv[1]
+git switch -c $branchname
+git symbolic-ref HEAD | grep -q "^refs/heads/$branchname" || exit 1
+
+set -l jiradir (mktemp -d -t jira.XXXXXX)
+set -l jirasave $jiradir/create-result.yaml
+
+jira create \
+  -i Story -p YM \
+	--saveFile="$jirasave" \
+	-o "summary=Ops: $branchname" \
+	-o "estimate=1"
+
+set -l jira_id (yq e '.issue' $jirasave)
+
+git jira-branch $jira_id

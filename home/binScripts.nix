@@ -28,6 +28,8 @@ in
     "git-jira-branch" = [bash gitFull go-jira];
     "git-current-jira" = [bash gitFull go-jira];
     "current-unstable.nix" = [ bash gitFull ];
+    "nix-pin-branch" = [ bash gitFull ];
     "toggle-scheme" = [fish gnugrep gnused];
     "dim-screen" = [bash xorg.xbacklight];
+    "quick-jira-task" = [fish gnugrep yq-go];
   })

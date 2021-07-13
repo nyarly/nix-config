@@ -102,7 +102,7 @@ in
     icon-9 = 10;
 
     format = "<label-state>";
-    label-monitor = "%name%";
+    label-monitor = "%name% ";
     label-active = "%name% ";
     label-active-underline= colors.cyan;
     /*

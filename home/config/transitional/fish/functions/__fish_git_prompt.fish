@@ -483,7 +483,6 @@ end
 set -g ___fish_git_prompt_status_order stagedstate invalidstate dirtystate untrackedfiles
 
 function  __fish_git_prompt_informative_status
-
 	set -l changedFiles (command git diff --name-status | cut -c 1-2)
 	set -l stagedFiles (command git diff --staged --name-status | cut -c 1-2)
 

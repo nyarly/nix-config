@@ -1,7 +1,11 @@
 #!/bin/bash
 
+set -ue
+
+branch=${1?Usage: <branchname>}
+
 date=$(date +'%Y-%m-%m')
-rev=$(git ls-remote https://github.com/nixos/nixpkgs nixos-unstable | awk '{ print $1 }')
+rev=$(git ls-remote https://github.com/nixos/nixpkgs "$branch" | awk '{ print $1 }')
 url="https://github.com/nixos/nixpkgs/archive/${rev}.tar.gz"
 sha=$(nix-prefetch-url --unpack $url)
 
@@ -9,7 +13,7 @@ cat <<NIX
 let
   unstableTgz = builtins.fetchTarball {
     # Descriptive name to make the store path easier to identify
-    name = "nixos-unstable-${date}";
+    name = "nixos-${branch}-${date}";
     # Be sure to update the above if you update the archive
     url = ${url};
     sha256 = "${sha}";

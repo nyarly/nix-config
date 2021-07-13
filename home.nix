@@ -23,6 +23,7 @@ let
   onepassword = pkgs.callPackage home/packages/onepassword.nix {};
   licensezero = pkgs.callPackage home/packages/licensezero {};
   rofi-taskwarrior = pkgs.callPackage home/packages/rofi-taskwarrior {};
+  confit = pkgs.callPackage home/packages/confit {};
 
   binScripts = lib.filterAttrs (n: v: lib.isDerivation v) (pkgs.callPackage home/binScripts.nix { pkgs = pkgs // updated; });
 
@@ -102,6 +103,7 @@ in
       fd
       sd
       rofi-taskwarrior
+      confit
 
       bash
       fasd
