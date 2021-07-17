@@ -19,7 +19,7 @@ function fish_prompt
   set_color blue
   partial_path
   set -l git (command git rev-parse HEAD ^/dev/null)
-  test -n "$git"; and printf " "(tput setaf 3)"⭠"(tput setaf 4)" %.20s" (confit -c git_prompt -f statusline)
+  test -n "$git"; and printf " "(tput setaf 3)"⭠"(tput setaf 4)" %s" (confit -c git_prompt -f statusline)
   set_color -b $prompt_bg
   set_color brblue
   __git_issue_id__ " [%s]"
