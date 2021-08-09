@@ -9,5 +9,5 @@ function __jira_issues
     end
   end
 
-  jira list --query $jql --template view-completion ^/tmp/jira_issues.err
+  jira list --query $jql --template view-completion 2>/tmp/jira_issues.err
 end

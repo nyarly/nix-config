@@ -7,7 +7,7 @@ function grepify --description Adds\ \'grep\'\ to\ a\ command
   end
 
   if commandline -j | string match -q -r -v "$cmd *\$"
-    commandline -aj " ^&1 | $cmd;"
+    commandline -aj " 2>&1 | $cmd;"
 
     commandline -C (math (string length (commandline -j)) - 1)
   end

@@ -9,8 +9,8 @@ function __fish_paginate --description 'Paginate the current command using the u
   end
 
   if commandline -j | string match -q -r -v "$cmd *\$"
-    commandline -aj " ^&1 | $cmd;"
+    commandline -aj " 2>&1 | $cmd;"
   else
-    commandline -aj "# ^&1 | $cmd;"
+    commandline -aj "# 2>&1 | $cmd;"
   end
 end

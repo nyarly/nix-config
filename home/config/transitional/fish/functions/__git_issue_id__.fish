@@ -2,7 +2,7 @@ function __git_issue_id__ --argument pattern
 	if test -z pattern
     set pattern "%s"
   end
-	set -l path (git symbolic-ref HEAD ^/dev/null)
+	set -l path (git symbolic-ref HEAD 2>/dev/null)
   if test $status -ne 0
     return 0
   end

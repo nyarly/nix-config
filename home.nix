@@ -162,23 +162,23 @@ in
 
       htop = {
         enable = true;
-        cpuCountFromZero = true;
-        delay = 15;
-        fields = [
-          "PID" "USER" "PRIORITY" "NICE"
-          "M_SIZE" "M_RESIDENT" "M_SHARE"
-          "STATE" "PERCENT_CPU" "PERCENT_MEM"
-          "UTIME" "COMM"
-        ];
-        hideThreads = true;
-        hideUserlandThreads = true;
-        meters = {
-          left = [ "AllCPUs" "Memory" "Swap" ];
-          right = [ "Tasks" "LoadAverage" "Uptime" ];
+        settings = {
+          cpu_count_from_zero = true;
+          delay = 15;
+          fields = [
+            "PID" "USER" "PRIORITY" "NICE"
+            "M_SIZE" "M_RESIDENT" "M_SHARE"
+            "STATE" "PERCENT_CPU" "PERCENT_MEM"
+            "UTIME" "COMM"
+          ];
+          hide_threads = true;
+          hide_userland_threads = true;
+          left_meters = [ "AllCPUs" "Memory" "Swap" ];
+          right_meters = [ "Tasks" "LoadAverage" "Uptime" ];
+          shadow_other_users = true;
+          show_program_path = false;
+          sort_key = "PERCENT_MEM";
         };
-        shadowOtherUsers = true;
-        showProgramPath = false;
-        sortKey = "PERCENT_MEM";
       };
 
       ssh = let
@@ -621,19 +621,24 @@ in
 
     home.activation = {
       chownSSH = lib.hm.dag.entryAfter ["writeBoundary"] ''
-      $DRY_RUN_CMD chmod -R og= $HOME/.ssh
+        $DRY_RUN_CMD chmod -R og= $HOME/.ssh
       '';
       chownGPG = lib.hm.dag.entryAfter ["writeBoundary"] ''
-      $DRY_RUN_CMD chmod -R og= $HOME/.gnupg
+        $DRY_RUN_CMD chmod -R og= $HOME/.gnupg
+      '';
+      # this revolting hack until
+      #https://github.com/alacritty/alacritty/pull/5313
+      materializeAlacritty = lib.hm.dag.entryAfter ["writeBoundary"] ''
+        CFG=$HOME/.config/alacritty/alacritty
+        $DRY_RUN_CMD cp -f $CFG-hm.yml $CFG.yml
       '';
     };
 
 
     xdg.configFile = {
       "git/trimwhite.sh".source = home/config/git/trimwhite.sh;
-      "rofi-pass/config" = {
-        source = home/config/rofi-pass;
-      };
+      "rofi-pass/config".source = home/config/rofi-pass;
+      "alacritty/alacritty-hm.yml".source = home/config/alacritty.yml;
     }
     // configFiles home/config/neovim/ftplugin "nvim/after/ftplugin"
     // configFiles home/config/hexchat "hexchat"

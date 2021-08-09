@@ -189,7 +189,7 @@ function __fish_git_prompt_show_upstream --description "Helper function for __fi
 
 	set -l svn_remote
 	# get some config options from git-config
-	command git config -z --get-regexp '^(svn-remote\..*\.url|bash\.showupstream)$' ^/dev/null | tr '\0\n' '\n ' | while read -l key value
+	command git config -z --get-regexp '^(svn-remote\..*\.url|bash\.showupstream)$' 2>/dev/null | tr '\0\n' '\n ' | while read -l key value
 		switch $key
 		case bash.showupstream
 			set show_upstream $value
@@ -239,7 +239,7 @@ function __fish_git_prompt_show_upstream --description "Helper function for __fi
 	case svn\*
 		# get the upstream from the 'git-svn-id: ...' in a commit message
 		# (git-svn uses essentially the same procedure internally)
-		set -l svn_upstream (git log --first-parent -1 --grep="^git-svn-id: \($svn_url_pattern\)" ^/dev/null)
+		set -l svn_upstream (git log --first-parent -1 --grep="^git-svn-id: \($svn_url_pattern\)" 2>/dev/null)
 		if test (count $svn_upstream) -ne 0
 			echo $svn_upstream[-1] | read -l _ svn_upstream _
 			set svn_upstream (echo $svn_upstream | sed 's/@.*//')
@@ -280,11 +280,11 @@ function __fish_git_prompt_show_upstream --description "Helper function for __fi
 
 	# Find how many commits we are ahead/behind our upstream
 	if test -z "$legacy"
-		set count (command git rev-list --count --left-right $upstream...HEAD ^/dev/null)
+		set count (command git rev-list --count --left-right $upstream...HEAD 2>/dev/null)
 	else
 		# produce equivalent output to --count for older versions of git
 		set -l os
-		set -l commits (command git rev-list --left-right $upstream...HEAD ^/dev/null; set os $status)
+		set -l commits (command git rev-list --left-right $upstream...HEAD 2>/dev/null; set os $status)
 		if test $os -eq 0
 			set -l behind (count (for arg in $commits; echo $arg; end | grep '^<'))
 			set -l ahead (count (for arg in $commits; echo $arg; end | grep -v '^<'))
@@ -316,7 +316,7 @@ function __fish_git_prompt_show_upstream --description "Helper function for __fi
 			echo "$prefix$___fish_git_prompt_char_upstream_diverged$ahead-$behind"
 		end
 		if test -n "$count" -a -n "$name"
-			echo " "(command git rev-parse --abbrev-ref "$upstream" ^/dev/null)
+			echo " "(command git rev-parse --abbrev-ref "$upstream" 2>/dev/null)
 		end
 	else if test -n "$informative"
 		echo $count | read -l behind ahead
@@ -346,7 +346,7 @@ function __fish_git_prompt_show_upstream --description "Helper function for __fi
 end
 
 function __fish_git_prompt --description "Prompt function for Git"
-	set -l repo_info (command git rev-parse --git-dir --is-inside-git-dir --is-bare-repository --is-inside-work-tree --short HEAD ^/dev/null)
+	set -l repo_info (command git rev-parse --git-dir --is-inside-git-dir --is-bare-repository --is-inside-work-tree --short HEAD 2>/dev/null)
 	test -n "$repo_info"; or return
 
 	set -l git_dir         $repo_info[1]
@@ -392,7 +392,7 @@ function __fish_git_prompt --description "Prompt function for Git"
 			if test -n "$__fish_git_prompt_showuntrackedfiles"
 				set -l config (command git config --bool bash.showUntrackedFiles)
 				if test "$config" != false
-					if command git ls-files --others --exclude-standard --error-unmatch -- '*' >/dev/null ^/dev/null
+					if command git ls-files --others --exclude-standard --error-unmatch -- '*' &>/dev/null
 						set u $___fish_git_prompt_char_untrackedfiles
 					end
 				end
@@ -541,9 +541,9 @@ function __fish_git_prompt_operation_branch_bare --description "__fish_git_promp
 	set -l os
 
 	if test -d $git_dir/rebase-merge
-		set branch (cat $git_dir/rebase-merge/head-name ^/dev/null)
-		set step (cat $git_dir/rebase-merge/msgnum ^/dev/null)
-		set total (cat $git_dir/rebase-merge/end ^/dev/null)
+		set branch (cat $git_dir/rebase-merge/head-name 2>/dev/null)
+		set step (cat $git_dir/rebase-merge/msgnum 2>/dev/null)
+		set total (cat $git_dir/rebase-merge/end 2>/dev/null)
 		if test -f $git_dir/rebase-merge/interactive
 			set operation "|REBASE-i"
 		else
@@ -551,10 +551,10 @@ function __fish_git_prompt_operation_branch_bare --description "__fish_git_promp
 		end
 	else
 		if test -d $git_dir/rebase-apply
-			set step (cat $git_dir/rebase-apply/next ^/dev/null)
-			set total (cat $git_dir/rebase-apply/last ^/dev/null)
+			set step (cat $git_dir/rebase-apply/next 2>/dev/null)
+			set total (cat $git_dir/rebase-apply/last 2>/dev/null)
 			if test -f $git_dir/rebase-apply/rebasing
-				set branch (cat $git_dir/rebase-apply/head-name ^/dev/null)
+				set branch (cat $git_dir/rebase-apply/head-name 2>/dev/null)
 				set operation "|REBASE"
 			else if test -f $git_dir/rebase-apply/applying
 				set operation "|AM"
@@ -577,7 +577,7 @@ function __fish_git_prompt_operation_branch_bare --description "__fish_git_promp
 	end
 
 	if test -z "$branch"
-		set branch (command git symbolic-ref HEAD ^/dev/null; set os $status)
+		set branch (command git symbolic-ref HEAD 2>/dev/null; set os $status)
 		if test $os -ne 0
 			set detached yes
 			set branch (switch "$__fish_git_prompt_describe_style"
@@ -589,7 +589,7 @@ function __fish_git_prompt_operation_branch_bare --description "__fish_git_promp
 							command git describe HEAD
 						case default '*'
 							command git describe --tags --exact-match HEAD
-						end ^/dev/null; set os $status)
+						end 2>/dev/null; set os $status)
 			if test $os -ne 0
 				if test -n "$short_sha"
 					set branch $short_sha...
@@ -735,7 +735,7 @@ function __fish_git_prompt_repaint $varargs --description "Event handler, repain
 			end
 		end
 
-		commandline -f repaint ^/dev/null
+		commandline -f repaint 2>/dev/null
 	end
 end
 
@@ -756,7 +756,7 @@ function __fish_git_prompt_repaint_color $varargs --description "Event handler, 
 				set -e ___fish_git_prompt_color_{$name}_done
 			end
 		end
-		commandline -f repaint ^/dev/null
+		commandline -f repaint 2>/dev/null
 	end
 end
 
@@ -767,6 +767,6 @@ end
 function __fish_git_prompt_repaint_char $varargs --description "Event handler, repaints prompt when any char changes"
 	if status --is-interactive
 		set -e _$argv[3]
-		commandline -f repaint ^/dev/null
+		commandline -f repaint 2>/dev/null
 	end
 end

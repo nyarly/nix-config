@@ -5,7 +5,7 @@ set -ue
 branch=${1?Usage: <branchname>}
 
 date=$(date +'%Y-%m-%m')
-rev=$(git ls-remote https://github.com/nixos/nixpkgs "$branch" | awk '{ print $1 }')
+rev=$(git ls-remote -h https://github.com/nixos/nixpkgs "$branch" | awk '{ print $1 }')
 url="https://github.com/nixos/nixpkgs/archive/${rev}.tar.gz"
 sha=$(nix-prefetch-url --unpack $url)
 

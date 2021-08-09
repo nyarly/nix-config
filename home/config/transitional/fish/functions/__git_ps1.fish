@@ -1,5 +1,5 @@
 function __git_ps1 --description 'Prompt function for Git'
-	set -l repo_info (command git rev-parse --git-dir --is-inside-git-dir --is-bare-repository --is-inside-work-tree --short HEAD ^/dev/null)
+	set -l repo_info (command git rev-parse --git-dir --is-inside-git-dir --is-bare-repository --is-inside-work-tree --short HEAD 2>/dev/null)
 	test -n "$repo_info"; or return
 
 	set -l git_dir         $repo_info[1]
@@ -44,7 +44,7 @@ function __git_ps1 --description 'Prompt function for Git'
 			if test -n "$__fish_git_prompt_showuntrackedfiles"
 				set -l config (command git config --bool bash.showUntrackedFiles)
 				if test "$config" != false
-					if command git ls-files --others --exclude-standard --error-unmatch -- '*' >/dev/null ^/dev/null
+					if command git ls-files --others --exclude-standard --error-unmatch -- '*' &>/dev/null
 						set u $___fish_git_prompt_char_untrackedfiles
 					end
 				end
