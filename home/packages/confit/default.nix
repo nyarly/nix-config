@@ -4,17 +4,17 @@ with rustPlatform;
 
 buildRustPackage rec {
   crateName = "confit";
-  version = "1.0.3";
+  version = "1.1.0";
 
   name = "${crateName}-${version}";
 
-  cargoSha256 = "sha256-WPS9Fvbuc91KR7XQzYFYpe4Y4mBMxHoUJRI+cPKBtUE=";
+  cargoSha256 = "sha256-cD3TXo8FFu4XgaEn7ar+dUB4okunV87zZoxHN+jrgyw=";
 
   src = fetchFromGitHub {
     owner = "nyarly";
     repo = crateName;
     rev = version;
-    hash = "sha256-vxWF0/FfaGlit7qRXLBe/0yOKB7Uosrp60pYrF+oE3c=";
+    hash = "sha256-WkOAWK57dcPUAtM8zbDVVzGw5SPKVl+ksHRBAFMVcTI=";
   };
 
   nativeBuildInputs = [ pkgconfig ];
