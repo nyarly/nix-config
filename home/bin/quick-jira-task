@@ -9,9 +9,9 @@ set -l jiradir (mktemp -d -t jira.XXXXXX)
 set -l jirasave $jiradir/create-result.yaml
 
 jira create \
-  -i Story -p YM \
+  -i Task -p DOP \
 	--saveFile="$jirasave" \
-	-o "summary=Ops: $branchname" \
+	-o "summary=$branchname" \
 	-o "estimate=1"
 
 set -l jira_id (yq e '.issue' $jirasave)

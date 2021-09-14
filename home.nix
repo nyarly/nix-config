@@ -24,6 +24,7 @@ let
   licensezero = pkgs.callPackage home/packages/licensezero {};
   rofi-taskwarrior = pkgs.callPackage home/packages/rofi-taskwarrior {};
   confit = pkgs.callPackage home/packages/confit {};
+  vim-markdown-composer = pkgs.callPackage home/packages/vim-markdown-composer.nix {};
 
   binScripts = lib.filterAttrs (n: v: lib.isDerivation v) (pkgs.callPackage home/binScripts.nix { pkgs = pkgs // updated; });
 
@@ -153,6 +154,9 @@ in
       nitrogen
       shutter
       postman
+
+      nix-prefetch-git
+      rnix-lsp
     ] ++
     (builtins.attrValues binScripts);
 
@@ -412,6 +416,7 @@ in
       neovim = {
         enable = true;
         extraConfig = (import home/config/neovim/manifest.nix) lib;
+        #withNodeJs = true; # defaults false
 
         plugins = with pkgs.vimPlugins; with localNvimPlugins; [
           ale
@@ -467,6 +472,12 @@ in
           vim-jsx-typescript
           vim-legend
           vim-markdown
+          {
+            plugin = vim-markdown-composer;
+            config = ''
+              let g:markdown_composer_browser="google-chrome-stable"
+            '';
+          }
           vim-nix
           vim-obsession
           vim-puppet

@@ -8,4 +8,4 @@ abbr -a -g -- view 'nvim -R'
 abbr -a -g -- vs 'nvim -S Session.vim'
 abbr -a -g -- ps procs
 abbr -a -g -- ls exa
-abbr -a -g -- ghpr 'gh pr create --title (bjtitle)'
+abbr -a -g -- ghpr 'gh pr create --title (bjtitle); and gh pr merge --auto --merge --delete-branch'

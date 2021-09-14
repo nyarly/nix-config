@@ -34,6 +34,7 @@ let
     "hwayne/tla.vim"
     "jjo/vim-cue"
     "peitalin/vim-jsx-typescript"
+    "euclio/vim-markdown-composer"
   ];
   wrapVundle = pname: "{'name': 'github:${pname}'}";
   vamFile = builtins.toFile "plugins.txt" (builtins.concatStringsSep "\n" (map wrapVundle plugins));
