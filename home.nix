@@ -406,7 +406,7 @@ in
           stty -ixon
           set -x fish_color_search_match  'normal' '--background=878787'
           set -x GIT_SSH ssh # Otherwise Go overrides ControlMaster
-          set -X BROWSER google-chrome-stable
+          set -x BROWSER google-chrome-stable
           bind \e\; 'commandline -r -t (commandline -t | sed \"s/:\(\d*\)/ +\1/\")'
           while [ (type -t sd) = function ]
             functions -e sd
