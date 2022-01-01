@@ -1,5 +1,6 @@
 function! s:NonSpecialMappings()
-  nnoremap <buffer> <F3> :<C-U>GundoToggle<CR>
+  nnoremap <buffer> <F3> <Cmd>MundoToggle<CR>
+  ":<C-U>GundoToggle<CR>
   noremap <buffer> <C-P> :<C-U>Files<CR>
   inoremap <buffer> <C-P> <Esc>:<C-U>Files<CR>
   noremap <buffer> <F4> :<C-U>Buffer<CR>
@@ -67,6 +68,7 @@ nnoremap <Leader>q :Lines <C-R><C-W><CR>
 nnoremap <Leader>w :Rg<CR>
 inoremap <Leader>a <Esc>:Rg \b<C-R><C-W>\b<CR>
 nnoremap <Leader>a :Rg \b<C-R><C-W>\b<CR>
+vnoremap <Leader>a y:Rg \b<C-R>"\b<CR>
 nnoremap <Leader>h :set hlsearch \| let @/='\<'.expand("<cword>").'\>'<CR>
 "inoremap <Leader>f <Esc>:Files <C-R><C-W><CR> (Files' arg is starting dir)
 "nnoremap <Leader>f :Files <C-R><C-W><CR>

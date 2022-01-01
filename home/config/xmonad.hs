@@ -11,6 +11,7 @@ import XMonad.Layout.Named
 import XMonad.Layout.NoBorders
 import XMonad.Layout.ToggleLayouts
 import XMonad.Actions.WindowBringer
+import XMonad.Hooks.DynamicProperty
 import qualified XMonad.Actions.CycleWS as C
 import qualified XMonad.StackSet as W
 
@@ -28,7 +29,7 @@ startup = do
 myWorkspaces = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0"]
 workspacesWithKeys = zip myWorkspaces [xK_1,xK_2,xK_3,xK_4,xK_5,xK_6,xK_7,xK_8,xK_9,xK_0]
 
-myLayout = avoidStruts $ ifWider 1900 (toggle tall ||| full) (reflectVert $ Mirror $ toggle tall ||| full)
+myLayout = avoidStruts $ ifWider 1900 (toggle tall ||| full) (Mirror $ toggle tall ||| full)
   where
     basic = smartBorders $ fullscreenFocus $ Tall 1 (3 /100) (3/4)
     tall = named "Tall" $ basic
@@ -48,6 +49,21 @@ activateWindow w ws = W.shiftMaster (W.focusWindow w ws)
 mainUp =   windows (W.focusDown   . W.swapUp)
 mainDown = windows (W.focusUp     . W.swapDown)
 
+manageZoomHook =
+  composeAll $
+    [ (className =? zoomClassName) <&&> shouldFloat <$> title --> doFloat,
+      (className =? zoomClassName) <&&> shouldSink <$> title --> doSink
+    ]
+  where
+    zoomClassName = "zoom"
+    tileTitles = [ "Zoom - Free Account",
+        "Zoom - Licensed Account",
+        "Zoom",
+        "Zoom Meeting"
+      ]
+    shouldFloat title = title `notElem` tileTitles
+    shouldSink title = title `elem` tileTitles
+    doSink = (ask >>= doF . W.sink) <+> doF W.swapDown
 
 -- launching and killing programs
 -- mod-Shift-Enter  Launch xterminal
@@ -115,7 +131,8 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList ([
 newKeys x = myKeys x `M.union` keys def x
 
 myManageHook = composeAll [
-    className =? "pinentry" --> doFloat
+    manageZoomHook
+  , className =? "pinentry" --> doFloat
   , className =? "Pinentry" --> doFloat
   ]
 
@@ -129,6 +146,7 @@ main = xmonad $
            , layoutHook = myLayout
            , logHook = dynamicLogString defaultPP >>= xmonadPropLog
            , manageHook = myManageHook <+> manageHook def
+           , handleEventHook = mconcat [ dynamicTitle manageZoomHook, docksEventHook, handleEventHook defaultConfig ]
            , workspaces = myWorkspaces
            , keys = newKeys
            , normalBorderColor  = "#aaaaaa"

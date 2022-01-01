@@ -65,7 +65,7 @@ if [ "$branch" == "master" ] && [ "$foreignrepo" != "true" ]; then
   cat <<-EOF > "$fixsh"
   git branch -m master main
   git push --no-verify -u ${github_rn} main
-  hub api -XPATCH repos/${github_repo} -f default_branch=main
+  gh api -XPATCH repos/${github_repo} -f default_branch=main > /dev/null
   git remote set-head origin main # (or -a)
   git push --no-verify origin --delete master
 EOF
