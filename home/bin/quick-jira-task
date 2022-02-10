@@ -7,11 +7,12 @@ git symbolic-ref HEAD | grep -q "^refs/heads/$branchname" || exit 1
 
 set -l jiradir (mktemp -d -t jira.XXXXXX)
 set -l jirasave $jiradir/create-result.yaml
+set -l summary (echo $branchname | sed 's/.*/\u&/; s/[-_]/ /g')
 
 jira create \
   -i Task -p DOP \
 	--saveFile="$jirasave" \
-	-o "summary=$branchname" \
+	-o "summary=$summary" \
 	-o "estimate=1"
 
 set -l jira_id (yq e '.issue' $jirasave)

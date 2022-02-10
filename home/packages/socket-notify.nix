@@ -1,4 +1,4 @@
-{ stdenv, rustPlatform, fetchFromGitHub, pkgconfig, dbus, ... }:
+{ stdenv, lib, rustPlatform, fetchFromGitHub, pkgconfig, dbus, ... }:
 
 with rustPlatform;
 
@@ -20,7 +20,7 @@ buildRustPackage rec {
   nativeBuildInputs = [ pkgconfig ];
   buildInputs = [ dbus ];
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "SCDaemon to Libnotify gateway";
     longDescription = ''
       You should receive notification like "GPG Event" whenever your

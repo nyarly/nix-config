@@ -6,6 +6,10 @@ branch=${1?Usage: <branchname>}
 
 date=$(date +'%Y-%m-%m')
 rev=$(git ls-remote -h https://github.com/nixos/nixpkgs "$branch" | awk '{ print $1 }')
+if [ -z $rev ]; then
+  echo No such branch
+  exit 1
+fi
 url="https://github.com/nixos/nixpkgs/archive/${rev}.tar.gz"
 sha=$(nix-prefetch-url --unpack $url)
 

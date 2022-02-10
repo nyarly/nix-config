@@ -1,7 +1,7 @@
 { lib, config, pkgs, ... }:
 
 let
-  vimUtils = pkgs.callPackage (<nixpkgs> + "/pkgs/misc/vim-plugins/vim-utils.nix") {};
+  vimUtils = pkgs.callPackage (<nixpkgs> + "/pkgs/misc/vim-plugins/vim-utils.nix") {hasLuaModule = true;};
 
   inherit (pkgs.callPackage home/loadConfigs.nix {}) transitionalConfigs configFiles;
 
@@ -24,7 +24,8 @@ let
   licensezero = pkgs.callPackage home/packages/licensezero {};
   rofi-taskwarrior = pkgs.callPackage home/packages/rofi-taskwarrior {};
   confit = pkgs.callPackage home/packages/confit {};
-  vim-markdown-composer = pkgs.callPackage home/packages/vim-markdown-composer.nix {};
+
+  #vim-markdown-composer = pkgs.callPackage home/packages/vim-markdown-composer.nix {};
 
   binScripts = lib.filterAttrs (n: v: lib.isDerivation v) (pkgs.callPackage home/binScripts.nix { pkgs = pkgs // updated; });
 
@@ -34,7 +35,6 @@ in
     imports = [
       home/services/nitrogen.nix
       # home/services/restart-taffybar.nix
-      home/services/trayer.nix
       home/services/scdaemon-notify.nix
       home/services/nm-applet.nix
       home/services/lorri.nix
@@ -147,7 +147,6 @@ in
       feh
       unstable.rofi
       unstable.rofi-pass
-      trayer
 
       gucharmap
       updated.meld

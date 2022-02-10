@@ -1,4 +1,4 @@
-{ stdenv, rustPlatform, fetchFromGitHub, pkgconfig, ... }:
+{ stdenv, lib, rustPlatform, fetchFromGitHub, pkgconfig, ... }:
 
 with rustPlatform;
 
@@ -19,7 +19,7 @@ buildRustPackage rec {
 
   nativeBuildInputs = [ pkgconfig ];
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "Rofi modi for Taskwarrior";
     longDescription = ''
       A rofi wrapper for taskwarrior. Provides a rofi-script modi,

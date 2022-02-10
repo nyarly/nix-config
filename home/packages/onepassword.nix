@@ -33,7 +33,7 @@ stdenv.mkDerivation rec {
   '';
 
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     homepage = https://support.1password.com;
     description = "CLI for 1Password";
     platforms = platforms.linux;

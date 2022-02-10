@@ -5,9 +5,9 @@
 } @ args:
 
 let
-  op = stdenv.lib.optional;
-  ops = stdenv.lib.optionals;
-  opString = stdenv.lib.optionalString;
+  op = lib.optional;
+  ops = lib.optionals;
+  opString = lib.optionalString;
   patchSet = import ./rvm-patchsets.nix { inherit fetchFromGitHub; };
   config = import ./config.nix { inherit fetchFromSavannah; };
   rubygemsSrc = import ./rubygems-src.nix { inherit fetchurl; };
@@ -18,10 +18,10 @@ let
   generic = { majorVersion, minorVersion, teenyVersion, patchLevel, sha256 }: let
     versionNoPatch = "${majorVersion}.${minorVersion}.${teenyVersion}";
     version = "${versionNoPatch}-p${patchLevel}";
-    fullVersionName = if patchLevel != "0" && stdenv.lib.versionOlder versionNoPatch "2.1"
+    fullVersionName = if patchLevel != "0" && lib.versionOlder versionNoPatch "2.1"
       then version
       else versionNoPatch;
-    tag = "v" + stdenv.lib.replaceChars ["." "p" "-"] ["_" "_" ""] fullVersionName;
+    tag = "v" + lib.replaceChars ["." "p" "-"] ["_" "_" ""] fullVersionName;
     isRuby20 = majorVersion == "2" && minorVersion == "0";
     isRuby21 = majorVersion == "2" && minorVersion == "1";
     baseruby = self.override { useRailsExpress = false; };
@@ -117,7 +117,7 @@ let
             "--with-setjmp-type=setjmp"
           ];
 
-        installFlags = stdenv.lib.optionalString docSupport "install-doc";
+        installFlags = lib.optionalString docSupport "install-doc";
         # Bundler tries to create this directory
         postInstall = ''
           # Update rubygems
@@ -144,11 +144,11 @@ let
         '';
 
         meta = {
-          license = stdenv.lib.licenses.ruby;
+          license = lib.licenses.ruby;
           homepage = http://www.ruby-lang.org/en/;
           description = "The Ruby language";
-          maintainers = [ stdenv.lib.maintainers.vrthra ];
-          platforms = stdenv.lib.platforms.all;
+          maintainers = [ lib.maintainers.vrthra ];
+          platforms = lib.platforms.all;
         };
 
         passthru = rec {
