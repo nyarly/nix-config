@@ -24,11 +24,12 @@ let
   licensezero = pkgs.callPackage home/packages/licensezero {};
   rofi-taskwarrior = pkgs.callPackage home/packages/rofi-taskwarrior {};
   confit = pkgs.callPackage home/packages/confit {};
-  vim-markdown-composer = pkgs.callPackage home/packages/vim-markdown-composer.nix {};
+  jdl-vim-markdown-composer = pkgs.callPackage home/packages/vim-markdown-composer.nix {};
 
   binScripts = lib.filterAttrs (n: v: lib.isDerivation v) (pkgs.callPackage home/binScripts.nix { pkgs = pkgs // updated; });
 
   unstable = import ./unstable.nix;
+  vim-nixhash = unstable.vimPlugins.vim-nixhash;
 in
   {
     imports = [
@@ -36,7 +37,7 @@ in
       # home/services/restart-taffybar.nix
       home/services/scdaemon-notify.nix
       home/services/nm-applet.nix
-      home/services/lorri.nix
+      # home/services/lorri.nix
       home/services/my-polybar.nix
 
       home/programs/scdaemon.nix
@@ -356,8 +357,6 @@ in
 
           mergetool.mymeld.cmd = "meld --diff $LOCAL $BASE $REMOTE --output=$MERGED --diff $BASE $LOCAL --diff $BASE $REMOTE";
 
-          # jira = { }; go-jira has its own config
-
           github.user = "nyarly";
         };
       };
@@ -475,12 +474,13 @@ in
           vim-legend
           vim-markdown
           {
-            plugin = vim-markdown-composer;
+            plugin = jdl-vim-markdown-composer;
             config = ''
               let g:markdown_composer_browser="google-chrome-stable"
             '';
           }
           vim-nix
+          vim-nixhash
           vim-obsession
           vim-puppet
           vim-ragtag
@@ -519,7 +519,7 @@ in
 
       scdaemonNotify.enable = true;
 
-      jdl-lorri.enable = true;
+      lorri.enable = true;
 
       keynav.enable = true;
 
@@ -731,12 +731,11 @@ in
 # fish functions
 # fish completions
 # fish dir cleanup
-# patchShebangs on ~/bin/
 
 # xembedsniproxy.service # maybe a better choice than trayer?
 #   taffybar has a whole "set up the SNItray first" thing,
 #   which HM might support well.
-# polybar template service files (to help with crashes)
+# polybar template service files (to help with crashes)2
 # transitional configs
 # fontconfig?
 # gconf ? (nm-manager)

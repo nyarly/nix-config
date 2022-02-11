@@ -1,7 +1,7 @@
 #! /usr/bin/env nix-shell
 #! nix-shell -i bash -p jq findutils libnotify
 
-lorri stream_events_ --kind live |\
+lorri internal stream-events --kind live |\
   jq --unbuffered \
      '((.completed?|values|"Build complete in \(.nix_file)"),
      (.failure? |values|"Build failed in \(.nix_file)"))' |\

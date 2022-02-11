@@ -9,7 +9,7 @@ let
     owner = "euclio";
     repo = crateName;
     rev = "master";
-    hash = "sha256-9ug80pAHdQJI5p3eFLYPcD8udcsRTvrdR17q+dAda4M=";
+    hash = "sha256-bgJmF3RzZxbLV2Z6zvCYQIt4AdfCmkgWpWNnDbDs4MM=";
   };
 
   markdown-composer = buildRustPackage rec {
@@ -19,30 +19,16 @@ let
 
     name = "${crateName}-${version}";
 
-    cargoSha256 = "sha256-aAnINaXmAedFAzD6+x3zQgfr1YiAcII6JH5m68kQrss=";
+    cargoSha256 = "sha256-owewqavzUHSRDPHPQrIOxDBn3GejQGGER6sDNcXswCY=";
 
     nativeBuildInputs = [ pkgconfig ];
-
-    /*
-    meta = with lib; {
-      description = "Makes sure your work is properly preserved";
-      longDescription = ''
-        A command line tool to check that git workplaces are properly
-        preserved: that files are tracked, committed, tagged, and on a branch that
-        tracks a remote, is pushed there.
-      '';
-      homepage = https://crates.io/crates/confit;
-      license = licenses.mit; # before submission, need indiecc in nixpkgs
-      maintainers = [ maintainers.nyarly ];
-    };
-    */
   };
 in
 vimUtils.buildVimPlugin {
   name = "vim-markdown-composer-2020-08-14";
   inherit src;
   postInstall = ''
-    target=$out/$rtpPath/$path/share/vim-plugins/vim-markdown-composer/target/release
+    target=$out/$rtpPath/$path/target/release
     mkdir -p $target
     cp ${markdown-composer}/bin/markdown-composer $target
   '';
