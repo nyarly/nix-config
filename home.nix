@@ -24,8 +24,7 @@ let
   licensezero = pkgs.callPackage home/packages/licensezero {};
   rofi-taskwarrior = pkgs.callPackage home/packages/rofi-taskwarrior {};
   confit = pkgs.callPackage home/packages/confit {};
-
-  #vim-markdown-composer = pkgs.callPackage home/packages/vim-markdown-composer.nix {};
+  vim-markdown-composer = pkgs.callPackage home/packages/vim-markdown-composer.nix {};
 
   binScripts = lib.filterAttrs (n: v: lib.isDerivation v) (pkgs.callPackage home/binScripts.nix { pkgs = pkgs // updated; });
 
