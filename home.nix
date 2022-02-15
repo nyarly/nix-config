@@ -24,7 +24,7 @@ let
   licensezero = pkgs.callPackage home/packages/licensezero {};
   rofi-taskwarrior = pkgs.callPackage home/packages/rofi-taskwarrior {};
   confit = pkgs.callPackage home/packages/confit {};
-  jdl-vim-markdown-composer = pkgs.callPackage home/packages/vim-markdown-composer.nix {};
+  #jdl-vim-markdown-composer = pkgs.callPackage home/packages/vim-markdown-composer.nix {};
 
   binScripts = lib.filterAttrs (n: v: lib.isDerivation v) (pkgs.callPackage home/binScripts.nix { pkgs = pkgs // updated; });
 
@@ -437,7 +437,7 @@ in
           vim-legend
           vim-markdown
           {
-            plugin = jdl-vim-markdown-composer;
+            plugin = vim-markdown-composer;
             config = ''
               let g:markdown_composer_browser="google-chrome-stable"
             '';

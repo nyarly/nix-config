@@ -67,17 +67,6 @@
 
   };
 
-  vim-markdown-composer = buildVimPluginFrom2Nix { # created by nix#NixDerivation
-    name = "vim-markdown-composer-2022-01-04";
-    src = fetchgit {
-      url = "https://github.com/euclio/vim-markdown-composer";
-      rev = "010ae3667fb0cb4c63c99439d1a8f81ebdcc849e";
-      sha256 = "1hz0xjq0srv3llb4i6n2sw0pi2s0k3qcwyk6az5icrvkfhbnc0kf";
-    };
-    dependencies = [];
-
-  };
-
   godoctor-vim = buildVimPluginFrom2Nix { # created by nix#NixDerivation
     name = "godoctor-vim-2018-03-28";
     src = fetchgit {
