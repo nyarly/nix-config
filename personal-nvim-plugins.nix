@@ -2,22 +2,22 @@
 {
 
   sideways-vim = buildVimPluginFrom2Nix { # created by nix#NixDerivation
-    name = "sideways-vim-2021-07-15";
+    name = "sideways-vim-2022-02-12";
     src = fetchgit {
       url = "https://github.com/AndrewRadev/sideways.vim";
-      rev = "960afef88aef374d3525e1536bdd505727b42d67";
-      sha256 = "08yj3p31d5gnd3qyv6dcpz87s3kwz1kgcb5h92w83wf64r6fzq61";
+      rev = "ab20cc8a6a7cb95679f99bc4ec724544f9b94c62";
+      sha256 = "01slcxzw485ik7mszj97x67576yw1l7i6imv3rfdn3cv7d216rj8";
     };
     dependencies = [];
 
   };
 
   Colorizer = buildVimPluginFrom2Nix { # created by nix#NixDerivation
-    name = "Colorizer-2021-01-15";
+    name = "Colorizer-2022-02-03";
     src = fetchgit {
       url = "https://github.com/chrisbra/Colorizer";
-      rev = "826d5691ac7d36589591314621047b1b9d89ed34";
-      sha256 = "069f8gqjihjzzv2qmpv3mid55vi52c6yyiijfarxpwmfchby9gc5";
+      rev = "a3882e86cf503e9eea3eece5768bbe3ce9a29fcd";
+      sha256 = "115f0jljjj32qpadpy4bhr9nqb4q1hzb06dr7pnngk8m71bwsg6d";
     };
     dependencies = [];
 
@@ -68,11 +68,11 @@
   };
 
   vim-markdown-composer = buildVimPluginFrom2Nix { # created by nix#NixDerivation
-    name = "vim-markdown-composer-2020-08-14";
+    name = "vim-markdown-composer-2022-01-04";
     src = fetchgit {
       url = "https://github.com/euclio/vim-markdown-composer";
-      rev = "c0f98ec3d6c4cb49455c18f2aeb83c0dcbad1bc4";
-      sha256 = "10vb3p8gksjy8zfzlkhirdsjwgvh1yv19plxwr404x87j393rs7n";
+      rev = "010ae3667fb0cb4c63c99439d1a8f81ebdcc849e";
+      sha256 = "1hz0xjq0srv3llb4i6n2sw0pi2s0k3qcwyk6az5icrvkfhbnc0kf";
     };
     dependencies = [];
 
@@ -200,11 +200,11 @@
   };
 
   ranger-vim = buildVimPluginFrom2Nix { # created by nix#NixDerivation
-    name = "ranger-vim-2021-04-25";
+    name = "ranger-vim-2021-12-13";
     src = fetchgit {
       url = "https://github.com/rafaqz/ranger.vim";
-      rev = "aa2394bd429e98303f2273011f0429ce92105960";
-      sha256 = "0kfhzamryaxhzrwg2rqipcbrnfxnjrfk2bk4f0z27a2hk6c0r7b9";
+      rev = "527c7c5371667f7848da91c2abc75c3998cbf1a0";
+      sha256 = "1rfzv6lxbhfk4xwdmhpc9b0xamfa2lrzc1xi630v1hakscjdjcm1";
     };
     dependencies = [];
 
@@ -288,11 +288,11 @@
   };
 
   vim-unimpaired = buildVimPluginFrom2Nix { # created by nix#NixDerivation
-    name = "vim-unimpaired-2021-09-11";
+    name = "vim-unimpaired-2022-02-02";
     src = fetchgit {
       url = "https://github.com/tpope/vim-unimpaired";
-      rev = "58e4434f5ecadd4f28a521bcabc690e39186a98f";
-      sha256 = "10ylvziwr61djc2jp20a8k2pl8qqn9rff5n4ncc8jcib58lq9r62";
+      rev = "f992923d336e93c7f50fe9b35a07d5a92660ecaf";
+      sha256 = "04l0v2jgkvhkfjj7j5r7x81gq2zwbjh5vh4p860p38razq6aixpl";
     };
     dependencies = [];
 
