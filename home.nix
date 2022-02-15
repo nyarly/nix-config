@@ -1,7 +1,7 @@
-{ lib, config, pkgs, ... }:
+{ lib, config, pkgs, unstable, ... }:
 
 let
-  vimUtils = pkgs.callPackage (<nixpkgs> + "/pkgs/misc/vim-plugins/vim-utils.nix") {hasLuaModule = true;};
+  vimUtils = pkgs.vimUtils.override {hasLuaModule = true;};
 
   inherit (pkgs.callPackage home/loadConfigs.nix {}) transitionalConfigs configFiles;
 
@@ -28,7 +28,6 @@ let
 
   binScripts = lib.filterAttrs (n: v: lib.isDerivation v) (pkgs.callPackage home/binScripts.nix { pkgs = pkgs // updated; });
 
-  unstable = import ./unstable.nix;
   vim-nixhash = unstable.vimPlugins.vim-nixhash;
 in
   {
@@ -55,36 +54,6 @@ in
               (attrNames content)
           )
     );
-
-    # Removed from home.packages:
-    # Belongs in shell.nix:
-    #  licensezero
-    #  graphviz
-    #  html-tidy
-    #  sqlite-interactive
-    #  rustChannels.stable.rust
-    #  fswatch
-    #  gnumake
-    #  go
-    #  lldb
-    #  ruby
-    #  universal-ctags
-    #  inkscape
-    #  solvespace
-    #  gimp
-
-
-    # Not currently using
-    #  mailpile
-    #  fira-code #source for monofur ideas
-    #  gnugo
-    #  wxcam
-    #  dynamic-colors
-    #
-    # License issues
-    #  ec2_ami_tools # unfree Amazon license
-    #  ec2_api_tools
-    #  adobe-reader #marked insecure
 
     gtk = {
       iconTheme = {
@@ -121,7 +90,6 @@ in
         pass-genphrase
         pass-otp
       ]))
-      pinfo
       plasma-desktop #needed for xembed-sni-proxy
       ranger # in vim
       ripgrep
@@ -139,7 +107,6 @@ in
 
       jq
       updated.go-jira
-      clair
       updated.trivy
 
       # GUI
@@ -149,12 +116,12 @@ in
       unstable.rofi-pass
 
       gucharmap
-      updated.meld
+      #updated.
+      meld
       nitrogen
       shutter
       postman
 
-      nix-prefetch-git
       rnix-lsp
       mark
     ] ++
@@ -456,18 +423,14 @@ in
           typescript-vim
           ultisnips
           vim-abolish
-          #vim-actionscript
           vim-airline
           vim-airline-themes
           vim-closetag
-          #vim-coffee-script
-          # vim-delve
           vim-cue
           vim-endwise
           vim-fish
           vim-fugitive
           vim-go
-          #vim-indent-guides
           vim-javascript
           vim-jsx
           vim-jsx-typescript
@@ -491,7 +454,7 @@ in
           vim-unimpaired
           webapi-vim
         ];
-        # deoplete-rust # ALE?
+        # deoplete-rust # ALE
         # floobits-neovim # I think it needs it's Python lib...
         # LanguageClient-neovim # ALE is all-in-one
       };
