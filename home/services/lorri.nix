@@ -40,12 +40,6 @@ in
     };
 
     config = mkIf cfg.enable {
-      programs.direnv.stdlib = ''
-        # from services/lorri.nix
-        use_lorri() {
-          eval "$(lorri direnv)"
-        }
-      '';
 
       home.packages =  [
         lorri
