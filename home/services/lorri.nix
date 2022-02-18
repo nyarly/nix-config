@@ -3,55 +3,55 @@
 with lib;
 
 let
-  lorriSrc = builtins.fetchGit {
-    url = "https://github.com/nyarly/lorri.git";
-    ref = "stream_events";
-    rev = "5563ab2e05547a3caac0f95e224571d2bc713252";
-  };
-
-  lorri = (lowPrio ((import lorriSrc) {}));
-
-  daemonPath = lib.makeSearchPath "bin" (with pkgs; [ nix gnutar gzip git mercurial ]);
-
-  notifyPath = lib.makeSearchPath "bin" [ pkgs.bash pkgs.jq pkgs.findutils pkgs.libnotify lorri ];
-
   cfg = config.services.jdl-lorri;
 
-  jqFiles = builtins.readFile ./notify-filter.jq;
+  jqFile = ''
+    (
+      (.Started?   | values | "Build starting in \(.nix_file)"),
+      (.Completed? | values | "Build complete in \(.nix_file)"),
+      (.Failure?   | values | "Build failed in \(.nix_file)")
+    )
+  '';
 
   notifyScript = pkgs.writeTextFile {
     name = "lorri_notify";
     executable = true;
     text = ''
-            #! /usr/bin/env bash
+      #! /usr/bin/env bash
 
-            lorri internal__stream_events --kind live |\
-            jq --unbuffered '${jqFiles}' |\
-            xargs -n 1 notify-send "Lorri Build"
+      lorri internal stream-events --kind live |\
+      jq --unbuffered '${jqFile}' |\
+      xargs -n 1 notify-send "Lorri Build"
     '';
   };
 
 in
   {
-    options = {
-      services.jdl-lorri = {
-        enable = mkEnableOption "jdl-lorri";
+    options.services.jdl-lorri = {
+      enable = mkEnableOption "jdl-lorri";
+
+      package = mkOption {
+        type = types.package;
+        default = pkgs.lorri;
+        defaultText = literalExpression "pkgs.lorri";
+        description = "Which lorri package to install.";
+      };
+
+      nixPackage = mkOption {
+        type = types.package;
+        default = pkgs.nix;
+        defaultText = literalExpression "pkgs.nix";
+        description = "Which nix package to use.";
       };
     };
 
     config = mkIf cfg.enable {
 
       home.packages =  [
-        lorri
+        cfg.package
       ];
 
       systemd.user = {
-        sockets.lorri = {
-          Unit = { Description = "lorri build daemon"; };
-          Socket = { ListenStream = "%t/lorri/daemon.socket"; };
-          Install = { WantedBy = [ "sockets.target" ]; };
-        };
-
         services.lorri = {
           Unit = {
             Description = "lorri build daemon";
@@ -63,13 +63,25 @@ in
           };
 
           Service = {
-            ExecStart = "${lorri}/bin/lorri daemon";
+            ExecStart = "${cfg.package}/bin/lorri daemon";
             PrivateTmp = true;
             ProtectSystem = "strict";
             WorkingDirectory = "%h";
             Restart = "on-failure";
-            Environment = "PATH=${daemonPath} RUST_BACKTRACE=1";
+            Environment = let
+              path = with pkgs;
+                makeSearchPath "bin" [ cfg.nixPackage gnutar gzip git mercurial ];
+            in "PATH=${path} RUST_BACKTRACE=1";
           };
+        };
+
+        sockets.lorri = {
+          Unit = { Description = "lorri build daemon"; };
+          Socket = {
+            ListenStream = "%t/lorri/daemon.socket";
+            RuntimeDirectory = "lorri";
+          };
+          Install = { WantedBy = [ "sockets.target" ]; };
         };
 
         services.lorri-notify = {
@@ -82,7 +94,10 @@ in
           Service = {
             ExecStart = toString notifyScript;
             Restart = "on-failure";
-            Environment = "PATH=${notifyPath} RUST_BACKTRACE=1";
+            Environment = let
+              path = with pkgs;
+                makeSearchPath "bin" [ bash jq findutils libnotify cfg.package ];
+            in "PATH=${path} RUST_BACKTRACE=1";
           };
         };
       };

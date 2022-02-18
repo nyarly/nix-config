@@ -36,7 +36,7 @@ in
       # home/services/restart-taffybar.nix
       home/services/scdaemon-notify.nix
       home/services/nm-applet.nix
-      # home/services/lorri.nix
+      home/services/lorri.nix
       home/services/my-polybar.nix
 
       home/programs/scdaemon.nix
@@ -482,7 +482,10 @@ in
 
       scdaemonNotify.enable = true;
 
-      lorri.enable = true;
+      jdl-lorri = {
+        enable = true;
+        nixPackage = pkgs.nixUnstable;
+      };
 
       keynav.enable = true;
 
