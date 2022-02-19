@@ -484,6 +484,7 @@ in
 
       jdl-lorri = {
         enable = true;
+        notify = true;
         nixPackage = pkgs.nixUnstable;
       };
 

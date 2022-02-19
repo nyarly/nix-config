@@ -25,81 +25,88 @@ let
     '';
   };
 
-in
-  {
-    options.services.jdl-lorri = {
-      enable = mkEnableOption "jdl-lorri";
+in {
 
-      package = mkOption {
-        type = types.package;
-        default = pkgs.lorri;
-        defaultText = literalExpression "pkgs.lorri";
-        description = "Which lorri package to install.";
-      };
 
-      nixPackage = mkOption {
-        type = types.package;
-        default = pkgs.nix;
-        defaultText = literalExpression "pkgs.nix";
-        description = "Which nix package to use.";
-      };
+
+  options.services.jdl-lorri = {
+    enable = mkEnableOption "jdl-lorri";
+
+    notify = mkEnableOption "jdl-lorri-notify";
+
+    package = mkOption {
+      type = types.package;
+      default = pkgs.lorri;
+      defaultText = literalExpression "pkgs.lorri";
+      description = "Which lorri package to install.";
     };
 
-    config = mkIf cfg.enable {
+    nixPackage = mkOption {
+      type = types.package;
+      default = pkgs.nix;
+      defaultText = literalExpression "pkgs.nix";
+      description = "Which nix package to use.";
+      example = literalExpression "pkgs.nixUnstable";
+    };
+  };
 
-      home.packages =  [
-        cfg.package
-      ];
+  config = mkIf cfg.enable {
 
-      systemd.user = {
-        services.lorri = {
-          Unit = {
-            Description = "lorri build daemon";
-            Documentation = "https://github.com/target/lorri";
-            ConditionUser = "!@system";
-            Requires = "lorri.socket";
-            After = "lorri.socket";
-            RefuseManualStart = true;
-          };
 
-          Service = {
-            ExecStart = "${cfg.package}/bin/lorri daemon";
-            PrivateTmp = true;
-            ProtectSystem = "strict";
-            WorkingDirectory = "%h";
-            Restart = "on-failure";
-            Environment = let
-              path = with pkgs;
-                makeSearchPath "bin" [ cfg.nixPackage gnutar gzip git mercurial ];
-            in "PATH=${path} RUST_BACKTRACE=1";
-          };
+
+
+
+    home.packages =  [ cfg.package ];
+
+    systemd.user = {
+      services.lorri = {
+        Unit = {
+          Description = "lorri build daemon";
+          Documentation = "https://github.com/target/lorri";
+          ConditionUser = "!@system";
+          Requires = "lorri.socket";
+          After = "lorri.socket";
+          RefuseManualStart = true;
         };
 
-        sockets.lorri = {
-          Unit = { Description = "lorri build daemon"; };
-          Socket = {
-            ListenStream = "%t/lorri/daemon.socket";
-            RuntimeDirectory = "lorri";
-          };
-          Install = { WantedBy = [ "sockets.target" ]; };
+        Service = {
+          ExecStart = "${cfg.package}/bin/lorri daemon";
+          PrivateTmp = true;
+          ProtectSystem = "strict";
+          WorkingDirectory = "%h";
+          Restart = "on-failure";
+          Environment = let
+            path = with pkgs;
+              makeSearchPath "bin" [ cfg.nixPackage gnutar gzip git mercurial ];
+          in "PATH=${path} RUST_BACKTRACE=1";
+        };
+      };
+
+      sockets.lorri = {
+        Unit = { Description = "lorri build daemon"; };
+        Socket = {
+          ListenStream = "%t/lorri/daemon.socket";
+          RuntimeDirectory = "lorri";
+        };
+        Install = { WantedBy = [ "sockets.target" ]; };
+      };
+
+      services.lorri-notify = mkIf (cfg.notify) {
+        Unit = {
+          Description = "lorri build notifications";
+          After = "lorri.service";
+          Requires = "lorri.service";
         };
 
-        services.lorri-notify = {
-          Unit = {
-            Description = "lorri build notifications";
-            After = "lorri.service";
-            Requires = "lorri.service";
-          };
-
-          Service = {
-            ExecStart = toString notifyScript;
-            Restart = "on-failure";
-            Environment = let
-              path = with pkgs;
-                makeSearchPath "bin" [ bash jq findutils libnotify cfg.package ];
-            in "PATH=${path} RUST_BACKTRACE=1";
-          };
+        Service = {
+          ExecStart = toString notifyScript;
+          Restart = "on-failure";
+          Environment = let
+            path = with pkgs;
+              makeSearchPath "bin" [ bash jq findutils libnotify cfg.package ];
+          in "PATH=${path} RUST_BACKTRACE=1";
         };
       };
     };
-  }
+  };
+}
