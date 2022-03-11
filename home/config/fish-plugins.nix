@@ -20,13 +20,6 @@ in
     sha256 = "1jk6kly62h8qpwqz71fpa7wyb3xwkfsp6b3q8p3ciqv62c0drfkk";
   })
   (plugin {
-    name = "fish-get";
-    owner = "fishpkg";
-    repo = "fish-get";
-    rev = "04e800c0efd3adc2121a422ddb41ced68b6ca946";
-    sha256 = "1xj6vy250p96rh66zzg479w9ah0x7z0jzfdjapflxxz8idxhsl6x";
-  })
-  (plugin {
     name = "plugin-fasd";
     owner = "oh-my-fish";
     repo = "plugin-fasd";
