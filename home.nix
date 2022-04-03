@@ -123,9 +123,7 @@ in
 
       bottom = {
         enable = true;
-        settings = {
-          color = "gruvbox-light";
-        };
+        settings.flags.color = "gruvbox-light";
       };
 
       htop = {
@@ -625,7 +623,7 @@ in
 
       setupGitGpg = ''
         $DRY_RUN_CMD cd $HOME/.config/git
-        $DRY_RUN_CMD ln -sfn sign-with-fd7a96 secret
+        $DRY_RUN_CMD ln -s sign-with-fd7a96 secret || echo "secret already linked"
         '';
     };
 
