@@ -10,8 +10,6 @@ let
     inherit (vimUtils) buildVimPluginFrom2Nix;
   };
 
-  myBundix = pkgs.callPackage home/packages/bundix.nix {};
-
   rhet-butler = pkgs.callPackage home/packages/rhet-butler {};
 
   updated = {
@@ -29,6 +27,8 @@ let
   binScripts = lib.filterAttrs (n: v: lib.isDerivation v) (pkgs.callPackage home/binScripts.nix { pkgs = pkgs // updated; });
 
   vim-nixhash = unstable.vimPlugins.vim-nixhash;
+
+  yubikeys = [ "fd7a96" "574947" ];
 in
   {
     imports = [
@@ -43,17 +43,6 @@ in
     ];
 
     nixpkgs.config = import ./config.nix;
-    nixpkgs.overlays = with builtins; (
-      let
-        content = readDir ./overlays;
-      in
-        map (n: import (./overlays + ("/" + n)))
-          (
-            filter
-              (n: match ".*\\.nix" n != null || pathExists (./overlays + ("/" + n + "/default.nix")))
-              (attrNames content)
-          )
-    );
 
     gtk = {
       iconTheme = {
@@ -70,8 +59,7 @@ in
       procs
       bat
       exa
-      fd
-      sd
+      kalker
       rofi-taskwarrior
       confit
 
@@ -102,12 +90,11 @@ in
       # updated.signal
 
       unstable.gitAndTools.gh
-      unstable.gitFull
       gist
 
       jq
-      updated.go-jira
-      updated.trivy
+      go-jira # >1.0.24
+      trivy # >= 0.20
 
       # GUI
       dunst
@@ -116,7 +103,6 @@ in
       unstable.rofi-pass
 
       gucharmap
-      #updated.
       meld
       nitrogen
       shutter
@@ -124,6 +110,8 @@ in
 
       rnix-lsp
       mark
+      terraform-ls
+      tflint
     ] ++
     (builtins.attrValues binScripts);
 
@@ -132,6 +120,13 @@ in
     programs = {
       # Let Home Manager install and manage itself.
       home-manager.enable = true;
+
+      bottom = {
+        enable = true;
+        settings = {
+          color = "gruvbox-light";
+        };
+      };
 
       htop = {
         enable = true;
@@ -167,10 +162,7 @@ in
       };
 
       ssh = let
-        pubkeys = [
-            "~/.ssh/yubi-fd7a96.pub"
-            "~/.ssh/yubi-574947.pub"
-          ];
+        pubkeys = map (s: "~/.ssh/yubi-${s}.pub") yubikeys;
       in
       {
         enable = true;
@@ -243,7 +235,7 @@ in
           dt = "difftool -d";
         };
         signing = {
-          key = "9A3F82AA";
+          key = null;
           signByDefault = true;
         };
         ignores = [
@@ -383,10 +375,13 @@ in
 
       neovim = {
         enable = true;
+        package = unstable.neovim-unwrapped;
         extraConfig = (import home/config/neovim/manifest.nix) lib;
         #withNodeJs = true; # defaults false
 
         plugins = with pkgs.vimPlugins; with localNvimPlugins; [
+          nvim-treesitter
+
           ale
           Colorizer
           deoplete-go
@@ -595,10 +590,6 @@ in
       ".tmux.conf".source = home/config/tmux.conf;
       ".local/share/fonts/monofur/monof56.ttf".source = home/fonts/monof55.ttf;
       ".local/share/fonts/monofur/monof55.ttf".source = home/fonts/monof56.ttf;
-      ".ssh/yubi-fd7a96.pub".source = home/ssh/yubi-fd7a96.pub;
-      ".ssh/yubi-574947.pub".source = home/ssh/yubi-574947.pub;
-      ".gnupg/yubi-fd7a96.pub".source = home/gnupg/yubi-fd7a96.pub.gpg;
-      ".gnupg/yubi-574947.pub".source = home/gnupg/yubi-574947.pub.gpg;
       "Data/Wallpaper/rotsnakes-tile.png".source = home/blobs/rotsnakes-tile.png;
       ".task/keys/ca.cert".source = home/task/keys/ca.cert;
       ".ssh/control" = {
@@ -606,24 +597,36 @@ in
         source = home/ssh/control;
       };
     }
+    // builtins.listToAttrs (builtins.concatMap (k: [
+      {name = ".ssh/yubi-${k}.pub"; value = {source = home/ssh + "/yubi-${k}.pub" ;};}
+      {name = ".gnupg/yubi-${k}.pub"; value = {source = home/gnupg + "/yubi-${k}.pub.gpg" ;};}
+      {name = ".config/git/sign-with-${k}"; value = {source = home/config/git + "/sign-with-${k}" ;};}
+    ]) yubikeys)
     // configFiles home/bin "bin"
     // configFiles home/config/git/hooks ".git_template/hooks"
     // configFiles home/config/git/hooks ".config/git/hooks"
     // configFiles home/config/go-jira ".jira.d";
 
-    home.activation = {
-      chownSSH = lib.hm.dag.entryAfter ["writeBoundary"] ''
+    home.activation = let
+      mkAct = k: v: lib.hm.dag.entryAfter ["writeBoundary"] v;
+    in
+    builtins.mapAttrs mkAct {
+      chownSSH = ''
         $DRY_RUN_CMD chmod -R og= $HOME/.ssh
       '';
-      chownGPG = lib.hm.dag.entryAfter ["writeBoundary"] ''
+      chownGPG = ''
         $DRY_RUN_CMD chmod -R og= $HOME/.gnupg
       '';
-      # this revolting hack until
-      #https://github.com/alacritty/alacritty/pull/5313
-      materializeAlacritty = lib.hm.dag.entryAfter ["writeBoundary"] ''
+
+      materializeAlacritty = ''
         CFG=$HOME/.config/alacritty/alacritty
         $DRY_RUN_CMD cp -f $CFG-hm.yml $CFG.yml
       '';
+
+      setupGitGpg = ''
+        $DRY_RUN_CMD cd $HOME/.config/git
+        $DRY_RUN_CMD ln -sfn sign-with-fd7a96 secret
+        '';
     };
 
 

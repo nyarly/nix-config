@@ -7,8 +7,10 @@ let g:ale_linters = {
       \ 'rust': ['rls']
       \}
 let g:ale_fixers = {
-      \'ruby': 'rubocop',
-      \'rust': ['rustfmt']
+      \'*': ['remove_trailing_lines', 'trim_whitespace'],
+      \'ruby': ['rubocop'],
+      \'rust': ['rustfmt'],
+      \'terraform': ['terraform']
       \}
 
 let g:ale_rust_rls_toolchain = ''
