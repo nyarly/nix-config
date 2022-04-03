@@ -250,6 +250,14 @@ in
           ".nix-gc/"
           ".taskrc"
         ];
+
+        delta = {
+          enable = true;
+          options = {
+            light = true;
+          };
+        };
+
         includes = [
           # condition = ? # something about "if it exists"?
           { path = "~/.config/git/secret"; }
@@ -308,6 +316,7 @@ in
             };
           };
 
+
           diff.rawtext.textconv = "~/.config/git/trimwhite.sh";
 
           filter.trimwhite.clean = "~/.config/git/trimwhite.sh";
@@ -362,9 +371,6 @@ in
           set -x GIT_SSH ssh # Otherwise Go overrides ControlMaster
           set -x BROWSER google-chrome-stable
           bind \e\; 'commandline -r -t (commandline -t | sed \"s/:\(\d*\)/ +\1/\")'
-          while [ (type -t sd) = function ]
-            functions -e sd
-          end
           ${pkgs.direnv}/bin/direnv export fish | source
         '' + "\n" + configs home/config/fish/interactive ;
 
