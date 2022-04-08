@@ -26,7 +26,6 @@ set mouse=a
 "   c really useful for echodoc
 set shortmess+=IcOtT
 set number
-"set relativenumber "more confusing than useful
 set cursorline
 set noshowmode
 set foldlevelstart=2

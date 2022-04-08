@@ -17,6 +17,7 @@ lib.concatStringsSep "\n" (map (p: "\"${p}\n${builtins.readFile p}\n") [
   ./plugin-config/airline.vim
   ./plugin-config/IndentLine.vim
   ./plugin-config/vim-markdown.vim
+  ./plugin-config/nvim-treesitter.vim
   ./init.vim
   ./packloadall.vim # <<-- this is where plugins load
   ./plugin-config/deoplete-loaded.vim
@@ -39,7 +40,6 @@ lib.concatStringsSep "\n" (map (p: "\"${p}\n${builtins.readFile p}\n") [
   ./xterm-color-table.vim
   ./toggle-folding.vim
   ./center-jump.vim
-  ./SimpleFold.vim
   ./blase-swapfile.vim
   #./plugin-config/indent-guides.vim
   #./plugin-config/ag.vim
