@@ -7,6 +7,12 @@ require'nvim-treesitter.configs'.setup {
     -- disable = { "c", "rust" },  -- list of language that will be disabled
   },
   incremental_selection = { enable = true },
-  indent = { enable = true },
+  indent = {
+    enable = true ,
+    disable = { "yaml" },
+  }
 }
 EOF
+
+set foldmethod=expr
+set foldexpr=nvim_treesitter#foldexpr()

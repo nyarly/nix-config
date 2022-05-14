@@ -16,7 +16,7 @@ let
     signal = pkgs.callPackage home/packages/signal-desktop.nix {};
     go-jira = pkgs.callPackage home/packages/go-jira.nix {};
     meld = pkgs.callPackage home/packages/meld.nix {};
-    trivy = pkgs.callPackage home/packages/trivy.nix {};
+    # trivy = pkgs.callPackage home/packages/trivy.nix {}; # >= 0.20
   };
   onepassword = pkgs.callPackage home/packages/onepassword.nix {};
   licensezero = pkgs.callPackage home/packages/licensezero {};
@@ -94,7 +94,7 @@ in
 
       jq
       go-jira # >1.0.24
-      trivy # >= 0.20
+      trivy
 
       # GUI
       dunst
@@ -265,7 +265,6 @@ in
         # can be attrs converted...
         extraConfig = {
           core = {
-            fsyncobjectfiles = false;
             hooksPath = "~/.config/git/hooks";
           };
           branch.autosetupmerge = true;

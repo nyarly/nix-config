@@ -1,0 +1,25 @@
+#!/usr/bin/env fish
+
+echo "# generated with bin/project-contexts"
+for p in (task _unique project)
+  if echo $p | grep -q 'null'
+    continue
+  end
+  set -l context (string lower $p)
+  set -l context (string replace -a " " "" $context)
+  set -l context (string replace -a "." "_" $context)
+  echo "context."$context".read = project:"$p
+  echo "context."$context".write = project:"$p
+end
+
+for t in (task _tags)
+  if echo $t | grep -q '^[A-Z]*$'
+    continue
+  end
+  set -l context (string lower $t)
+  set -l context (string replace -a " " "" $context)
+  set -l context (string replace -a "." "_" $context)
+  set -l context "tag_$context"
+  echo "context."$context".read = tag:"$t
+  echo "context."$context".write = tag:"$t
+end

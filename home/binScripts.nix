@@ -32,4 +32,5 @@ in
     "toggle-scheme" = [fish gnugrep gnused];
     "dim-screen" = [bash xorg.xbacklight];
     "quick-jira-task" = [fish gnugrep yq-go];
+    "project-contexts" = [fish];
   })

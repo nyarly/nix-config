@@ -11,3 +11,4 @@ abbr -a -g -- ls exa
 abbr -a -g -- ghpr 'gh pr create --title (bjtitle)'
 abbr -a -g -- ghmd 'pr merge --auto --merge --delete-branch'
 abbr -a -g -- ghprmd 'gh pr create --title (bjtitle); and gh pr merge --auto --merge --delete-branch'
+abbr -a -g -- bc 'kalker'

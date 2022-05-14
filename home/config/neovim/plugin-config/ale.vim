@@ -8,10 +8,10 @@ let g:ale_linters = {
       \}
 let g:ale_fixers = {
       \'*': ['remove_trailing_lines', 'trim_whitespace'],
-      \'json': ['jq'],
-      \'ruby': ['rubocop'],
-      \'rust': ['rustfmt'],
-      \'terraform': ['terraform']
+      \'json': ['jq', 'remove_trailing_lines', 'trim_whitespace'],
+      \'ruby': ['rubocop', 'remove_trailing_lines', 'trim_whitespace'],
+      \'rust': ['rustfmt', 'remove_trailing_lines', 'trim_whitespace'],
+      \'terraform': ['terraform', 'remove_trailing_lines', 'trim_whitespace']
       \}
 
 let g:ale_rust_rls_toolchain = ''
