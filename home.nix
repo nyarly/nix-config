@@ -108,6 +108,7 @@ in
       shutter
       postman
 
+      pandoc
       rnix-lsp
       mark
       terraform-ls
