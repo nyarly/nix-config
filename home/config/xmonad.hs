@@ -1,9 +1,10 @@
 import XMonad
 import qualified Data.Map as M
 import XMonad.Hooks.DynamicLog
-import XMonad.Hooks.EwmhDesktops        (ewmh)
+import XMonad.Hooks.EwmhDesktops        (ewmh, setEwmhActivateHook)
 import XMonad.Hooks.ManageDocks
 import XMonad.Hooks.Focus
+import XMonad.Hooks.ManageHelpers
 import XMonad.Layout
 import XMonad.Layout.Reflect
 import XMonad.Layout.Fullscreen
@@ -132,13 +133,13 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList ([
 newKeys x = myKeys x `M.union` keys def x
 
 activateFocusHook :: FocusHook
-activateFocusHook = composeOne [ new(className =? "zoom") -?> keepFocus , Just(switchWorkspace <> switchFocus) ]
+activateFocusHook = composeOne [ new(className =? "zoom") -?> keepFocus , return True -?> (switchWorkspace <> switchFocus) ]
 
 
 newFocusHook :: FocusHook
 -- new (className =? "Gmrun") -?> switchFocus
 -- , focused (className =? "Gmrun") -?> keepFocus
-newFocusHook = composeOne [ new(className =? "zoom") -?> keepFocus, Just(switchFocus) ]
+newFocusHook = composeOne [ new(className =? "zoom") -?> keepFocus, return True -?> switchFocus ]
 
 myManageHook = (composeAll . concat $ [
     [manageZoomHook]
@@ -159,9 +160,9 @@ main = xmonad $
            , terminal = "alacritty"
            , startupHook = startup
            , layoutHook = myLayout
-           , logHook = dynamicLogString defaultPP >>= xmonadPropLog
+           , logHook = dynamicLogString def >>= xmonadPropLog
            , manageHook = myManageHook <+> manageHook def
-           , handleEventHook = mconcat [ dynamicTitle manageZoomHook, docksEventHook, handleEventHook defaultConfig ]
+           , handleEventHook = mconcat [ dynamicTitle manageZoomHook, handleEventHook def]
            , workspaces = myWorkspaces
            , keys = newKeys
            , normalBorderColor  = "#aaaaaa"
