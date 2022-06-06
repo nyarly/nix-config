@@ -8,8 +8,6 @@
   };
 in
 {
-  allowUnfree = true;
-
   permittedInsecurePackages = [
     "mailpile-1.0.0rc2"
   ];
@@ -24,4 +22,8 @@ in
       xmlSupport = true;
     };
   };
+  nixpkgs.config.allowUnfreePredicate = pkg: let
+    pkgname = (builtins.parseDrvName pkg.name or pkg.pname).name;
+  in
+    pkgname == "postman";
 }

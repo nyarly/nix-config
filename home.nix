@@ -42,7 +42,7 @@ in
       home/programs/scdaemon.nix
     ];
 
-    nixpkgs.config = import ./config.nix;
+    nixpkgs.config = import ./nixpkgs-config.nix;
 
     gtk = {
       iconTheme = {
@@ -70,7 +70,7 @@ in
       fractal
       illum # should be made a service
       inetutils
-      manpages
+      man-pages
       moreutils
       nftables
       (pass.withExtensions (ext: with ext; [
@@ -371,7 +371,7 @@ in
           set -x GIT_SSH ssh # Otherwise Go overrides ControlMaster
           set -x BROWSER google-chrome-stable
           bind \e\; 'commandline -r -t (commandline -t | sed \"s/:\(\d*\)/ +\1/\")'
-          ${pkgs.direnv}/bin/direnv export fish | source
+          direnv export fish | source
         '' + "\n" + configs home/config/fish/interactive ;
 
         plugins = import home/config/fish-plugins.nix { inherit (pkgs) fetchFromGitHub; };
@@ -678,6 +678,7 @@ in
       "git/trimwhite.sh".source = home/config/git/trimwhite.sh;
       "rofi-pass/config".source = home/config/rofi-pass;
       "alacritty/alacritty-hm.yml".source = home/config/alacritty.yml;
+      "nixpkgs/config.nix".source = ./nixpkgs-config.nix;
     }
     // configFiles home/config/neovim/ftplugin "nvim/after/ftplugin"
     // configFiles home/config/hexchat "hexchat"
@@ -689,9 +690,7 @@ in
       windowManager.xmonad = {
         enable = true;
         enableContribAndExtras = true;
-        extraPackages = pkgs: [
-          # pkgs.taffybar
-        ];
+        # extraPackages = hpkgs: [ ];
         config = home/config/xmonad.hs;
       };
     };

@@ -3,6 +3,7 @@ import qualified Data.Map as M
 import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.EwmhDesktops        (ewmh)
 import XMonad.Hooks.ManageDocks
+import XMonad.Hooks.Focus
 import XMonad.Layout
 import XMonad.Layout.Reflect
 import XMonad.Layout.Fullscreen
@@ -130,15 +131,29 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList ([
      )
 newKeys x = myKeys x `M.union` keys def x
 
-myManageHook = composeAll [
-    manageZoomHook
-  , className =? "pinentry" --> doFloat
-  , className =? "Pinentry" --> doFloat
-  ]
+activateFocusHook :: FocusHook
+activateFocusHook = composeOne [ new(className =? "zoom") -?> keepFocus , Just(switchWorkspace <> switchFocus) ]
+
+
+newFocusHook :: FocusHook
+-- new (className =? "Gmrun") -?> switchFocus
+-- , focused (className =? "Gmrun") -?> keepFocus
+newFocusHook = composeOne [ new(className =? "zoom") -?> keepFocus, Just(switchFocus) ]
+
+myManageHook = (composeAll . concat $ [
+    [manageZoomHook]
+  , [className =? "pinentry" --> doFloat]
+  , [className =? "Pinentry" --> doFloat]
+  , [className =? c --> doShift (myWorkspaces !! 3) | c <- chatS ]
+  , [className =? c --> doShift (myWorkspaces !! 9) | c <- zoomS ]
+  ])
+  where
+  chatS = ["signal", "hexchat", "fractal"]
+  zoomS = ["zoom"]
 
 main = xmonad $
+       setEwmhActivateHook (manageFocus activateFocusHook) $
        ewmh $
-       -- pagerHints $
        docks $
        def { modMask = mod4Mask  -- super instead of alt (usually Windows key)
            , terminal = "alacritty"
