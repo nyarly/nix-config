@@ -145,8 +145,8 @@ myManageHook = (composeAll . concat $ [
     [manageZoomHook]
   , [className =? "pinentry" --> doFloat]
   , [className =? "Pinentry" --> doFloat]
-  , [className =? c --> doShift (myWorkspaces !! 3) | c <- chatS ]
-  , [className =? c --> doShift (myWorkspaces !! 9) | c <- zoomS ]
+  , [className =? c --> doShift (myWorkspaces !! 2) | c <- chatS ]
+  , [className =? c --> doShift (myWorkspaces !! 8) | c <- zoomS ]
   ])
   where
   chatS = ["signal", "hexchat", "fractal"]

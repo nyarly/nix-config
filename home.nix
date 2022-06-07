@@ -436,7 +436,7 @@ in
           vim-legend
           vim-markdown
           {
-            plugin = vim-markdown-composer;
+            plugin = unstable.vimPlugins.vim-markdown-composer;
             config = ''
               let g:markdown_composer_browser="google-chrome-stable"
             '';

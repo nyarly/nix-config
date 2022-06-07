@@ -1,7 +1,14 @@
 lua <<EOF
 require'nvim-treesitter.configs'.setup {
-  ensure_installed = "maintained", -- one of "all", "maintained" (parsers with maintainers), or a list of languages
-  -- ignore_install = { "javascript" }, -- List of parsers to ignore installing
+  ensure_installed = { "bash", "bibtex", "c", "c_sharp", "clojure", "cmake",
+  "comment", "commonlisp", "cpp", "css", "dart", "dockerfile", "dot", "erlang", "fish",
+  "go", "gomod", "graphql", "hcl", "html", "java",
+  -- "javascript",
+  "jsdoc", "json", "json5", "jsonc", "latex", "lua", "nix", "ocaml",
+  "ocaml_interface", "python", "query", "regex", "rst", "ruby", "rust",
+  "scss", "sparql", "tlaplus", "toml", "tsx", "turtle", "typescript", "vim",
+  "vue", "yaml", },
+
   highlight = {
     enable = true,              -- false will disable the whole extension
     -- disable = { "c", "rust" },  -- list of language that will be disabled

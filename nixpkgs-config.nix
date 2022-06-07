@@ -12,12 +12,11 @@
     };
   };
 
-  allowUnfree = true;
-#  Predicate = pkg: let
-#    pkgname = (builtins.parseDrvName pkg.name or pkg.pname).name;
-#  in
-#  builtins.elem pkgname [
-#    "postman"
-#    "cockroach"
-#  ];
+  allowUnfreePredicate = pkg: let
+    pkgname = (builtins.parseDrvName pkg.name or pkg.pname).name;
+  in
+  builtins.elem pkgname [
+    "postman"
+    "cockroach"
+  ];
 }
