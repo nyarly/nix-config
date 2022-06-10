@@ -18,5 +18,7 @@
   builtins.elem pkgname [
     "postman"
     "cockroach"
+
+    "cloudflared"
   ];
 }
