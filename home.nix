@@ -113,6 +113,10 @@ in
       mark
       terraform-ls
       tflint
+
+      languagetool
+      proselint
+      vale
     ] ++
     (builtins.attrValues binScripts);
 
