@@ -86,7 +86,7 @@ in
       wmctrl
       xorg.xmessage
 
-      signal-desktop # expired in stable
+      signal-desktop
       # updated.signal
 
       unstable.gitAndTools.gh
@@ -95,6 +95,8 @@ in
       jq
       go-jira # >1.0.24
       trivy
+      docker-compose
+      bind # for dig
 
       # GUI
       dunst
