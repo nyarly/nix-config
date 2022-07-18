@@ -573,7 +573,6 @@ in
         maxCacheTtlSsh = 86400;
         enableSshSupport = true;
         extraConfig = ''
-        write-env-file ${config.home.homeDirectory}/.gpg-agent-info
         '';
       };
 
