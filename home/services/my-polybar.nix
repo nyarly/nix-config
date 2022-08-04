@@ -106,7 +106,7 @@ in {
 
   config = mkIf cfg.enable {
     home.packages = [ cfg.package ];
-    xdg.configFile."polybar/config".source = configFile;
+    xdg.configFile."polybar/config.ini".source = configFile;
 
     systemd.user.services."polybar@" = {
       Unit = {
@@ -114,7 +114,7 @@ in {
         After = [ "graphical-session-pre.target" ];
         PartOf = [ "graphical-session.target" ];
         X-Restart-Triggers =
-          [ "${config.xdg.configFile."polybar/config".source}" ];
+          [ "${config.xdg.configFile."polybar/config.ini".source}" ];
       };
 
       Service = {

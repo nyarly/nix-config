@@ -53,14 +53,13 @@ mainDown = windows (W.focusUp     . W.swapDown)
 
 manageZoomHook =
   composeAll $
-    [ (className =? zoomClassName) <&&> shouldFloat <$> title --> doFloat,
-      (className =? zoomClassName) <&&> shouldSink <$> title --> doSink
-    ]
+    [ (className =? zoomClassName) <&&> shouldFloat <$> title --> doFloat | zoomClassName <- zoomClassNames ] ++
+    [ (className =? zoomClassName) <&&> shouldSink <$> title --> doSink | zoomClassName <- zoomClassNames]
   where
-    zoomClassName = "zoom"
+    zoomClassNames = [ "zoom", ".zoom", ".zoom " ]
     tileTitles = [ "Zoom - Free Account",
         "Zoom - Licensed Account",
-        "Zoom",
+        -- "Zoom",
         "Zoom Meeting"
       ]
     shouldFloat title = title `notElem` tileTitles
@@ -150,7 +149,7 @@ myManageHook = (composeAll . concat $ [
   ])
   where
   chatS = ["signal", "hexchat", "fractal"]
-  zoomS = ["zoom"]
+  zoomS = ["zoom", ".zoom", ".zoom "]
 
 main = xmonad $
        setEwmhActivateHook (manageFocus activateFocusHook) $

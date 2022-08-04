@@ -684,6 +684,7 @@ in
       "rofi-pass/config".source = home/config/rofi-pass;
       "alacritty/alacritty-hm.yml".source = home/config/alacritty.yml;
       "nixpkgs/config.nix".source = ./nixpkgs-config.nix;
+      "keynav/keynavrc".source = home/config/keynavrc;
     }
     // configFiles home/config/neovim/ftplugin "nvim/after/ftplugin"
     // configFiles home/config/hexchat "hexchat"

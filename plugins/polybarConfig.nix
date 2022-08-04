@@ -48,7 +48,7 @@ in
       font-3 = "DejaVu Sans";
 
       modules-left = "ewmh xwindow";
-      modules-center = "taskwarrior github";
+      modules-center = "taskwarrior";
       modules-right = "date zebratime memory battery cpu pulseaudio";
 
       tray-position = "right";
@@ -90,16 +90,19 @@ in
     # enable-scroll = true;
     reverse-scroll = true;
 
-    icon-0 = 1;
-    icon-1 = 2;
-    icon-2 = 3;
-    icon-3 = 4;
-    icon-4 = 5;
-    icon-5 = 6;
-    icon-6 = 7;
-    icon-7 = 8;
-    icon-8 = 9;
-    icon-9 = 10;
+    /*
+    # Not much point here
+    icon-0 = "1;1";
+    icon-1 = "2;2";
+    icon-2 = "3;3";
+    icon-3 = "4;4";
+    icon-4 = "5;5";
+    icon-5 = "6;6";
+    icon-6 = "7;7";
+    icon-7 = "8;8";
+    icon-8 = "9;z";
+    icon-9 = "10;0";
+    */
 
     format = "<label-state>";
     label-monitor = "%name% ";
