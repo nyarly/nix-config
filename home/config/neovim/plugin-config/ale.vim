@@ -4,11 +4,12 @@ let g:ale_lint_on_text_changed = "never"
 let g:ale_lint_on_insert_leave = 1
 let g:ale_linters = {
       \ 'ruby': 'all',
-      \ 'rust': ['rls'],
+      \ 'rust': ['analyzer'],
       \ 'markdown': ['languagetool', 'proselint', 'vale']
       \}
 let g:ale_fixers = {
       \'*': ['remove_trailing_lines', 'trim_whitespace'],
+      \'go': ['gofmt', 'remove_trailing_lines', 'trim_whitespace'],
       \'json': ['jq', 'remove_trailing_lines', 'trim_whitespace'],
       \'ruby': ['rubocop', 'remove_trailing_lines', 'trim_whitespace'],
       \'rust': ['rustfmt', 'remove_trailing_lines', 'trim_whitespace'],

@@ -11,7 +11,7 @@ lib.concatStringsSep "\n" (map (p: "\"${p}\n${builtins.readFile p}\n") [
   ./plugin-config/ranger.vim
   ./plugin-config/rainbow.vim
   ./plugin-config/tmuxline.vim
-  ./plugin-config/sideways.vim
+  #./plugin-config/sideways.vim
   ./plugin-config/legend.vim
   ./plugin-config/ctrlp.vim
   ./plugin-config/airline.vim

@@ -144,6 +144,10 @@ myManageHook = (composeAll . concat $ [
     [manageZoomHook]
   , [className =? "pinentry" --> doFloat]
   , [className =? "Pinentry" --> doFloat]
+  , [className =? "quickpick" --> doFloat]
+  , [className =? "Quickpick" --> doFloat]
+  , [className =? "picklist" --> doFloat]
+  , [className =? "Picklist" --> doFloat]
   , [className =? c --> doShift (myWorkspaces !! 2) | c <- chatS ]
   , [className =? c --> doShift (myWorkspaces !! 8) | c <- zoomS ]
   ])

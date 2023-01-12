@@ -1,6 +1,7 @@
 {
   permittedInsecurePackages = [
     "mailpile-1.0.0rc2"
+    "python2.7-pyjwt-1.7.1"
   ];
   packageOverrides = pkgs: rec {
     networkmanager_openconnect = pkgs.networkmanager_openconnect.override {

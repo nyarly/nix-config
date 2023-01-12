@@ -389,9 +389,19 @@ in
         extraConfig = (import home/config/neovim/manifest.nix) lib;
         #withNodeJs = true; # defaults false
 
-        plugins = with pkgs.vimPlugins; with localNvimPlugins; [
-          nvim-treesitter
+        extraPackages = with pkgs; [
+          gopls
+          iferr
+          impl
+          go_1_18
+          rust-analyzer
+          cargo
+        ];
 
+        plugins = with pkgs.vimPlugins; with localNvimPlugins; [
+          (nvim-treesitter.withPlugins (plugins: pkgs.tree-sitter.allGrammars))
+          nvim-treesitter-textobjects
+          nvim-treesitter-context
           ale
           Colorizer
           deoplete-go
@@ -418,7 +428,6 @@ in
           rfc-syntax
           rust-vim
           semweb-vim
-          sideways-vim
           sparkup
           tabular
           tagbar

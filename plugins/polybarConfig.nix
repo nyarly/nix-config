@@ -48,7 +48,7 @@ in
       font-3 = "DejaVu Sans";
 
       modules-left = "ewmh xwindow";
-      modules-center = "taskwarrior";
+      modules-center = "taskwarrior github";
       modules-right = "date zebratime memory battery cpu pulseaudio";
 
       tray-position = "right";
@@ -177,12 +177,13 @@ in
   "module/github" = {
     type = "internal/github";
     # c.f. https://github.com/polybar/polybar/wiki/Module:-github
+    user = "nyarly";
     token = "\${file:${config.xdg.configHome}/git/polybar-token}";
     interval = 60;
     format-underline = colors.yellow;
-    label = "📬%notifications%";
+    # label = "📬%notifications%";
     # click-left = "chromium github.com/notifications/beta &";
-    # label = "%{A1:${pkgs.xdg_utils}/bin/xdg-open https\://github.com/notifications/beta &:} 📬%notifications% %{A}";
+    label = "%{A1:${pkgs.xdg_utils}/bin/xdg-open https\\://github.com/notifications/beta &:} 📬%notifications% %{A}";
   };
 
   "module/taskwarrior" = {
