@@ -1,7 +1,8 @@
 { lib, config, pkgs, unstable, ... }:
 
 let
-  vimUtils = pkgs.vimUtils.override {hasLuaModule = true;};
+  # vimUtils = pkgs.vimUtils.override {hasLuaModule = true;};
+  vimUtils = pkgs.vimUtils;
 
   inherit (pkgs.callPackage home/loadConfigs.nix {}) transitionalConfigs configFiles;
 
@@ -15,13 +16,14 @@ let
   updated = {
     signal = pkgs.callPackage home/packages/signal-desktop.nix {};
     go-jira = pkgs.callPackage home/packages/go-jira.nix {};
-    meld = pkgs.callPackage home/packages/meld.nix {};
+    #meld = pkgs.callPackage home/packages/meld.nix {};
     # trivy = pkgs.callPackage home/packages/trivy.nix {}; # >= 0.20
   };
   onepassword = pkgs.callPackage home/packages/onepassword.nix {};
   licensezero = pkgs.callPackage home/packages/licensezero {};
   rofi-taskwarrior = pkgs.callPackage home/packages/rofi-taskwarrior {};
   confit = pkgs.callPackage home/packages/confit {};
+  jdl-lorri-pkg = pkgs.callPackage home/packages/lorri {};
   #jdl-vim-markdown-composer = pkgs.callPackage home/packages/vim-markdown-composer.nix {};
 
   binScripts = lib.filterAttrs (n: v: lib.isDerivation v) (pkgs.callPackage home/binScripts.nix { pkgs = pkgs // updated; });
@@ -46,7 +48,7 @@ in
 
     gtk = {
       iconTheme = {
-        package = pkgs.gnome3.gnome-themes-standard;
+        package = pkgs.gnome.adwaita-icon-theme;
       };
       theme = {
         package = pkgs.gnome3.gnome-themes-standard;
@@ -67,7 +69,7 @@ in
       fasd
       fzf
       hexchat
-      fractal
+      cinny-desktop
       illum # should be made a service
       inetutils
       man-pages
@@ -223,7 +225,7 @@ in
 
       git = {
         enable = true;
-        package = unstable.gitAndTools.gitFull;
+        package = pkgs.gitAndTools.gitFull;
         userName = "Judson Lester";
         userEmail = "nyarly@gmail.com";
         aliases = {
@@ -399,7 +401,7 @@ in
         ];
 
         plugins = with pkgs.vimPlugins; with localNvimPlugins; [
-          (nvim-treesitter.withPlugins (plugins: pkgs.tree-sitter.allGrammars))
+          nvim-treesitter.withAllGrammars
           nvim-treesitter-textobjects
           nvim-treesitter-context
           ale
@@ -492,6 +494,8 @@ in
     };
 
     services = {
+      xsettingsd.enable = true;
+
       nm-applet.enable = true;
 
       scdaemonNotify.enable = true;
@@ -500,6 +504,7 @@ in
         enable = true;
         notify = true;
         nixPackage = pkgs.nixUnstable;
+        package = jdl-lorri-pkg;
       };
 
       keynav.enable = true;

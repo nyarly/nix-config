@@ -11,7 +11,6 @@ lib.concatStringsSep "\n" (map (p: "\"${p}\n${builtins.readFile p}\n") [
   ./plugin-config/ranger.vim
   ./plugin-config/rainbow.vim
   ./plugin-config/tmuxline.vim
-  #./plugin-config/sideways.vim
   ./plugin-config/legend.vim
   ./plugin-config/ctrlp.vim
   ./plugin-config/airline.vim
@@ -41,9 +40,4 @@ lib.concatStringsSep "\n" (map (p: "\"${p}\n${builtins.readFile p}\n") [
   ./toggle-folding.vim
   ./center-jump.vim
   ./blase-swapfile.vim
-  #./plugin-config/indent-guides.vim
-  #./plugin-config/ag.vim
-  #./plugin-config/language-client.vim
-  #./mapping-scratch.vim
-  #./scratch.vim
 ])

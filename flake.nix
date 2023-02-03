@@ -3,14 +3,14 @@
 
   inputs = {
     # Specify the source of Home Manager and Nixpkgs
-    nixpkgs.url = github:nixos/nixpkgs/nixos-22.05;
+    nixpkgs.url = github:nixos/nixpkgs/nixos-22.11;
     nixpkgs-unstable.url = github:nixos/nixpkgs/nixos-unstable;
 
-    home-manager.url = github:nix-community/home-manager/release-22.05;
+    home-manager.url = github:nix-community/home-manager/release-22.11;
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  outputs = { home-manager, nixpkgs-unstable, ... }:
+  outputs = { home-manager, nixpkgs-unstable, nixpkgs, ... }:
     let
       system = "x86_64-linux";
       username = "judson";
@@ -19,19 +19,19 @@
       };
     in {
       homeConfigurations.${username} = home-manager.lib.homeManagerConfiguration {
-        # Specify the path to your home configuration here
-        configuration = {
-          imports = [
+        pkgs = nixpkgs.legacyPackages.${system};
+
+        modules = [
             unstable
-            (import ./home.nix)
-          ];
-        };
-
-        inherit system username;
-        homeDirectory = "/home/${username}";
-
-        # Update the state version as needed.
-        stateVersion = "21.11";
+            ./home.nix
+            {
+              home = {
+                inherit username;
+                homeDirectory = "/home/${username}";
+                stateVersion = "21.11";
+              };
+            }
+        ];
       };
     };
 }
