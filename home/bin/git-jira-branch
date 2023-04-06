@@ -1,18 +1,22 @@
 #!/usr/bin/env bash
 
 if [ $# -lt 1 ]; then
-  echo "Usage: $0 <issue key>"
+  echo "Usage: $0 <issue key...>"
 fi
 
 path=$(git symbolic-ref HEAD) || (echo "Not on a branch"; exit 1)
 branch=${path#refs/heads/}
-issue=$1
 
-config="branch.${branch}.jira-ticket"
+while [ $# -gt 0 ]; do
+  issue=$1
+  shift
 
-if git config --get-all "$config" | grep -q "^${issue}$"; then
-  exit 0
-fi
+  config="branch.${branch}.jira-ticket"
 
-git config --add "$config" "$issue"
-jira take "$issue"
+  if git config --get-all "$config" | grep -q "^${issue}$"; then
+    continue
+  fi
+
+  git config --add "$config" "$issue"
+  jira take "$issue"
+done

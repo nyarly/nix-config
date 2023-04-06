@@ -389,11 +389,12 @@ in
         enable = true;
         package = unstable.neovim-unwrapped;
         extraConfig = (import home/config/neovim/manifest.nix) lib;
+        extraLuaConfig = (import home/config/neovim/lua-manifest.nix) lib;
         #withNodeJs = true; # defaults false
 
         extraPackages = with pkgs; [
           gopls
-          iferr
+          rnix-lsp
           impl
           go_1_18
           rust-analyzer
@@ -406,8 +407,18 @@ in
           nvim-treesitter-context
           ale
           Colorizer
-          deoplete-go
-          deoplete-nvim
+          nvim-lspconfig
+          rust-tools-nvim
+          nvim-cmp
+          cmp-nvim-lsp
+          cmp-buffer
+          cmp-path
+          cmp-cmdline
+          cmp-treesitter
+          # TODO: consider snippets for cmp
+          # TODO: consider j-hui/fidget
+          # deoplete-go
+          # deoplete-nvim
           direnv-vim
           Dockerfile-vim
           echodoc

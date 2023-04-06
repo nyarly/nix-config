@@ -6,7 +6,7 @@ lib.concatStringsSep "\n" (map (p: "\"${p}\n${builtins.readFile p}\n") [
   ./plugin-config/gpg.vim
   ./plugin-config/fzf.vim
   ./plugin-config/quickfixsigns.vim
-  ./plugin-config/deoplete.vim
+  # ./plugin-config/deoplete.vim
   ./plugin-config/ale.vim
   ./plugin-config/ranger.vim
   ./plugin-config/rainbow.vim
