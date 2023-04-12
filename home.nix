@@ -401,13 +401,13 @@ in
         plugins =
         let
           dotVim = name: {
-            plugin = pkgs.vimPlugins[name];
-            config = builtins.readFile ./home/config/neovim/plugin-config + "./${name}.vim";
+            plugin = if pkgs.vimPlugins ? ${name} then pkgs.vimPlugins.${name} else localNvimPlugins.${name};
+            config = builtins.readFile (./home/config/neovim/plugin-config + "/${name}.vim");
           };
           dotLua = name: {
-            plugin = pkgs.vimPlugins[name];
+            plugin = pkgs.vimPlugins.${name};
             type = "lua";
-            config = builtins.readFile ./home/config/neovim/plugin-config + "./${name}.lua";
+            config = builtins.readFile (./home/config/neovim/plugin-config + "/${name}.lua");
           };
         in
         with pkgs.vimPlugins; with localNvimPlugins; [
@@ -419,15 +419,9 @@ in
           }
           nvim-treesitter-textobjects
           nvim-treesitter-context
-          (legacyPlugin "ale")
+          (dotVim "ale")
           Colorizer
-          {
-            plugin = fidget-nvim;
-            type = "lua";
-            config = ''
-              require("fidget").setup()
-              '';
-          }
+          (dotLua "fidget-nvim")
           nvim-lspconfig
           rust-tools-nvim
           (dotLua "cmp-nvim-lsp")
@@ -442,33 +436,33 @@ in
           Dockerfile-vim
           echodoc
           errormarker-vim
-          fzf-vim
+          (dotVim "fzf-vim")
           fzfWrapper
           vim-gist
-          gnupg
+          (dotVim "gnupg")
           godoctor-vim
           vim-mundo
           html5-vim
           IndentAnything
-          indentLine # indent markers
-          jobmake
+          (dotVim "indentLine") # indent markers
+          (dotVim "jobmake")
           jq-vim
           lldb-nvim
           nginx-vim
-          rainbow
-          ranger-vim
+          (dotVim "rainbow")
+          (dotVim "ranger-vim")
           rfc-syntax
           semweb-vim
           sparkup
           tabular
-          tagbar
+          (dotVim "tagbar")
           textile-vim
           tla-vim
-          tmuxline-vim
+          (dotVim "tmuxline-vim")
           typescript-vim
           ultisnips
           vim-abolish
-          vim-airline
+          (dotVim "vim-airline")
           vim-airline-themes
           vim-closetag
           vim-cue
@@ -479,7 +473,7 @@ in
           vim-javascript
           vim-jsx
           vim-jsx-typescript
-          vim-legend
+          (dotVim "vim-legend")
           (dotVim "vim-markdown")
           { plugin = markdown-preview-nvim; config = "let g:mkdp_auto_start = 1"; }
           vim-nix

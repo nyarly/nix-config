@@ -53,6 +53,9 @@ local function on_attach(client, buffer)
 
   vim.wo.signcolumn = "yes"
 
+  vim.bo.sw=4
+
+  vim.cmd([[match OverLength /\%100v./]])
 end
 
 -- belongs in on_attach? belongs in lsp?
