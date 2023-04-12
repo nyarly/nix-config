@@ -1,3 +1,4 @@
+
 local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
 local lspconfig = require('lspconfig')
@@ -33,7 +34,6 @@ local function on_attach(client, buffer)
 
   vim.keymap.set("n", "ga", vim.lsp.buf.code_action, keymap_opts)
 
-
   -- Set updatetime for CursorHold
   -- 300ms of no cursor movement to trigger CursorHold
   vim.opt.updatetime = 100
@@ -51,7 +51,19 @@ local function on_attach(client, buffer)
   vim.keymap.set("n", "g[", vim.diagnostic.goto_prev, keymap_opts)
   vim.keymap.set("n", "g]", vim.diagnostic.goto_next, keymap_opts)
 
+  vim.wo.signcolumn = "yes"
+
 end
+
+-- belongs in on_attach? belongs in lsp?
+local format_sync_grp = vim.api.nvim_create_augroup("Format", {})
+vim.api.nvim_create_autocmd("BufWritePre", {
+  pattern = "*.rs",
+  callback = function()
+    vim.lsp.buf.format({ timeout_ms = 200 })
+  end,
+  group = format_sync_grp,
+})
 
 -- Configure LSP through rust-tools.nvim plugin.
 -- rust-tools will configure and enable certain LSP features for us.

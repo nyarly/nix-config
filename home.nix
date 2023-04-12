@@ -389,7 +389,6 @@ in
         enable = true;
         package = unstable.neovim-unwrapped;
         extraConfig = (import home/config/neovim/manifest.nix) lib;
-        extraLuaConfig = (import home/config/neovim/lua-manifest.nix) lib;
         #withNodeJs = true; # defaults false
 
         extraPackages = with pkgs; [
@@ -397,28 +396,48 @@ in
           rnix-lsp
           impl
           go_1_18
-          rust-analyzer
-          cargo
         ];
 
-        plugins = with pkgs.vimPlugins; with localNvimPlugins; [
-          nvim-treesitter.withAllGrammars
+        plugins =
+        let
+          dotVim = name: {
+            plugin = pkgs.vimPlugins[name];
+            config = builtins.readFile ./home/config/neovim/plugin-config + "./${name}.vim";
+          };
+          dotLua = name: {
+            plugin = pkgs.vimPlugins[name];
+            type = "lua";
+            config = builtins.readFile ./home/config/neovim/plugin-config + "./${name}.lua";
+          };
+        in
+        with pkgs.vimPlugins; with localNvimPlugins; [
+          { plugin = NeoSolarized; config = ''colorscheme NeoSolarized''; }
+          {
+            plugin = nvim-treesitter.withAllGrammars;
+            type = "lua";
+            config = builtins.readFile ./home/config/neovim/plugin-config/nvim-treesitter.lua;
+          }
           nvim-treesitter-textobjects
           nvim-treesitter-context
-          ale
+          (legacyPlugin "ale")
           Colorizer
+          {
+            plugin = fidget-nvim;
+            type = "lua";
+            config = ''
+              require("fidget").setup()
+              '';
+          }
           nvim-lspconfig
           rust-tools-nvim
-          nvim-cmp
-          cmp-nvim-lsp
+          (dotLua "cmp-nvim-lsp")
+          luasnip
+          cmp_luasnip
           cmp-buffer
           cmp-path
           cmp-cmdline
           cmp-treesitter
-          # TODO: consider snippets for cmp
-          # TODO: consider j-hui/fidget
-          # deoplete-go
-          # deoplete-nvim
+          (dotLua "nvim-cmp")
           direnv-vim
           Dockerfile-vim
           echodoc
@@ -439,7 +458,6 @@ in
           rainbow
           ranger-vim
           rfc-syntax
-          rust-vim
           semweb-vim
           sparkup
           tabular
@@ -462,13 +480,8 @@ in
           vim-jsx
           vim-jsx-typescript
           vim-legend
-          vim-markdown
-          {
-            plugin = unstable.vimPlugins.vim-markdown-composer;
-            config = ''
-              let g:markdown_composer_browser="google-chrome-stable"
-            '';
-          }
+          (dotVim "vim-markdown")
+          { plugin = markdown-preview-nvim; config = "let g:mkdp_auto_start = 1"; }
           vim-nix
           vim-nixhash
           vim-obsession
@@ -481,9 +494,6 @@ in
           vim-unimpaired
           webapi-vim
         ];
-        # deoplete-rust # ALE
-        # floobits-neovim # I think it needs it's Python lib...
-        # LanguageClient-neovim # ALE is all-in-one
       };
 
       taskwarrior = {

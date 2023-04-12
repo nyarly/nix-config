@@ -2,10 +2,6 @@ if &shell =~# 'fish$'
   set shell=/bin/sh
 endif
 
-"packloadall " plugins are added as packages before init.vim
-
-runtime! ftdetect/UltiSnips.vim
-
 set autowrite
 set autowriteall
 set expandtab
@@ -25,7 +21,7 @@ set mouse=a
 "c	don't give |ins-completion-menu| messages.  For example,
 "   c really useful for echodoc
 set shortmess+=IcOtT
-set number
+"set number " unimpaired provides `[on` (or `yon`) to enable (toggle) when needed
 set cursorline
 set noshowmode
 set foldlevelstart=2
@@ -47,9 +43,7 @@ set smartcase
 
 set t_ut= "Needed to get non-text background colors to work correctly in urxvt + tmux
 
-let g:solarized_termcolors=16
 set background=light
-colorscheme solarized
 nnoremap <F12> "*p
 
 set tags+=.git/bundle-tags
@@ -64,3 +58,5 @@ set inccommand=split
 " Debugging my 'number' getting disabled:
 " c.f. https://github.com/neovim/neovim/issues/8739
 " au OptionSet number echom execute('verbose set number?')
+"
+" au OptionSet shiftwidth echom execute('verbose set shiftwidth?')

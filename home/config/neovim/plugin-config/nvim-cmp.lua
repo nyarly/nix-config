@@ -1,7 +1,7 @@
+
 local cmp = require 'cmp'
 
 vim.o.completeopt = "menuone,noinsert,noselect"
-
 
 cmp.setup {
   sources = {
@@ -9,17 +9,17 @@ cmp.setup {
     { name = 'buffer' },
     { name = 'path' },
     { name = 'treesitter' },
-    -- { name = 'luasnip' },
+    { name = 'luasnip' },
   },
 
   preselect = cmp.PreselectMode.None,
 
-  --[[ snippet = {
+  snippet = {
     expand = function(args)
+      local luasnip = require 'luasnip'
       luasnip.lsp_expand(args.body)
     end,
   },
-  ]]--
   mapping = cmp.mapping.preset.insert({
     ['<C-u>'] = cmp.mapping.scroll_docs(-4), -- Up
     ['<C-d>'] = cmp.mapping.scroll_docs(4), -- Down
@@ -30,21 +30,21 @@ cmp.setup {
       select = true,
     },
     ['<Tab>'] = cmp.mapping(function(fallback)
+      local luasnip = require 'luasnip'
       if cmp.visible() then
         cmp.select_next_item()
-      --[[ elseif luasnip.expand_or_jumpable() then
+      elseif luasnip.expand_or_jumpable() then
         luasnip.expand_or_jump()
-        ]]--
       else
         fallback()
       end
     end, { 'i', 's' }),
     ['<S-Tab>'] = cmp.mapping(function(fallback)
+      local luasnip = require 'luasnip'
       if cmp.visible() then
         cmp.select_prev_item()
-      --[[elseif luasnip.jumpable(-1) then
+      elseif luasnip.jumpable(-1) then
         luasnip.jump(-1)
-        ]]--
       else
         fallback()
       end
