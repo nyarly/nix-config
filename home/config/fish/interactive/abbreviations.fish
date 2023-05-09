@@ -11,5 +11,5 @@ abbr -a -g -- ls exa
 abbr -a -g -- ghpr 'gh pr create --title (bjtitle)'
 abbr -a -g -- ghpd 'gh pr create --title (bjtitle) --draft'
 abbr -a -g -- ghmd 'gh pr merge --auto --merge --delete-branch'
-abbr -a -g -- ghprmd 'gh pr create --title (bjtitle); and gh pr merge --auto --merge --delete-branch'
+abbr -a -g -- ghprmd 'gh pr create --title (bjtitle) --reviewer ymeadows/backend; and gh pr merge --auto --merge --delete-branch'
 abbr -a -g -- bc 'kalker'

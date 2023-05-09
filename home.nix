@@ -425,7 +425,8 @@ in
           nvim-lspconfig
           rust-tools-nvim
           (dotLua "cmp-nvim-lsp")
-          luasnip
+          (dotLua "luasnip")
+          friendly-snippets
           cmp_luasnip
           cmp-buffer
           cmp-path
@@ -475,7 +476,7 @@ in
           vim-jsx-typescript
           (dotVim "vim-legend")
           (dotVim "vim-markdown")
-          { plugin = markdown-preview-nvim; config = "let g:mkdp_auto_start = 1"; }
+          markdown-preview-nvim #; config = "let g:mkdp_auto_start = 1"; }
           vim-nix
           vim-nixhash
           vim-obsession

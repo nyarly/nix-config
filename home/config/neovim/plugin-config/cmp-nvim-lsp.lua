@@ -51,7 +51,7 @@ local function on_attach(client, buffer)
   vim.keymap.set("n", "g[", vim.diagnostic.goto_prev, keymap_opts)
   vim.keymap.set("n", "g]", vim.diagnostic.goto_next, keymap_opts)
 
-  vim.wo.signcolumn = "yes"
+  vim.wo.signcolumn = "number"
 
   vim.bo.sw=4
 
