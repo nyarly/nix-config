@@ -33,19 +33,7 @@ local function on_attach(client, buffer)
   vim.keymap.set("n", "gd", vim.lsp.buf.definition, keymap_opts)
 
   vim.keymap.set("n", "ga", vim.lsp.buf.code_action, keymap_opts)
-
-  -- Set updatetime for CursorHold
-  -- 300ms of no cursor movement to trigger CursorHold
-  vim.opt.updatetime = 100
-
-  -- Show diagnostic popup on cursor hover
-  local diag_float_grp = vim.api.nvim_create_augroup("DiagnosticFloat", { clear = true })
-  vim.api.nvim_create_autocmd("CursorHold", {
-    callback = function()
-      vim.diagnostic.open_float(nil, { focusable = false })
-    end,
-    group = diag_float_grp,
-  })
+  vim.keymap.set("n", "gv", function() vim.diagnostic.open_float(nil, { focusable = false }) end, keymap_opts)
 
   -- Goto previous/next diagnostic warning/error
   vim.keymap.set("n", "g[", vim.diagnostic.goto_prev, keymap_opts)

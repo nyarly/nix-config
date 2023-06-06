@@ -14,9 +14,9 @@ let
   rhet-butler = pkgs.callPackage home/packages/rhet-butler {};
 
   updated = {
-    signal = pkgs.callPackage home/packages/signal-desktop.nix {};
-    go-jira = pkgs.callPackage home/packages/go-jira.nix {};
-    #meld = pkgs.callPackage home/packages/meld.nix {};
+    # signal = pkgs.callPackage home/packages/signal-desktop.nix {};
+    # go-jira = pkgs.callPackage home/packages/go-jira.nix {};
+    # meld = pkgs.callPackage home/packages/meld.nix {};
     # trivy = pkgs.callPackage home/packages/trivy.nix {}; # >= 0.20
   };
   onepassword = pkgs.callPackage home/packages/onepassword.nix {};
@@ -69,7 +69,7 @@ in
       fasd
       fzf
       hexchat
-      cinny-desktop
+      # cinny-desktop
       illum # should be made a service
       inetutils
       man-pages
@@ -510,7 +510,7 @@ in
     };
 
     services = {
-      xsettingsd.enable = true;
+      #xsettingsd.enable = true;
 
       nm-applet.enable = true;
 
