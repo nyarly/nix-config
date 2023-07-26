@@ -22,6 +22,7 @@ set mouse=a
 "   c really useful for echodoc
 set shortmess+=IcOtT
 set number " unimpaired provides `[on` (or `yon`) to enable (toggle) when needed
+set signcolumn=number
 set cursorline
 set noshowmode
 set foldlevelstart=2

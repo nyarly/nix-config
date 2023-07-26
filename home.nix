@@ -70,6 +70,7 @@ in
       fzf
       hexchat
       # cinny-desktop
+      element-desktop
       illum # should be made a service
       inetutils
       man-pages
@@ -173,6 +174,7 @@ in
       in
       {
         enable = true;
+
         controlMaster = "auto";
         controlPath = "~/.ssh/control/%r@%h:%p.socket";
         controlPersist = "60m";
@@ -180,18 +182,9 @@ in
         extraOptionOverrides = {
           IdentitiesOnly = "yes";
           IdentityFile = "~/.ssh/%h_rsa";
-          UseRoaming = "no";
         };
 
         matchBlocks = {
-          "*.amazonaws.com" = {
-            user = "root";
-            identityFile = "~/.ssh/lrd_rsa";
-            extraOptions = {
-              StrictHostKeyChecking = "no";
-              UserKnownHostsFile = "/dev/null";
-            };
-          };
 
           "github.com" = {
             identityFile = pubkeys;
@@ -200,6 +193,7 @@ in
               LogLevel = "QUIET";
               ControlPersist = "300";
               ServerAliveInterval = "15";
+              ServerAliveCountMax = "240";
             };
           };
 
@@ -209,15 +203,6 @@ in
             extraOptions = {
               LogLevel = "QUIET";
               ControlPersist = "300";
-            };
-          };
-
-          "*.opentable.com sc-ssh-jump-01 *.otenv.com *.ot.tools" = {
-            user = "jlester";
-            identityFile = pubkeys;
-            identitiesOnly = true;
-            extraOptions = {
-              ServerAliveInterval = "15";
             };
           };
         };

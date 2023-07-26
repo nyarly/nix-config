@@ -136,7 +136,11 @@ use_nix() {
 }
 
 use_lorri() {
-  eval "$(lorri direnv)"
+  if [ $# -gt 0 ]; then
+    eval "$(lorri direnv --shell-file $1)"
+  else
+    eval "$(lorri direnv)"
+  fi
 }
 
 pin_nix() {

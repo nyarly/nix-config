@@ -22,5 +22,8 @@
     "cockroach"
 
     "cloudflared"
+    "google-chrome"
+    "google-chrome-beta"
+    "google-chrome-dev"
   ];
 }
