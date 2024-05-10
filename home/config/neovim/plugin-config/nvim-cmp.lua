@@ -25,10 +25,16 @@ cmp.setup {
     ['<C-d>'] = cmp.mapping.scroll_docs(4), -- Down
     -- C-b (back) C-f (forward) for snippet placeholder navigation.
     ['<C-Space>'] = cmp.mapping.complete(),
-    ['<CR>'] = cmp.mapping.confirm {
-      behavior = cmp.ConfirmBehavior.Replace,
-      select = true,
-    },
+    ['<CR>'] = function(fallback)
+      if cmp.visible() then
+        cmp.confirm {
+          behavior = cmp.ConfirmBehavior.Insert,
+          -- select = true, -- a tad too aggresive
+        }
+      else
+        fallback()
+      end
+    end,
     ['<Tab>'] = cmp.mapping(function(fallback)
       local luasnip = require 'luasnip'
       if cmp.visible() then
@@ -70,4 +76,12 @@ cmp.setup.cmdline(':', {
           ignore_cmds = { 'Man', '!' }
         }
       } })
+})
+
+cmp.setup.filetype({'markdown'}, {
+  sources = {
+    { name = 'buffer' },
+    { name = 'path' },
+    { name = 'luasnip' },
+  }
 })

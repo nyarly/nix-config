@@ -1,4 +1,4 @@
-{ stdenv, lib, rustPlatform, fetchFromGitHub, pkgconfig, ... }:
+{ stdenv, lib, rustPlatform, fetchFromGitHub, pkg-config, ... }:
 
 with rustPlatform;
 
@@ -17,7 +17,7 @@ buildRustPackage rec {
     hash = "sha256-l7TipT7Ou5N/pMlnnqE44i2d2XcWfPZuDEKObrqAUL8=";
   };
 
-  nativeBuildInputs = [ pkgconfig ];
+  nativeBuildInputs = [ pkg-config ];
 
   meta = with lib; {
     description = "Makes sure your work is properly preserved";

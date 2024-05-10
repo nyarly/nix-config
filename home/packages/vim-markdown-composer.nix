@@ -1,4 +1,4 @@
-{ stdenv, lib, rustPlatform, fetchFromGitHub, pkgconfig, vimUtils, ... }:
+{ stdenv, lib, rustPlatform, fetchFromGitHub, pkg-config, vimUtils, ... }:
 
 with rustPlatform;
 
@@ -21,7 +21,7 @@ let
 
     cargoSha256 = "sha256-owewqavzUHSRDPHPQrIOxDBn3GejQGGER6sDNcXswCY=";
 
-    nativeBuildInputs = [ pkgconfig ];
+    nativeBuildInputs = [ pkg-config ];
   };
 in
 vimUtils.buildVimPlugin {

@@ -1,4 +1,4 @@
-{ stdenv, lib, rustPlatform, fetchFromGitHub, pkgconfig, ... }:
+{ stdenv, lib, rustPlatform, fetchFromGitHub, pkg-config, ... }:
 
 with rustPlatform;
 
@@ -17,7 +17,7 @@ buildRustPackage rec {
     sha256 = "sha256-Q/hgM/etexjMrulNtbzv/Bi/kZYSsdA5ysaTWZfWr1M=";
   };
 
-  nativeBuildInputs = [ pkgconfig ];
+  nativeBuildInputs = [ pkg-config ];
 
   meta = with lib; {
     description = "Rofi modi for Taskwarrior";

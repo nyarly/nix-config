@@ -1,4 +1,4 @@
-{ stdenv, lib, rustPlatform, fetchFromGitHub, pkgconfig, dbus, ... }:
+{ stdenv, lib, rustPlatform, fetchFromGitHub, pkg-config, dbus, ... }:
 
 with rustPlatform;
 
@@ -17,7 +17,7 @@ buildRustPackage rec {
     sha256 = "0hvz9zb0jyak8ci4z7az2zkkiizl7bv8zyyqsapz9prbhahki59d";
   };
 
-  nativeBuildInputs = [ pkgconfig ];
+  nativeBuildInputs = [ pkg-config ];
   buildInputs = [ dbus ];
 
   meta = with lib; {

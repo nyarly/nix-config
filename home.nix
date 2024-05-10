@@ -8,7 +8,7 @@ let
 
   localNvimPlugins = pkgs.callPackage ./personal-nvim-plugins.nix {
     inherit (pkgs) fetchgit;
-    inherit (vimUtils) buildVimPluginFrom2Nix;
+    inherit (vimUtils) buildVimPlugin;
   };
 
   rhet-butler = pkgs.callPackage home/packages/rhet-butler {};
@@ -60,7 +60,7 @@ in
       # The modern shell
       procs
       bat
-      exa
+      eza
       kalker
       rofi-taskwarrior
       confit
@@ -98,6 +98,7 @@ in
       jq
       go-jira # >1.0.24
       trivy
+      docker
       docker-compose
       bind # for dig
 
@@ -111,7 +112,8 @@ in
       meld
       nitrogen
       shutter
-      postman
+      # postman
+      bruno
 
       pandoc
       rnix-lsp
@@ -380,7 +382,7 @@ in
           gopls
           rnix-lsp
           impl
-          go_1_18
+          go_1_21
         ];
 
         plugins =
@@ -460,7 +462,7 @@ in
           vim-jsx
           vim-jsx-typescript
           (dotVim "vim-legend")
-          (dotVim "vim-markdown")
+          #(dotVim "vim-markdown")
           markdown-preview-nvim #; config = "let g:mkdp_auto_start = 1"; }
           vim-nix
           vim-nixhash
@@ -503,12 +505,14 @@ in
 
       jdl-lorri = {
         enable = true;
-        notify = true;
+        enableNotifications = true;
         nixPackage = pkgs.nixUnstable;
         package = jdl-lorri-pkg;
       };
 
       keynav.enable = true;
+
+      picom.enable = true;
 
       dunst = {
         enable = true;
@@ -676,7 +680,7 @@ in
         "application/x-extension-xhtml"
         "application/x-extension-xht"
       ] // {
-        "x-scheme-handler/postman"=["Postman.desktop"];
+        # "x-scheme-handler/postman"=["Postman.desktop"];
         "x-scheme-handler/discord-402572971681644545"=["discord-402572971681644545.desktop"];
       };
 

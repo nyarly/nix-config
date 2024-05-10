@@ -46,7 +46,7 @@ then
 	exit 1
 fi
 
-if $(echo $GIT_DIR | grep -qv '.config/vcsh/repo.d') && git status -s | grep '^\?'; then
+if $(echo $GIT_DIR | grep -qv '.config/vcsh/repo.d') && git status -s | grep '^?'; then
   echo "Error: These files are untracked.  Add them to the repo or to .gitignore"
   exit 1
 fi

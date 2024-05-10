@@ -20,6 +20,7 @@
   builtins.elem pkgname [
     "postman"
     "cockroach"
+    "terraform"
 
     "cloudflared"
     "google-chrome"

@@ -137,7 +137,7 @@ use_nix() {
 
 use_lorri() {
   if [ $# -gt 0 ]; then
-    eval "$(lorri direnv --shell-file $1)"
+    eval "$(lorri direnv $*)"
   else
     eval "$(lorri direnv)"
   fi

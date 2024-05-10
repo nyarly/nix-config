@@ -14,7 +14,7 @@ let
   # Also don’t forget to run `nix-build -A lorri.tests`
   version = "1.6.0";
   gitRev = "jdl-tracking-install";
-  sha256 = "sha256-eR8i7pSUW/I7wCR+vMZLC046paBqxOsP7E8L/AlORtw=";
+  sha256 = "sha256-wn06vcbDkzSCypXC/VDxkVAvbWlMclKKWOUCrX+99pA=";
   cargoSha256 = "sha256-UFAmTYnCqsQxBnCm1zMu+BcWIZMuuxvpF7poLlzC6Kg=";
 
 in (rustPlatform.buildRustPackage rec {

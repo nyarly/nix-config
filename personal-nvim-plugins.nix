@@ -1,7 +1,7 @@
-{fetchgit, buildVimPluginFrom2Nix}:
+{fetchgit, buildVimPlugin}:
 {
 
-  sideways-vim = buildVimPluginFrom2Nix { # created by nix#NixDerivation
+  sideways-vim = buildVimPlugin { # created by nix#NixDerivation
     name = "sideways-vim-2022-02-12";
     src = fetchgit {
       url = "https://github.com/AndrewRadev/sideways.vim";
@@ -12,7 +12,7 @@
 
   };
 
-  Colorizer = buildVimPluginFrom2Nix { # created by nix#NixDerivation
+  Colorizer = buildVimPlugin { # created by nix#NixDerivation
     name = "Colorizer-2022-02-03";
     src = fetchgit {
       url = "https://github.com/chrisbra/Colorizer";
@@ -23,7 +23,7 @@
 
   };
 
-  lldb-nvim = buildVimPluginFrom2Nix { # created by nix#NixDerivation
+  lldb-nvim = buildVimPlugin { # created by nix#NixDerivation
     name = "lldb-nvim-2016-12-15";
     src = fetchgit {
       url = "https://github.com/critiqjo/lldb.nvim";
@@ -34,7 +34,7 @@
 
   };
 
-  vim-fish = buildVimPluginFrom2Nix { # created by nix#NixDerivation
+  vim-fish = buildVimPlugin { # created by nix#NixDerivation
     name = "vim-fish-2017-11-22";
     src = fetchgit {
       url = "https://github.com/dag/vim-fish";
@@ -45,7 +45,7 @@
 
   };
 
-  promptline-vim = buildVimPluginFrom2Nix { # created by nix#NixDerivation
+  promptline-vim = buildVimPlugin { # created by nix#NixDerivation
     name = "promptline-vim-2019-03-30";
     src = fetchgit {
       url = "https://github.com/edkolev/promptline.vim";
@@ -56,7 +56,7 @@
 
   };
 
-  Dockerfile-vim = buildVimPluginFrom2Nix { # created by nix#NixDerivation
+  Dockerfile-vim = buildVimPlugin { # created by nix#NixDerivation
     name = "Dockerfile-vim-2021-09-06";
     src = fetchgit {
       url = "https://github.com/ekalinin/Dockerfile.vim";
@@ -67,7 +67,7 @@
 
   };
 
-  godoctor-vim = buildVimPluginFrom2Nix { # created by nix#NixDerivation
+  godoctor-vim = buildVimPlugin { # created by nix#NixDerivation
     name = "godoctor-vim-2018-03-28";
     src = fetchgit {
       url = "https://github.com/godoctor/godoctor.vim";
@@ -78,7 +78,7 @@
 
   };
 
-  tmuxline-vim = buildVimPluginFrom2Nix { # created by nix#NixDerivation
+  tmuxline-vim = buildVimPlugin { # created by nix#NixDerivation
     name = "tmuxline-vim-2016-12-27";
     src = fetchgit {
       url = "https://github.com/grensjo/tmuxline.vim";
@@ -89,7 +89,7 @@
 
   };
 
-  tla-vim = buildVimPluginFrom2Nix { # created by nix#NixDerivation
+  tla-vim = buildVimPlugin { # created by nix#NixDerivation
     name = "tla-vim-2016-12-27";
     src = fetchgit {
       url = "https://github.com/hwayne/tla.vim";
@@ -100,7 +100,7 @@
 
   };
 
-  vim-actionscript = buildVimPluginFrom2Nix { # created by nix#NixDerivation
+  vim-actionscript = buildVimPlugin { # created by nix#NixDerivation
     name = "vim-actionscript-2018-11-13";
     src = fetchgit {
       url = "https://github.com/jeroenbourgois/vim-actionscript";
@@ -111,7 +111,7 @@
 
   };
 
-  vim-cue = buildVimPluginFrom2Nix { # created by nix#NixDerivation
+  vim-cue = buildVimPlugin { # created by nix#NixDerivation
     name = "vim-cue-2021-06-18";
     src = fetchgit {
       url = "https://github.com/jjo/vim-cue";
@@ -122,7 +122,7 @@
 
   };
 
-  vim-legend = buildVimPluginFrom2Nix { # created by nix#NixDerivation
+  vim-legend = buildVimPlugin { # created by nix#NixDerivation
     name = "vim-legend-2016-07-13";
     src = fetchgit {
       url = "https://github.com/killphi/vim-legend";
@@ -133,7 +133,7 @@
 
   };
 
-  errormarker-vim = buildVimPluginFrom2Nix { # created by nix#NixDerivation
+  errormarker-vim = buildVimPlugin { # created by nix#NixDerivation
     name = "errormarker-vim-2016-11-10";
     src = fetchgit {
       url = "https://github.com/mh21/errormarker.vim";
@@ -144,7 +144,7 @@
 
   };
 
-  vim-jsx = buildVimPluginFrom2Nix { # created by nix#NixDerivation
+  vim-jsx = buildVimPlugin { # created by nix#NixDerivation
     name = "vim-jsx-2019-09-29";
     src = fetchgit {
       url = "https://github.com/mxw/vim-jsx";
@@ -155,7 +155,7 @@
 
   };
 
-  jobmake = buildVimPluginFrom2Nix { # created by nix#NixDerivation
+  jobmake = buildVimPlugin { # created by nix#NixDerivation
     name = "jobmake-2016-07-15";
     src = fetchgit {
       url = "https://github.com/nyarly/jobmake";
@@ -166,7 +166,7 @@
 
   };
 
-  html5-vim = buildVimPluginFrom2Nix { # created by nix#NixDerivation
+  html5-vim = buildVimPlugin { # created by nix#NixDerivation
     name = "html5-vim-2020-08-22";
     src = fetchgit {
       url = "https://github.com/othree/html5.vim";
@@ -177,7 +177,7 @@
 
   };
 
-  vim-jsx-typescript = buildVimPluginFrom2Nix { # created by nix#NixDerivation
+  vim-jsx-typescript = buildVimPlugin { # created by nix#NixDerivation
     name = "vim-jsx-typescript-2020-12-03";
     src = fetchgit {
       url = "https://github.com/peitalin/vim-jsx-typescript";
@@ -188,7 +188,7 @@
 
   };
 
-  ranger-vim = buildVimPluginFrom2Nix { # created by nix#NixDerivation
+  ranger-vim = buildVimPlugin { # created by nix#NixDerivation
     name = "ranger-vim-2021-12-13";
     src = fetchgit {
       url = "https://github.com/rafaqz/ranger.vim";
@@ -199,7 +199,7 @@
 
   };
 
-  ag-vim = buildVimPluginFrom2Nix { # created by nix#NixDerivation
+  ag-vim = buildVimPlugin { # created by nix#NixDerivation
     name = "ag-vim-2016-06-19";
     src = fetchgit {
       url = "https://github.com/rking/ag.vim";
@@ -210,7 +210,7 @@
 
   };
 
-  vim-delve = buildVimPluginFrom2Nix { # created by nix#NixDerivation
+  vim-delve = buildVimPlugin { # created by nix#NixDerivation
     name = "vim-delve-2020-11-13";
     src = fetchgit {
       url = "https://github.com/sebdah/vim-delve";
@@ -221,7 +221,7 @@
 
   };
 
-  semweb-vim = buildVimPluginFrom2Nix { # created by nix#NixDerivation
+  semweb-vim = buildVimPlugin { # created by nix#NixDerivation
     name = "semweb-vim-2015-04-06";
     src = fetchgit {
       url = "https://github.com/seebi/semweb.vim";
@@ -232,7 +232,7 @@
 
   };
 
-  textile-vim = buildVimPluginFrom2Nix { # created by nix#NixDerivation
+  textile-vim = buildVimPlugin { # created by nix#NixDerivation
     name = "textile-vim-2013-11-16";
     src = fetchgit {
       url = "https://github.com/timcharper/textile.vim";
@@ -243,7 +243,7 @@
 
   };
 
-  vim-endwise = buildVimPluginFrom2Nix { # created by nix#NixDerivation
+  vim-endwise = buildVimPlugin { # created by nix#NixDerivation
     name = "vim-endwise-2021-03-06";
     src = fetchgit {
       url = "https://github.com/tpope/vim-endwise";
@@ -254,7 +254,7 @@
 
   };
 
-  vim-obsession = buildVimPluginFrom2Nix { # created by nix#NixDerivation
+  vim-obsession = buildVimPlugin { # created by nix#NixDerivation
     name = "vim-obsession-2021-03-22";
     src = fetchgit {
       url = "https://github.com/tpope/vim-obsession";
@@ -265,7 +265,7 @@
 
   };
 
-  vim-ragtag = buildVimPluginFrom2Nix { # created by nix#NixDerivation
+  vim-ragtag = buildVimPlugin { # created by nix#NixDerivation
     name = "vim-ragtag-2021-02-22";
     src = fetchgit {
       url = "https://github.com/tpope/vim-ragtag";
@@ -276,7 +276,7 @@
 
   };
 
-  vim-unimpaired = buildVimPluginFrom2Nix { # created by nix#NixDerivation
+  vim-unimpaired = buildVimPlugin { # created by nix#NixDerivation
     name = "vim-unimpaired-2022-02-02";
     src = fetchgit {
       url = "https://github.com/tpope/vim-unimpaired";
@@ -287,7 +287,7 @@
 
   };
 
-  IndentAnything = buildVimPluginFrom2Nix { # created by nix#NixDerivation
+  IndentAnything = buildVimPlugin { # created by nix#NixDerivation
     name = "IndentAnything-2010-10-17";
     src = fetchgit {
       url = "https://github.com/vim-scripts/IndentAnything";
@@ -298,7 +298,7 @@
 
   };
 
-  gnupg = buildVimPluginFrom2Nix { # created by nix#NixDerivation
+  gnupg = buildVimPlugin { # created by nix#NixDerivation
     name = "gnupg-2010-10-17";
     src = fetchgit {
       url = "https://github.com/vim-scripts/gnupg";
@@ -309,7 +309,7 @@
 
   };
 
-  nginx-vim = buildVimPluginFrom2Nix { # created by nix#NixDerivation
+  nginx-vim = buildVimPlugin { # created by nix#NixDerivation
     name = "nginx-vim-2010-11-27";
     src = fetchgit {
       url = "https://github.com/vim-scripts/nginx.vim";
@@ -320,7 +320,7 @@
 
   };
 
-  rfc-syntax = buildVimPluginFrom2Nix { # created by nix#NixDerivation
+  rfc-syntax = buildVimPlugin { # created by nix#NixDerivation
     name = "rfc-syntax-2014-01-28";
     src = fetchgit {
       url = "https://github.com/vim-scripts/rfc-syntax";
@@ -331,7 +331,7 @@
 
   };
 
-  jq-vim = buildVimPluginFrom2Nix { # created by nix#NixDerivation
+  jq-vim = buildVimPlugin { # created by nix#NixDerivation
     name = "jq-vim-2019-05-21";
     src = fetchgit {
       url = "https://github.com/vito-c/jq.vim";
