@@ -3,6 +3,7 @@
     "mailpile-1.0.0rc2"
     "python2.7-pyjwt-1.7.1"
     "python2.7-certifi-2021.10.8"
+    "nix-2.15.3"
   ];
   packageOverrides = pkgs: rec {
     networkmanager_openconnect = pkgs.networkmanager_openconnect.override {
