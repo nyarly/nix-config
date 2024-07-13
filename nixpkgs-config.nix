@@ -4,8 +4,9 @@
     "python2.7-pyjwt-1.7.1"
     "python2.7-certifi-2021.10.8"
     "nix-2.15.3"
+    "vault-1.14.10"
   ];
-  packageOverrides = pkgs: rec {
+  packageOverrides = pkgs: {
     networkmanager_openconnect = pkgs.networkmanager_openconnect.override {
       openconnect = pkgs.openconnect_gnutls;
     };

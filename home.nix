@@ -116,7 +116,6 @@ in
       bruno
 
       pandoc
-      #rnix-lsp
       mark
       terraform-ls
       tflint
@@ -380,7 +379,7 @@ in
 
         extraPackages = with pkgs; [
           gopls
-          #rnix-lsp
+          nil
           impl
           go_1_21
         ];

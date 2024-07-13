@@ -26,7 +26,7 @@ in {
       type = types.package;
       default = pkgs.nix;
       defaultText = literalExpression "pkgs.nix";
-      example = literalExpression "pkgs.nixVersions.unstable";
+      example = literalExpression "pkgs.nixVersions.latest";
       description = "Which nix package to use.";
     };
   };
