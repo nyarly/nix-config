@@ -5,6 +5,7 @@
     "python2.7-certifi-2021.10.8"
     "nix-2.15.3"
     "vault-1.14.10"
+    "keycloak-23.0.6"
   ];
   packageOverrides = pkgs: {
     networkmanager_openconnect = pkgs.networkmanager_openconnect.override {

@@ -23,8 +23,8 @@ let
   licensezero = pkgs.callPackage home/packages/licensezero {};
   rofi-taskwarrior = pkgs.callPackage home/packages/rofi-taskwarrior {};
   confit = pkgs.callPackage home/packages/confit {};
-  jdl-lorri-pkg = pkgs.callPackage home/packages/lorri {};
-  #jdl-vim-markdown-composer = pkgs.callPackage home/packages/vim-markdown-composer.nix {};
+  # jdl-lorri-pkg = pkgs.callPackage home/packages/lorri {};
+  # jdl-vim-markdown-composer = pkgs.callPackage home/packages/vim-markdown-composer.nix {};
 
   binScripts = lib.filterAttrs (n: v: lib.isDerivation v) (pkgs.callPackage home/binScripts.nix { pkgs = pkgs // updated; });
 
@@ -38,7 +38,7 @@ in
       # home/services/restart-taffybar.nix
       home/services/scdaemon-notify.nix
       home/services/nm-applet.nix
-      home/services/lorri.nix
+      # home/services/lorri.nix
       home/services/my-polybar.nix
 
       home/programs/scdaemon.nix
@@ -502,11 +502,9 @@ in
 
       scdaemonNotify.enable = true;
 
-      jdl-lorri = {
+      lorri = {
         enable = true;
         enableNotifications = true;
-        nixPackage = pkgs.nixUnstable;
-        package = jdl-lorri-pkg;
       };
 
       keynav.enable = true;
@@ -590,6 +588,7 @@ in
         maxCacheTtl = 86400;
         maxCacheTtlSsh = 86400;
         enableSshSupport = true;
+        pinentryPackage = pkgs.pinentry-gtk2;
         extraConfig = ''
         '';
       };
@@ -647,7 +646,7 @@ in
 
       materializeAlacritty = ''
         CFG=$HOME/.config/alacritty/alacritty
-        $DRY_RUN_CMD cp -f $CFG-hm.yml $CFG.yml
+        $DRY_RUN_CMD cp -f $CFG-hm.toml $CFG.toml
       '';
 
       setupGitGpg = ''
@@ -700,7 +699,7 @@ in
     xdg.configFile = {
       "git/trimwhite.sh".source = home/config/git/trimwhite.sh;
       "rofi-pass/config".source = home/config/rofi-pass;
-      "alacritty/alacritty-hm.yml".source = home/config/alacritty.yml;
+      "alacritty/alacritty-hm.toml".source = home/config/alacritty.toml;
       "nixpkgs/config.nix".source = ./nixpkgs-config.nix;
       "keynav/keynavrc".source = home/config/keynavrc;
     }
