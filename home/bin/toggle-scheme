@@ -1,13 +1,15 @@
 #!/usr/bin/env fish
 
-set config ~/.config/alacritty/alacritty.yml
+set config ~/.config/alacritty/alacritty.toml
+set config-prefix '  \"~/.config/alacritty'
 
-set scheme solarized-light
+set scheme color-scheme-light
 
-if grep -q "^colors: [*]solarized-light" $config
-  set scheme solarized-dark
+if grep -q "^$config-prefix/light-scheme.toml\", " $config
+  set scheme color-scheme-dark
 end
 
 materialize-config $config
 
-sed -i.bak "s/^colors: *.*/colors: *$scheme/" $config
+
+sed -i.bak "s%^$config-prefix/[^.]*%$config-prefix/$config.toml" $config

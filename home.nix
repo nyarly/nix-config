@@ -700,6 +700,8 @@ in
       "git/trimwhite.sh".source = home/config/git/trimwhite.sh;
       "rofi-pass/config".source = home/config/rofi-pass;
       "alacritty/alacritty-hm.toml".source = home/config/alacritty.toml;
+      "alacritty/color-scheme-light.toml".source = home/config/alacritty-color-scheme-light.toml;
+      "alacritty/color-scheme-dark.toml".source = home/config/alacritty-color-scheme-dark.toml;
       "nixpkgs/config.nix".source = ./nixpkgs-config.nix;
       "keynav/keynavrc".source = home/config/keynavrc;
     }

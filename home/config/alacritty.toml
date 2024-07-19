@@ -7,33 +7,9 @@ duration = 0
 [colors]
 draw_bold_text_with_bright_colors = true
 
-[colors.bright]
-black = "0x002b36"
-blue = "0x839496"
-cyan = "0x93a1a1"
-green = "0x586e75"
-magenta = "0x6c71c4"
-red = "0xcb4b16"
-white = "0xfdf6e3"
-yellow = "0x657b83"
-
-[colors.cursor]
-cursor = "0x073642"
-text = "0x073642"
-
-[colors.normal]
-black = "0x073642"
-blue = "0x268bd2"
-cyan = "0x2aa198"
-green = "0x859900"
-magenta = "0xd33682"
-red = "0xdc322f"
-white = "0xeee8d5"
-yellow = "0xb58900"
-
-[colors.primary]
-background = "0xfdf6e3"
-foreground = "0x586e75"
+import = [
+  "~/.config/alacritty/light-scheme.toml",
+]
 
 [cursor]
 style = "Block"
@@ -574,71 +550,6 @@ hide_when_typing = true
 [[mouse.bindings]]
 action = "PasteSelection"
 mouse = "Middle"
-
-[mouse.double_click]
-threshold = 300
-
-[mouse.triple_click]
-threshold = 300
-
-[schemes]
-solarized = ["0x002b36", "0x073642", "0x586e75", "0x657b83", "0x839496", "0x93a1a1", "0xeee8d5", "0xfdf6e3", "0xb58900", "0xcb4b16", "0xdc322f", "0xd33682", "0x6c71c4", "0x268bd2", "0x2aa198", "0x859900"]
-
-[schemes.dark.bright]
-black = "0xfdf6e3"
-blue = "0x657b83"
-cyan = "0x586e75"
-green = "0x93a1a1"
-magenta = "0x6c71c4"
-red = "0xcb4b16"
-white = "0x002b36"
-yellow = "0x839496"
-
-[schemes.dark.cursor]
-cursor = "0xeee8d5"
-text = "0xeee8d5"
-
-[schemes.dark.normal]
-black = "0xeee8d5"
-blue = "0x268bd2"
-cyan = "0x2aa198"
-green = "0x859900"
-magenta = "0xd33682"
-red = "0xdc322f"
-white = "0x073642"
-yellow = "0xb58900"
-
-[schemes.dark.primary]
-background = "0x073642"
-foreground = "0x93a1a1"
-
-[schemes.light.bright]
-black = "0x002b36"
-blue = "0x839496"
-cyan = "0x93a1a1"
-green = "0x586e75"
-magenta = "0x6c71c4"
-red = "0xcb4b16"
-white = "0xfdf6e3"
-yellow = "0x657b83"
-
-[schemes.light.cursor]
-cursor = "0x073642"
-text = "0x073642"
-
-[schemes.light.normal]
-black = "0x073642"
-blue = "0x268bd2"
-cyan = "0x2aa198"
-green = "0x859900"
-magenta = "0xd33682"
-red = "0xdc322f"
-white = "0xeee8d5"
-yellow = "0xb58900"
-
-[schemes.light.primary]
-background = "0xfdf6e3"
-foreground = "0x586e75"
 
 [scrolling]
 history = 10000
