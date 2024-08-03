@@ -2,7 +2,6 @@
 
 set config ~/.config/alacritty/alacritty.toml
 set config_prefix '  "~/.config/alacritty'
-echo $config_prefix
 
 set scheme color-scheme-light
 

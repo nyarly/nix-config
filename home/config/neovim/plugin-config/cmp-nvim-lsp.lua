@@ -32,7 +32,8 @@ local function on_attach(client, buffer)
   vim.keymap.set("n", "gW", vim.lsp.buf.workspace_symbol, keymap_opts)
   vim.keymap.set("n", "gd", vim.lsp.buf.definition, keymap_opts)
 
-  vim.keymap.set("n", "ga", vim.lsp.buf.code_action, keymap_opts)
+  vim.keymap.set("n", "gf", vim.lsp.buf.code_action, keymap_opts)
+  vim.keymap.set("v", "gf", vim.lsp.buf.code_action, keymap_opts)
   vim.keymap.set("n", "gN", vim.lsp.buf.rename, keymap_opts)
   vim.keymap.set("n", "gv", function() vim.diagnostic.open_float(nil, { focusable = false }) end, keymap_opts)
 

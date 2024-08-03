@@ -23,7 +23,8 @@
   builtins.elem pkgname [
     "postman"
     "cockroach"
-    "terraform"
+    "terraform" #BSL
+    "vault" # BSL
 
     "cloudflared"
     "google-chrome"

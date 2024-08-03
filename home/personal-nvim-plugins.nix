@@ -1,6 +1,5 @@
 {fetchgit, buildVimPlugin}:
 {
-
   sideways-vim = buildVimPlugin { # created by nix#NixDerivation
     name = "sideways-vim-2022-02-12";
     src = fetchgit {

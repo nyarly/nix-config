@@ -2,6 +2,7 @@
 
 with lib;
 
+# homebrewed polybar service to do templated Systemd services for each monitor
 let
 
   cfg = config.services.myPolybar;

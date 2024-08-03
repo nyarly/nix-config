@@ -34,13 +34,6 @@ in
     sha256 = "1kf5bdh0mpijb8wdwvj66w1rrsy1fb7jzvrdizvakipykkshv5vh";
   })
   (plugin {
-    name = "fish-bang-bang";
-    owner = "nyarly";
-    repo = "fish-bang-bang";
-    rev = "12f08d9c81dc23fc44eb309964c7b418bbc97cbb";
-    sha256 = "0mzbz0kdg8ax6q1gzsfvpy25d3xqwkyx9hy0jmbkr9zvjf4qav7b";
-  })
-  (plugin {
     name = "fish-rake-complete";
     owner = "nyarly";
     repo = "fish-rake-complete";

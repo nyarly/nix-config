@@ -3,8 +3,9 @@
 
 yes '' | adhoc-vim-plugins \
   +'0' \
-  +":s/^/{fetchgit, buildVimPluginFrom2Nix}:\r{\r/" \
+  +":s/^/# Built by update-nvim-plugins.nixshell"
+  +":s/^/{fetchgit, buildVimPlugin}:\r{\r/" \
   +'/# vam/,$d' \
   +'GG' \
   +':s/^/}/' \
-  +'x! personal-nvim-plugins.nix'
+  +'x! home/personal-nvim-plugins.nix'
