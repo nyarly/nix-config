@@ -26,4 +26,5 @@ lib.concatStringsSep "\n" (map (p: "\"${p}\n${builtins.readFile p}\n") [
   ./center-jump.vim
   ./blase-swapfile.vim
   ./colors.vim
+  ./longlines.vim
 ])

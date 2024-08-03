@@ -108,5 +108,7 @@ in {
     vim-surround
     vim-unimpaired
     webapi-vim
+
+    sparkup
   ];
 }

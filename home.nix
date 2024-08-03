@@ -1,7 +1,7 @@
 { lib, config, pkgs, unstable, ... }:
 
 let
-  inherit (pkgs.callPackage home/loadConfigs.nix {}) transitionalConfigs configFiles;
+  inherit (pkgs.callPackage home/loadConfigs.nix {}) configFiles;
 
   updated = {
     # signal = pkgs.callPackage home/packages/signal-desktop.nix {};
@@ -136,17 +136,19 @@ in
     xdg.configFile = {
       "git/trimwhite.sh".source = home/config/git/trimwhite.sh;
       "rofi-pass/config".source = home/config/rofi-pass;
+      "ripgreprc".source = home/config/ripgreprc;
+      "procs/config.toml".source = home/config/procs.toml;
       "alacritty/alacritty-hm.toml".source = home/config/alacritty.toml;
       "alacritty/color-scheme-light.toml".source = home/config/alacritty-color-scheme-light.toml;
       "alacritty/color-scheme-dark.toml".source = home/config/alacritty-color-scheme-dark.toml;
       "nixpkgs/config.nix".source = ./nixpkgs-config.nix;
       "keynav/keynavrc".source = home/config/keynavrc;
     }
-    // configFiles home/config/neovim/ftplugin "nvim/after/ftplugin"
+    // configFiles home/config/neovim/after/ftplugin "nvim/after/ftplugin"
+    // configFiles home/config/neovim/ftplugin "nvim/ftplugin"
     // configFiles home/config/hexchat "hexchat"
     // configFiles home/config/fish/completions "fish/completions"
-    // configFiles home/config/fish/functions "fish/functions"
-    // transitionalConfigs home/config/transitional;
+    // configFiles home/config/fish/functions "fish/functions";
 
     xsession = {
       enable = true;
