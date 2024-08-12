@@ -143,6 +143,8 @@ in
       "alacritty/color-scheme-dark.toml".source = home/config/alacritty-color-scheme-dark.toml;
       "nixpkgs/config.nix".source = ./nixpkgs-config.nix;
       "keynav/keynavrc".source = home/config/keynavrc;
+      "nvim/autoload/tmuxline/presets/nyarly.vim".source = home/config/neovim/tmuxline-preset.vim;
+      "nvim/swapfile_parse.rb".source = home/config/neovim/swapfile_parse.rb;
     }
     // configFiles home/config/neovim/after/ftplugin "nvim/after/ftplugin"
     // configFiles home/config/neovim/ftplugin "nvim/ftplugin"

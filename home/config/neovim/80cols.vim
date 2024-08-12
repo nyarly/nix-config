@@ -1,2 +1,2 @@
-highlight OverLength ctermbg=187 guibg=#592929
+highlight OverLength cterm=reverse gui=reverse
 match OverLength /\%81v./

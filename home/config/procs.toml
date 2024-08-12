@@ -1,3 +1,7 @@
+[diplay]
+cut_to_terminal = false
+theme = "Light"
+
 [[columns]]
 kind = "Pid"
 style = "BrightYellow"

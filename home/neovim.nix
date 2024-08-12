@@ -16,35 +16,48 @@ in {
     nil
     impl
     go_1_21
+    elmPackages.elm
+    elmPackages.elm-test
+    elmPackages.elm-format
+    elmPackages.elm-language-server
   ];
 
   plugins =
   let
+    luaConfig = name: ''
+
+    -- c.f. plugin-config/${name}.lua
+
+    ;(function()
+      ${builtins.readFile (config/neovim/plugin-config + "/${name}.lua")}
+    end)()
+    '';
     dotVim = name: {
       plugin = if pkgs.vimPlugins ? ${name} then pkgs.vimPlugins.${name} else localNvimPlugins.${name};
-      config = builtins.readFile (config/neovim/plugin-config + "/${name}.vim");
+      config = "\n" + builtins.readFile (config/neovim/plugin-config + "/${name}.vim");
     };
     dotLua = name: {
       plugin = pkgs.vimPlugins.${name};
       type = "lua";
-      config = builtins.readFile (config/neovim/plugin-config + "/${name}.lua");
+      config = luaConfig name;
     };
   in
   with pkgs.vimPlugins; with localNvimPlugins; [
-    { plugin = NeoSolarized; config = ''colorscheme NeoSolarized''; }
+    (dotLua "nvim-solarized-lua")
     {
       plugin = nvim-treesitter.withAllGrammars;
       type = "lua";
-      config = builtins.readFile config/neovim/plugin-config/nvim-treesitter.lua;
+      config = luaConfig "nvim-treesitter";
     }
     nvim-treesitter-textobjects
-    nvim-treesitter-context
     (dotVim "ale")
     Colorizer
     (dotLua "fidget-nvim")
+
     nvim-lspconfig
     rust-tools-nvim
-    (dotLua "cmp-nvim-lsp")
+    (dotLua "cmp-nvim-lsp") # depends on nvim-lspconfig and rust-tools-nvim
+
     (dotLua "luasnip")
     friendly-snippets
     cmp_luasnip
@@ -81,7 +94,6 @@ in {
     tla-vim
     (dotVim "tmuxline-vim")
     typescript-vim
-    ultisnips
     vim-abolish
     (dotVim "vim-airline")
     vim-airline-themes
@@ -95,7 +107,6 @@ in {
     vim-jsx
     vim-jsx-typescript
     (dotVim "vim-legend")
-    #(dotVim "vim-markdown")
     markdown-preview-nvim #; config = "let g:mkdp_auto_start = 1"; }
     vim-nix
     vim-nixhash
@@ -108,7 +119,6 @@ in {
     vim-surround
     vim-unimpaired
     webapi-vim
-
-    sparkup
+    (dotLua "nvim-treesitter-context")
   ];
 }

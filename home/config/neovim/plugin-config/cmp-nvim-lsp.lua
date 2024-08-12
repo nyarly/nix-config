@@ -1,24 +1,9 @@
-
 local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
 local lspconfig = require('lspconfig')
 
--- Enable some language servers with the additional completion capabilities offered by nvim-cmp
--- local servers = { 'clangd', 'rust_analyzer', 'pyright', 'tsserver' }
-local servers = { 'rust_analyzer', 'nil_ls', 'gopls' }
-for _, lsp in ipairs(servers) do
-  lspconfig[lsp].setup {
-    -- on_attach = my_custom_on_attach,
-    capabilities = capabilities,
-  }
-end
-
--- Rust configuration care of:
--- https://sharksforarms.dev/posts/neovim-rust/
---   there were more tips there
-
-local function on_attach(client, buffer)
-  -- This callback is called when the LSP is atttached/enabled for this buffer
+local function lsp_attach(client, buffer)
+  -- This callback is called when the LSP is attached/enabled for this buffer
   -- we could set keymaps related to LSP, etc here.
   local keymap_opts = { buffer = buffer }
   -- Code navigation and shortcuts
@@ -48,6 +33,39 @@ local function on_attach(client, buffer)
 
   vim.cmd([[match OverLength /\%100v./]])
 end
+-- Enable some language servers with the additional completion capabilities offered by nvim-cmp
+-- local servers = { 'clangd', 'rust_analyzer', 'pyright', 'tsserver' }
+local servers = { 'rust_analyzer', 'gopls' }
+for _, lsp in ipairs(servers) do
+  lspconfig[lsp].setup {
+    -- on_attach = my_custom_on_attach,
+    capabilities = capabilities,
+    on_attach = lsp_attach,
+  }
+end
+
+lspconfig['nil_ls'].setup {
+  capabilities = capabilities,
+  on_attach = lsp_attach,
+  settings = {
+    nix = {
+      flake = {
+        autoArchive = true
+      }
+    }
+  }
+}
+
+lspconfig['elmls'].setup {
+  capabilities = capabilities,
+  on_attach = lsp_attach,
+  root_dir = require "lspconfig.util".root_pattern("elm.json",".git"),
+  -- init_options = { elmTestPath = "elm-test-rs" },
+}
+
+-- Rust configuration care of:
+-- https://sharksforarms.dev/posts/neovim-rust/
+--   there were more tips there
 
 -- belongs in on_attach? belongs in lsp?
 local format_sync_grp = vim.api.nvim_create_augroup("Format", {})
@@ -58,6 +76,22 @@ vim.api.nvim_create_autocmd("BufWritePre", {
   end,
   group = format_sync_grp,
 })
+local langs = {
+  rs = function(client, buffer)
+    vim.bo.sw=4
+    vim.b.ale_lint_on_insert_leave=0
+  end,
+  elm = function(client, buffer)
+    vim.bo.sw=2
+  end
+}
+for l,cb in pairs(langs) do
+  vim.api.nvim_create_autocmd("LspAttach", {
+    pattern = "*." .. l,
+    callback = cb
+  })
+end
+
 
 -- Configure LSP through rust-tools.nvim plugin.
 -- rust-tools will configure and enable certain LSP features for us.
@@ -80,7 +114,7 @@ local opts = {
   -- see https://github.com/neovim/nvim-lspconfig/blob/master/CONFIG.md#rust_analyzer
   server = {
     -- on_attach is a callback called when the language server attachs to the buffer
-    on_attach = on_attach,
+    on_attach = lsp_attach,
     settings = {
       -- to enable rust-analyzer settings visit:
       -- https://github.com/rust-analyzer/rust-analyzer/blob/master/docs/user/generated_config.adoc
