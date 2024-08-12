@@ -2,7 +2,7 @@
 
 cp "$1" "$1.bak"
 
-if egrep -qv '^#|^(\s|\[[^]]*\])*$' "$1"; then
+if grep -Eqv '^#|^(\s|\[[^]]*\])*$' "$1"; then
   echo -n ""
 else
   echo "Aborting commit due to empty commit message"
@@ -11,5 +11,26 @@ fi
 
 branch=$(git rev-parse --abbrev-ref HEAD)
 if ticket=$(git config --get-all "branch.${branch}.jira-ticket"); then
-  echo $ticket >> $1
+  echo "$ticket" >> "$1"
+fi
+
+# Regex to validate the type pattern
+CC_REGEX="^((Merge[ a-z-]* branch.*)|(Revert*)|((build|chore|ci|docs|feat|fix|perf|refactor|revert|style|test)(\(.*\))?!?: .*))"
+
+FILE=$(cat "$1") # File containing the commit message
+
+if [[ ! $FILE =~ $CC_REGEX && "$(git config --get core.coco)" == 'true' ]]; then
+  eval 2>&1
+  echo "Rejecting commit because it fails to follow the Conventional Commit Standard"
+  echo "  e.g."
+  echo "  feat: Description..."
+  echo "  fix: Description..."
+  echo "  fix({context}): Description..."
+  echo "  BREAKING CHANGE footer"
+	exit 1
+elif [[ -z "$(git config --get core.coco)" ]]; then
+  eval 2>&1
+  echo "  No conventional commit configuration set; if it's that kind of joint:"
+  echo "  git config --local --type bool core.coco false"
+	echo >&2 "Valid commit message."
 fi

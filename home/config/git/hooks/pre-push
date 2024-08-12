@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 
 while read local lsha remote rsha; do
-  echo "dbg: Push to ${remote}"
   case $remote in
     **/master | **/main | **/staging | **/prod | **/production)
       if [ "$(git config --get branch.${remote}.foolhardy)" != 'true' ] && # old form

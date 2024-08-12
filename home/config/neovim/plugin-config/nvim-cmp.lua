@@ -85,3 +85,10 @@ cmp.setup.filetype({'markdown'}, {
     { name = 'luasnip' },
   }
 })
+
+cmp.setup.buffer {
+  sources = cmp.config.sources(
+    {{name = 'conventionalcommits'}},
+    {{name = 'buffer'}}
+  ),
+}

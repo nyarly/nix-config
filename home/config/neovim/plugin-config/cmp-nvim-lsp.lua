@@ -28,10 +28,7 @@ local function lsp_attach(client, buffer)
 
   vim.wo.signcolumn = "number"
 
-  vim.bo.sw=4
-  vim.b.ale_lint_on_insert_leave=0
-
-  vim.cmd([[match OverLength /\%100v./]])
+  vim.cmd([[match OverLength /\%100v./]]) -- right place?
 end
 -- Enable some language servers with the additional completion capabilities offered by nvim-cmp
 -- local servers = { 'clangd', 'rust_analyzer', 'pyright', 'tsserver' }
@@ -63,10 +60,6 @@ lspconfig['elmls'].setup {
   -- init_options = { elmTestPath = "elm-test-rs" },
 }
 
--- Rust configuration care of:
--- https://sharksforarms.dev/posts/neovim-rust/
---   there were more tips there
-
 -- belongs in on_attach? belongs in lsp?
 local format_sync_grp = vim.api.nvim_create_augroup("Format", {})
 vim.api.nvim_create_autocmd("BufWritePre", {
@@ -76,13 +69,14 @@ vim.api.nvim_create_autocmd("BufWritePre", {
   end,
   group = format_sync_grp,
 })
+
 local langs = {
   rs = function(client, buffer)
     vim.bo.sw=4
     vim.b.ale_lint_on_insert_leave=0
   end,
   elm = function(client, buffer)
-    vim.bo.sw=2
+    vim.bo.sw=2 -- set in after/ftplugin as well...
   end
 }
 for l,cb in pairs(langs) do
@@ -92,6 +86,10 @@ for l,cb in pairs(langs) do
   })
 end
 
+
+-- Rust configuration care of:
+-- https://sharksforarms.dev/posts/neovim-rust/
+--   there were more tips there
 
 -- Configure LSP through rust-tools.nvim plugin.
 -- rust-tools will configure and enable certain LSP features for us.

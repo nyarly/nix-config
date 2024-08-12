@@ -65,6 +65,7 @@ in {
     cmp-path
     cmp-cmdline
     cmp-treesitter
+    cmp-conventionalcommits
     (dotLua "nvim-cmp")
     direnv-vim
     Dockerfile-vim
