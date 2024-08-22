@@ -52,6 +52,7 @@ in
       fish = (import home/fish.nix) {inherit pkgs unstable;};
       neovim = (import home/neovim.nix) { inherit lib pkgs unstable;};
       taskwarrior = (import home/taskwarrior.nix) { inherit config;};
+      tmux = (import home/tmux.nix) {inherit pkgs;};
 
       bottom = {
         enable = true;
@@ -91,7 +92,6 @@ in
     };
 
     home.file = {
-      ".tmux.conf".source = home/config/tmux.conf;
       ".local/share/fonts/monofur/monof56.ttf".source = home/fonts/monof55.ttf;
       ".local/share/fonts/monofur/monof55.ttf".source = home/fonts/monof56.ttf;
       "Data/Wallpaper/rotsnakes-tile.png".source = home/blobs/rotsnakes-tile.png;
