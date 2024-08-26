@@ -79,12 +79,22 @@ cmp.setup.cmdline(':', {
 })
 
 cmp.setup.filetype({'markdown'}, {
+  enabled = false, -- could be a function
   sources = {
     { name = 'buffer' },
     { name = 'path' },
     { name = 'luasnip' },
   }
 })
+
+vim.api.nvim_create_user_command("CmpEnable", "lua require('cmp').setup.buffer({enabled = true})", {
+    bar = true,
+    desc = "enable cmp completions for this buffer"
+  })
+vim.api.nvim_create_user_command("CmpDisable", "lua require('cmp').setup.buffer({enabled = false})", {
+    bar = true,
+    desc = "disable cmp completions for this buffer"
+  })
 
 cmp.setup.buffer {
   sources = cmp.config.sources(
