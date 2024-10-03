@@ -26,6 +26,7 @@ set signcolumn=number
 set cursorline
 set noshowmode
 set foldlevelstart=2
+set foldopen=all
 set guicursor=n-v-c-sm:block,i-ci-ve:ver25,r-cr-o:hor20
 
 set title

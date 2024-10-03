@@ -14,6 +14,10 @@ cmp.setup {
 
   preselect = cmp.PreselectMode.None,
 
+  completion = {
+    completeopt = vim.o.completeopt
+  },
+
   snippet = {
     expand = function(args)
       local luasnip = require 'luasnip'
@@ -94,6 +98,14 @@ vim.api.nvim_create_user_command("CmpEnable", "lua require('cmp').setup.buffer({
 vim.api.nvim_create_user_command("CmpDisable", "lua require('cmp').setup.buffer({enabled = false})", {
     bar = true,
     desc = "disable cmp completions for this buffer"
+  })
+vim.api.nvim_create_user_command("LspEnable", "lua vim.diagnostic.enable()", {
+    bar = true,
+    desc = "enable LSP diagnostics"
+  })
+vim.api.nvim_create_user_command("LspDisable", "lua vim.diagnostic.disable()", {
+    bar = true,
+    desc = "disable LSP diagnostics"
   })
 
 cmp.setup.buffer {

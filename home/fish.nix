@@ -16,7 +16,8 @@ in
 
   package = (unstable.fish.overrideAttrs (oldAttrs: { cmakeFlags = []; }));
 
-  shellInit = ''
+  shellInit = #fish
+  ''
     ulimit -n 4096
     function fish_greeting; end
     __refresh_gpg_agent_info
@@ -30,7 +31,8 @@ in
     set -gx PATH /home/judson/bin $PATH
   '';
   loginShellInit = configs config/fish/login ;
-  interactiveShellInit = ''
+  interactiveShellInit = #fish
+  ''
     stty start undef
     stty stop undef
     stty -ixon

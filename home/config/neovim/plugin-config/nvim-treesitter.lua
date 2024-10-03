@@ -1,4 +1,3 @@
-
 require'nvim-treesitter.configs'.setup {
 	ensure_installed = {},
   -- ensure_installed = { "bash", "bibtex", "c", "c_sharp", "clojure", "cmake",
@@ -73,3 +72,5 @@ require'nvim-treesitter.configs'.setup {
 
 vim.o.foldmethod='expr'
 vim.o.foldexpr='nvim_treesitter#foldexpr()'
+
+vim.treesitter.language.register("bash", "shell")
