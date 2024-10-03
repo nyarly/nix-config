@@ -11,6 +11,9 @@ let
       mkdir -p $out/bin
       cp $src $out/bin/${name}
       chmod +x $out/bin/${name}
+    '';
+
+    postFixup = ''
       wrapProgram $out/bin/${name} --prefix PATH : "${lib.makeBinPath buildInputs}"
     '';
   };
@@ -23,7 +26,7 @@ in
     "end-of-day" = [fish taskwarrior gitFull]; # should include commute as well
     "ontask" = [bash taskwarrior];
     "task_polybar.sh" = [bash taskwarrior];
-    "rofi-screenlayout" = [bash rofi dmenu]; # Consider using Rofi directly
+#    "rofi-screenlayout" = [bash rofi dmenu]; # Consider using Rofi directly
     "rofi-scripts" = [bash rofi dmenu];     # to remove dep on dmenu
     "git-jira-branch" = [bash gitFull go-jira];
     "git-current-jira" = [bash gitFull go-jira];
