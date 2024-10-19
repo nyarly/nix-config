@@ -9,13 +9,19 @@ import XMonad.Layout
 import XMonad.Layout.Reflect
 import XMonad.Layout.Fullscreen
 import XMonad.Layout.PerScreen
-import XMonad.Layout.Named
+import XMonad.Layout.Renamed
 import XMonad.Layout.NoBorders
 import XMonad.Layout.ToggleLayouts
 import XMonad.Actions.WindowBringer
-import XMonad.Hooks.DynamicProperty
+import XMonad.Hooks.OnPropertyChange
 import qualified XMonad.Actions.CycleWS as C
 import qualified XMonad.StackSet as W
+
+-- c.f. https://wiki.haskell.org/Xmonad/Frequently_asked_questions#Multi_head_or_xinerama_troubles
+
+import qualified Graphics.X11
+import qualified Graphics.X11.Xinerama
+import Data.List (intercalate)
 
 -- c.f. http://hackage.haskell.org/package/xmonad-contrib-0.13/docs/XMonad-Actions-CycleWS.html
 
@@ -124,7 +130,8 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList ([
        ((modm, xK_r), spawn "env TERMINAL=alacritty EDITOR=nvim rofi -modi tasks:rofi-taskwarrior -show tasks &"),
        ((modm, xK_g), spawn "rofi -show window -modi 'run,window' -show-icons -matching fuzzy -sidebar-mode &"),
        ((modm .|. shiftMask, xK_j ), mainDown ),
-       ((modm .|. shiftMask, xK_k ), mainUp )
+       ((modm .|. shiftMask, xK_k ), mainUp ),
+       ((modm .|. shiftMask, xK_x), xineramaDebug)
      ]
      ++ [ ((modm, key),                    C.toggleOrView tag) | (tag, key)  <- workspacesWithKeys ]
      ++ [ ((modm .|. shiftMask, key), (windows . W.shift) tag) | (tag, key)  <- workspacesWithKeys ]
@@ -155,6 +162,18 @@ myManageHook = (composeAll . concat $ [
   chatS = ["signal", "hexchat", "fractal"]
   zoomS = ["zoom", ".zoom", ".zoom "]
 
+xineramaDebug :: X ()
+xineramaDebug = do
+ rectangles <- liftIO $ Graphics.X11.openDisplay [] >>= Graphics.X11.Xinerama.getScreenInfo
+ -- Really ought to quote xinerama and show rectangle, but this will
+ -- do for now.
+ spawn ("xmessage \""
+        ++ "Compiled with Xinerema: "
+        ++ show Graphics.X11.Xinerama.compiledWithXinerama ++ "\n"
+        ++ "Rectangles:\n"
+        ++ intercalate "\n" (map show rectangles)
+        ++ "\"")
+
 main = xmonad $
        setEwmhActivateHook (manageFocus activateFocusHook) $
        ewmh $
@@ -165,7 +184,7 @@ main = xmonad $
            , layoutHook = myLayout
            , logHook = dynamicLogString def >>= xmonadPropLog
            , manageHook = myManageHook <+> manageHook def
-           , handleEventHook = mconcat [ dynamicTitle manageZoomHook, handleEventHook def]
+           , handleEventHook = mconcat [ onTitleChange manageZoomHook, handleEventHook def]
            , workspaces = myWorkspaces
            , keys = newKeys
            , normalBorderColor  = "#aaaaaa"

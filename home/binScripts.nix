@@ -1,7 +1,7 @@
 { stdenv, pkgs, lib, makeWrapper }:
 let
   fromBin = name: buildInputs:
-  stdenv.mkDerivation rec {
+  lib.trace name stdenv.mkDerivation rec {
     inherit name;
     src = ./bin + "/${name}";
     nativeBuildInputs = [ makeWrapper ];
@@ -11,9 +11,7 @@ let
       mkdir -p $out/bin
       cp $src $out/bin/${name}
       chmod +x $out/bin/${name}
-    '';
-
-    postFixup = ''
+      touch $out/bin/wtf
       wrapProgram $out/bin/${name} --prefix PATH : "${lib.makeBinPath buildInputs}"
     '';
   };
@@ -26,7 +24,7 @@ in
     "end-of-day" = [fish taskwarrior gitFull]; # should include commute as well
     "ontask" = [bash taskwarrior];
     "task_polybar.sh" = [bash taskwarrior];
-#    "rofi-screenlayout" = [bash rofi dmenu]; # Consider using Rofi directly
+    "rofi-screenlayout" = [bash rofi dmenu]; # Consider using Rofi directly
     "rofi-scripts" = [bash rofi dmenu];     # to remove dep on dmenu
     "git-jira-branch" = [bash gitFull go-jira];
     "git-current-jira" = [bash gitFull go-jira];
