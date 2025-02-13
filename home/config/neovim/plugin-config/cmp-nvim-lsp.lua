@@ -20,7 +20,7 @@ local function lsp_attach(client, buffer)
   vim.keymap.set("n", "gf", vim.lsp.buf.code_action, keymap_opts)
   vim.keymap.set("v", "gf", vim.lsp.buf.code_action, keymap_opts)
   vim.keymap.set("n", "gN", vim.lsp.buf.rename, keymap_opts)
-  vim.keymap.set("n", "gv", function() vim.diagnostic.open_float(nil, { focusable = false }) end, keymap_opts)
+  vim.keymap.set("n", "gb", function() vim.diagnostic.open_float(nil, { focusable = false }) end, keymap_opts)
 
   -- Goto previous/next diagnostic warning/error
   vim.keymap.set("n", "g[", vim.diagnostic.goto_prev, keymap_opts)
@@ -29,6 +29,13 @@ local function lsp_attach(client, buffer)
   vim.wo.signcolumn = "number"
 
   vim.cmd([[match OverLength /\%100v./]]) -- right place?
+
+  vim.api.nvim_create_autocmd("BufWritePre", {
+      buffer = buffer,
+      callback = function()
+        vim.lsp.buf.format {async = false}
+      end,
+    })
 end
 -- Enable some language servers with the additional completion capabilities offered by nvim-cmp
 -- local servers = { 'clangd', 'rust_analyzer', 'pyright', 'tsserver' }
@@ -58,6 +65,9 @@ lspconfig['elmls'].setup {
   on_attach = lsp_attach,
   root_dir = require "lspconfig.util".root_pattern("elm.json",".git"),
   -- init_options = { elmTestPath = "elm-test-rs" },
+  init_options = {
+    elmFormatPath = "elm-format",
+  }
 }
 
 -- belongs in on_attach? belongs in lsp?
