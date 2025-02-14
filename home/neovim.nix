@@ -15,7 +15,7 @@ in {
     gopls
     nil
     impl
-    go_1_21
+    go_1_23
     elmPackages.elm
     elmPackages.elm-test
     elmPackages.elm-format

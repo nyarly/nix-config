@@ -183,7 +183,7 @@ in
     format-underline = colors.yellow;
     # label = "📬%notifications%";
     # click-left = "chromium github.com/notifications/beta &";
-    label = "%{A1:${pkgs.xdg_utils}/bin/xdg-open https\\://github.com/notifications/beta &:} 📬%notifications% %{A}";
+    label = "%{A1:${pkgs.xdg-utils}/bin/xdg-open https\\://github.com/notifications/beta &:} 📬%notifications% %{A}";
   };
 
   "module/taskwarrior" = {
