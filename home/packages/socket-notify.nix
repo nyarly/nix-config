@@ -1,4 +1,9 @@
-{ stdenv, lib, rustPlatform, fetchFromGitHub, pkg-config, dbus, ... }:
+{ lib,
+  rustPlatform,
+  fetchFromGitHub,
+  pkg-config,
+  dbus,
+  ... }:
 
 with rustPlatform;
 
@@ -8,13 +13,13 @@ buildRustPackage rec {
 
   name = "${crateName}-${version}";
 
-  cargoSha256 = "138h2knzhwpa9jl164w71qyd28frfkwda4a35937dy9ky2g1z300";
+  cargoHash = "sha256-AIwfnvAz+XZGKkMR1fh02SHRPA6HExOoTOpy+O0UEI0=";
 
   src = fetchFromGitHub {
     owner = "nyarly";
     repo = crateName;
     rev = version;
-    sha256 = "0hvz9zb0jyak8ci4z7az2zkkiizl7bv8zyyqsapz9prbhahki59d";
+    hash = "sha256-LZU4oYIr3/Sv0tj7j/Y69Mc45xdfnU8iQ1N5CdZPf0M=";
   };
 
   nativeBuildInputs = [ pkg-config ];
@@ -28,7 +33,7 @@ buildRustPackage rec {
       you approve the signature (or it times out) the notification is replaced
       with a short-lived update.
     '';
-    homepage = https://crates.io/crates/socket-notify;
+    homepage = "https://crates.io/crates/socket-notify";
     license = licenses.mit;
     maintainers = [ maintainers.nyarly ];
   };

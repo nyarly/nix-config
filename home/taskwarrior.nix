@@ -1,7 +1,7 @@
-{config}:
-{
+{unstable,config}: {
   enable = true;
   colorTheme = "solarized-light-256";
+  package = unstable.taskwarrior3;
   config = {
     confirmation= false;
     taskd = {

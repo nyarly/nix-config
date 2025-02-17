@@ -15,7 +15,7 @@ let
   version = "1.6.0";
   gitRev = "jdl-tracking-install";
   sha256 = "sha256-PBVVpeZ2ejscIR7JXIaOvWSF05iTuVbkI78EfUWYEIQ=";
-  cargoSha256 = "sha256-lwGgU6pN59w+jVHaGR3pTGStODLWn1dM3bFFuY2pjIM=";
+  cargoHash = "sha256-lwGgU6pN59w+jVHaGR3pTGStODLWn1dM3bFFuY2pjIM=";
 
 in (rustPlatform.buildRustPackage rec {
   pname = "lorri";
@@ -30,7 +30,7 @@ in (rustPlatform.buildRustPackage rec {
 
   outputs = [ "out" "man" "doc" ];
 
-  inherit cargoSha256;
+  inherit cargoHash;
   doCheck = false;
 
   BUILD_REV_COUNT = src.revCount or 1;

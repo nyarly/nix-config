@@ -19,7 +19,7 @@ let
 
     name = "${crateName}-${version}";
 
-    cargoSha256 = "sha256-owewqavzUHSRDPHPQrIOxDBn3GejQGGER6sDNcXswCY=";
+    cargoHash = "sha256-owewqavzUHSRDPHPQrIOxDBn3GejQGGER6sDNcXswCY=";
 
     nativeBuildInputs = [ pkg-config ];
   };

@@ -51,7 +51,7 @@ in
       git = (import home/git.nix) {inherit pkgs;};
       fish = (import home/fish.nix) {inherit pkgs unstable;};
       neovim = (import home/neovim.nix) { inherit lib pkgs unstable;};
-      taskwarrior = (import home/taskwarrior.nix) { inherit config;};
+      taskwarrior = (import home/taskwarrior.nix) { inherit unstable config;};
       tmux = (import home/tmux.nix) {inherit pkgs;};
 
       bottom = {

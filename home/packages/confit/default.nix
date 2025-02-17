@@ -8,7 +8,7 @@ buildRustPackage rec {
 
   name = "${crateName}-${version}";
 
-  cargoSha256 = "sha256-YRdrtkzR7XolXpr9IKCcbTfghphk6JeP4YS4mRiDjU4=";
+  cargoHash = "sha256-YRdrtkzR7XolXpr9IKCcbTfghphk6JeP4YS4mRiDjU4=";
 
   src = fetchFromGitHub {
     owner = "nyarly";
@@ -26,7 +26,7 @@ buildRustPackage rec {
       preserved: that files are tracked, committed, tagged, and on a branch that
       tracks a remote, is pushed there.
     '';
-    homepage = https://crates.io/crates/confit;
+    homepage = "https://crates.io/crates/confit";
     license = licenses.mit; # before submission, need indiecc in nixpkgs
     maintainers = [ maintainers.nyarly ];
   };

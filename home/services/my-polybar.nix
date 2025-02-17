@@ -3,6 +3,9 @@
 with lib;
 
 # homebrewed polybar service to do templated Systemd services for each monitor
+
+# TODO: task hook to list monitors and do automatic setup of services
+# XXX: user-generator doesn't seem to do this? investigate via systemd docs
 let
 
   cfg = config.services.myPolybar;
@@ -60,7 +63,7 @@ in {
         example = literalExample ''
           {
             "bar/top" = {
-              monitor = "\''${env:MONITOR:eDP1}";
+              monitor = "\''${env:MONITOR:eDP-1}";
               width = "100%";
               height = "3%";
               radius = 0;
@@ -110,6 +113,8 @@ in {
     xdg.configFile."polybar/config.ini".source = configFile;
 
     systemd.user.services."polybar@" = {
+      Install.DefaultInstance = "eDP-1"; # XXX configurable
+
       Unit = {
         Description = "Polybar status bar for monitor %i";
         After = [ "graphical-session-pre.target" ];
