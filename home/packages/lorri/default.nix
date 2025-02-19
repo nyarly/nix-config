@@ -12,10 +12,10 @@ let
   # Run `eval $(nix-build -A lorri.updater)` after updating the revision!
   # It will copy some required files if necessary.
   # Also don’t forget to run `nix-build -A lorri.tests`
-  version = "1.6.0";
+  version = "1.8.0";
   gitRev = "jdl-tracking-install";
-  sha256 = "sha256-PBVVpeZ2ejscIR7JXIaOvWSF05iTuVbkI78EfUWYEIQ=";
-  cargoHash = "sha256-lwGgU6pN59w+jVHaGR3pTGStODLWn1dM3bFFuY2pjIM=";
+  sha256 = "sha256-Ne5OVGoEoGd6x5MbQwVVAQj4lVwyHEIx816wp5X/iKY=";
+  cargoHash = "sha256-xxGgU6pN59w+jVHaGR3pTGStODLWn1dM3bFFuY2pjIM=";
 
 in (rustPlatform.buildRustPackage rec {
   pname = "lorri";

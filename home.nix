@@ -76,6 +76,7 @@ in
       nitrogen = (import home/nitrogen.nix) { inherit config; };
 
       lorri = {
+        package = pkgs.callPackage home/packages/lorri {};
         enable = true;
         enableNotifications = true;
       };
