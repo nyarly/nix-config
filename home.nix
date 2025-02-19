@@ -56,7 +56,7 @@ in
 
       bottom = {
         enable = true;
-        settings.flags.color = "gruvbox-light";
+        settings.styles.theme = "nord-light";
       };
 
       direnv = {
