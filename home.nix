@@ -52,7 +52,18 @@ in
     gh.enable = true;
     gh-dash.enable = true;
     jq.enable = true;
-    zk.enable = true;
+    zk = {
+      enable = true;
+      settings = {
+        notebook.dir = "~/Data/zk-notebook";
+        note = {
+          filename = "{{id}}-{{slug title}}";
+        };
+        format.markdown = {
+          multiword-tags = true;
+        };
+      };
+    };
 
     hexchat.enable = true;
     feh.enable = true;
