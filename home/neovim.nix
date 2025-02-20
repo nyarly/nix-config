@@ -20,6 +20,12 @@ in {
     elmPackages.elm-test
     elmPackages.elm-format
     elmPackages.elm-language-server
+    terraform-ls
+    tflint
+    languagetool
+    proselint
+    vale
+    ranger # in vim
   ];
 
   plugins =

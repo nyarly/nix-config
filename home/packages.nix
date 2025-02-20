@@ -4,71 +4,64 @@ let
   rofi-taskwarrior = pkgs.callPackage packages/rofi-taskwarrior {};
   confit = pkgs.callPackage packages/confit {};
 in
-    with pkgs; [
-      # The modern shell
-      procs
-      bat
-      eza
-      kalker
-      rofi-taskwarrior
-      confit
+  with pkgs; [
+    # The modern shell
+    procs
+    kalker
+    rofi-taskwarrior
+    confit
 
-      bash
-      fasd
-      fzf
-      hexchat
-      element-desktop
-      illum # should be made a service
-      inetutils
-      man-pages
-      moreutils
-      nftables
-      (pass.withExtensions (ext: with ext; [
-        pass-update
-        pass-genphrase
-        pass-otp
-      ]))
-      plasma-desktop #needed for xembed-sni-proxy
-      ranger # in vim
-      ripgrep
-      tmux
+    fasd
+    element-desktop
+    illum # should be made a service
+    inetutils
+    man-pages
+    moreutils
+    nftables
+    (pass.withExtensions (ext: with ext; [
+      pass-update
+      pass-genphrase
+      pass-otp
+    ]))
 
-      wmctrl
-      xorg.xmessage
+    wmctrl
+    xorg.xmessage
 
-      signal-desktop
-      # updated.signal
+    signal-desktop
+    # updated.signal
 
-      unstable.gitAndTools.gh
-      gist
+    gist
 
-      jq
-      go-jira # >1.0.24
-      trivy
-      docker
-      docker-compose
-      bind # for dig
+    go-jira # >1.0.24
+    trivy
+    docker
+    docker-compose
+    bind # for dig
 
-      # GUI
-      dunst
-      feh
-      unstable.rofi
-      unstable.rofi-pass
+    gucharmap
+    meld
+    nitrogen
+    shutter
 
-      gucharmap
-      meld
-      nitrogen
-      shutter
-      # postman
-      bruno
+    # jq -> programs
+    # tmux -> programs
+    # bash -> programs
+    # bat -> programs
+    # eza -> programs
+    # fzf -> programs
+    # hexchat -> programs
+    # ripgrep -> programs
+    # unstable.gitAndTools.gh -> programs
 
-      pandoc
-      mark
-      terraform-ls
-      tflint
+    # GUI
+    # dunst -> services
+    # feh -> programs
+    # unstable.rofi -> programs
+    # unstable.rofi-pass -> programs
 
-      languagetool
-      proselint
-      vale
-    ] ++
-    (builtins.attrValues binScripts)
+    # bruno # -> devShells
+    # pandoc -> devShells/neovim
+    # mark -> devShells
+
+  ] ++
+(builtins.attrValues binScripts)

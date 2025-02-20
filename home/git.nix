@@ -1,5 +1,7 @@
 {pkgs}:
 {
+  # :eyes: git.maintenance
+
   enable = true;
   package = pkgs.gitAndTools.gitFull;
   userName = "Judson Lester";

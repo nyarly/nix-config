@@ -15,7 +15,7 @@ let
   version = "1.8.0";
   gitRev = "jdl-tracking-install";
   sha256 = "sha256-Ne5OVGoEoGd6x5MbQwVVAQj4lVwyHEIx816wp5X/iKY=";
-  cargoHash = "sha256-xxGgU6pN59w+jVHaGR3pTGStODLWn1dM3bFFuY2pjIM=";
+  cargoHash = "sha256-VFspU2LP4n0+nXhTkLw61qBqg1rSc/SEtEdwI2v+YeU=";
 
 in (rustPlatform.buildRustPackage rec {
   pname = "lorri";
