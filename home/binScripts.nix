@@ -1,7 +1,7 @@
 { stdenv, pkgs, lib, makeWrapper }:
 let
   fromBin = name: buildInputs:
-  name stdenv.mkDerivation rec {
+  stdenv.mkDerivation rec {
     inherit name;
     src = ./bin + "/${name}";
     nativeBuildInputs = [ makeWrapper ];
