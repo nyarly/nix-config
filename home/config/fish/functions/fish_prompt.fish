@@ -25,18 +25,23 @@ function fish_prompt
   __git_issue_id__ " [%s]"
   echo -n ' '
   if test -n "$IN_NIX_SHELL"
-    set shell_path (echo $out | sed 's#/outputs/out##')
-    set expr (echo $shell_path | sed 's/[^-]*-\([^-]*\).*/\1/')
-    set expr (basename $expr)
+    if test -z $IN_LORRI_SHELL
+      set shell_path (echo $out | sed 's#/outputs/out##')
+      set expr (basename $shell_path)
 
-    if test -z $nix_file; or not test -e $nix_file
-      set nix_file (realpath ($shell_path/flake.nix))
+      if test -z $nix_file; or not test -e $nix_file
+        set nix_file (realpath $shell_path/flake.nix)
+      end
+      if not test -e $nix_file
+        set nix_file (realpath $shell_path/shell.nix)
+      end
+    else
+      set nix_file $IN_LORRI_SHELL
+      set expr (basename (dirname $nix_file))
     end
-    if not test -e $nix_file
-      set nix_file (realpath ($shell_path/shell.nix))
-    end
+    set expr (echo $expr | sed 's/[^-]*-\([^-]*\).*/\1/')
 
-    set glyph ( lorri_glyph $shell_nix )
+    set glyph ( lorri_glyph $nix_file )
 
     if test -z $expr
       echo -n "<nix-shell $glyph>"
