@@ -1,6 +1,7 @@
 local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
 local lspconfig = require('lspconfig')
+local configs = require('lspconfig/configs')
 
 local function lsp_attach(client, buffer)
   -- This callback is called when the LSP is attached/enabled for this buffer

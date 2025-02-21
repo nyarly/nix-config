@@ -1,7 +1,7 @@
 { stdenv, pkgs, lib, makeWrapper }:
 let
   fromBin = name: buildInputs:
-  lib.trace name stdenv.mkDerivation rec {
+  name stdenv.mkDerivation rec {
     inherit name;
     src = ./bin + "/${name}";
     nativeBuildInputs = [ makeWrapper ];
@@ -34,4 +34,5 @@ in
     "dim-screen" = [bash xorg.xbacklight];
     "quick-jira-task" = [fish gnugrep yq-go];
     "project-contexts" = [fish];
+    "created-at-commit" = [bash gitFull coreutils];
   })

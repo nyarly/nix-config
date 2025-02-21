@@ -52,6 +52,8 @@ in
     gh.enable = true;
     gh-dash.enable = true;
     jq.enable = true;
+    fd.enable = true;
+
     zk = {
       enable = true;
       settings = {
@@ -112,14 +114,22 @@ in
     scdaemonNotify.enable = true;
     keynav.enable = true;
     picom.enable = true;
-    espanso.enable = true;
+    espanso = {
+      enable = true;
+      configs = {
+        default = {
+          # show_notifications = false;
+          toggle_key = "RIGHT_CTRL";
+        };
+      };
+    };
 
     dunst = import home/dunst.nix;
     gpg-agent = (import home/gpg-agent.nix) { inherit pkgs; };
     nitrogen = (import home/nitrogen.nix) { inherit config; };
 
     lorri = {
-      # package = pkgs.callPackage home/packages/lorri {};
+      package = pkgs.callPackage home/packages/lorri {};
       enable = true;
       enableNotifications = true;
     };

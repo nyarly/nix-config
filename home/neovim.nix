@@ -127,5 +127,6 @@ in {
     vim-unimpaired
     webapi-vim
     (dotLua "nvim-treesitter-context")
+    (dotLua "zk-nvim")
   ];
 }

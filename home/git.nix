@@ -106,6 +106,8 @@
     diff.rawtext.textconv = "~/.config/git/trimwhite.sh";
 
     filter.trimwhite.clean = "~/.config/git/trimwhite.sh";
+    filter.update-created.clean = "created-at-commit";
+    filter.update-created.smudge = "created-at-commit";
 
     mergetool.mymeld.cmd = "meld --diff $LOCAL $BASE $REMOTE --output=$MERGED --diff $BASE $LOCAL --diff $BASE $REMOTE";
 

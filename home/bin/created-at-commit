@@ -1,0 +1,7 @@
+#! /usr/bin/env bash
+
+# Intended as a "clean" filter for flake.nix buildImage - binary reproducibility _and_ a semi-reasonable date!
+
+export TZ=UTC
+commitdate=$(git for-each-ref --format="%(committerdate:iso-strict-local)" --points-at HEAD | head -n 1)
+exec sed "s/created = \"[^\"]*\";/created = \"$commitdate\";/"
