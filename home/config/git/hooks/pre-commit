@@ -90,7 +90,7 @@ if [ "$protected" == "true" ]; then
   exit 1
 fi
 
-if [ $(git config --get "commit.ignore-whitespace") ==  "true" ]; then
+if [ "$(git config --get "commit.ignore-whitespace")" ==  "true" ]; then
 # If there are whitespace errors, print the offending file names and fail.
   exit 0
 else
