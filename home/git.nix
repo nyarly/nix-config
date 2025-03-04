@@ -54,7 +54,12 @@
     core = {
       hooksPath = "~/.config/git/hooks";
     };
-    branch.autosetupmerge = true;
+    commit.verbose = true;
+    column.ui = "auto";
+    branch = {
+      autosetupmerge = true;
+      sort = "-committerdate";
+    };
     color = {
       branch = true;
       diff = true;
@@ -63,19 +68,31 @@
       status = true;
       ui = true;
     };
-    rerere.enabled = true;
+    rerere = {
+      enabled = true;
+      autoupdate = true;
+    };
     init = {
       templatedir = "~/.git_template";
       defaultBranch = "main";
     };
     bash.showDirtyState = true;
-    tag.forceSignAnnotated = true;
+    tag = {
+      sort = "version:refname";
+      forceSignAnnotated = true;
+    };
     pull = {
       rebase = false;
     };
     push = {
       default = "current";
+      autoSetupRemote = true;
       followTags = true;
+    };
+    fetch = {
+      prune = true;
+      pruneTags = true;
+      # all = true;
     };
     help.autocorrect = -1;
     interactive.singlekey = true;
@@ -88,12 +105,18 @@
       keepBackup = false;
       prompt = false;
     };
-    rebase.autosquash = true;
+    rebase = {
+      autosquash = true;
+      updateRefs = true;
+    };
 
     diff = {
       tool = "meld";
       rename = "copy";
-      algorithm = "patience";
+      renames = true;
+      algorithm = "histogram";
+      colorMoved = "plain";
+      mnemonicPrefix = true;
     };
 
     url = {

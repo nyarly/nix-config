@@ -26,7 +26,7 @@ in
     set -gx PAGER "bat"
     set -gx MANPAGER "bat --style=plain"
     set -gx MANPATH "" $MANPATH /run/current-system/sw/share/man
-    set -gx RIPGREP_CONFIG_PATH ~/.config/ripgreprc
+    set -gx RIPGREP_CONFIG_PATH ~/.config/ripgrep/ripgreprc
     set -gx PASSWORD_STORE_X_SELECTION primary
     set -gx PATH /home/judson/bin $PATH
   '';
