@@ -17,6 +17,7 @@ in
     inetutils
     man-pages
     moreutils
+    rdap
     nftables
     (pass.withExtensions (ext: with ext; [
       pass-update
