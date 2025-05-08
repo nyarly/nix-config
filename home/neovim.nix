@@ -1,13 +1,12 @@
-{lib, pkgs, unstable}:
+{lib, pkgs}:
 let
   localNvimPlugins = pkgs.callPackage ./personal-nvim-plugins.nix {
     inherit (pkgs) fetchgit;
     inherit (pkgs.vimUtils) buildVimPlugin;
   };
-  vim-nixhash = unstable.vimPlugins.vim-nixhash;
 in {
   enable = true;
-  package = unstable.neovim-unwrapped;
+  # package = unstable.neovim-unwrapped;
   extraConfig = (import config/neovim/manifest.nix) lib;
   #withNodeJs = true; # defaults false
 

@@ -93,7 +93,7 @@ in
     ssh = (import home/ssh.nix) {inherit yubikeys;};
     git = (import home/git.nix) {inherit pkgs;};
     fish = (import home/fish.nix) {inherit pkgs unstable;};
-    neovim = (import home/neovim.nix) { inherit lib pkgs unstable;};
+    neovim = (import home/neovim.nix) { inherit lib pkgs;};
     taskwarrior = (import home/taskwarrior.nix) { inherit unstable config;};
     tmux = (import home/tmux.nix) {inherit pkgs;};
 
