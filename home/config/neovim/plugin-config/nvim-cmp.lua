@@ -59,6 +59,14 @@ cmp.setup {
         fallback()
       end
     end, { 'i', 's' }),
+    ["<C-j>"] = cmp.mapping(function(fallback)
+      local luasnip = require 'luasnip'
+      luasnip.jump(1)
+    end, {'i', 's'}),
+    ["<C-k>"] = cmp.mapping(function(fallback)
+      local luasnip = require 'luasnip'
+      luasnip.jump(-1)
+    end, {'i', 's'}),
     ["<C-e>"] = cmp.mapping.close(),
   }),
 }

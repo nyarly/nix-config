@@ -12,8 +12,9 @@ in {
 
   extraPackages = with pkgs; [
     gopls
-    nil
+    nil #nix LS
     impl
+
     go_1_23
     elmPackages.elm
     elmPackages.elm-test
@@ -25,6 +26,8 @@ in {
     proselint
     vale
     ranger # in vim
+    pyright
+    lua-language-server # silly not to have an LSP for Lua in Neovim
   ];
 
   plugins =

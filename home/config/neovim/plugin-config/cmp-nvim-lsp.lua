@@ -1,7 +1,7 @@
 local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
 local lspconfig = require('lspconfig')
-local configs = require('lspconfig/configs')
+-- local configs = require('lspconfig/configs')
 
 local function lsp_attach(client, buffer)
   -- This callback is called when the LSP is attached/enabled for this buffer
@@ -32,11 +32,11 @@ local function lsp_attach(client, buffer)
   vim.cmd([[match OverLength /\%100v./]]) -- right place?
 
   vim.api.nvim_create_autocmd("BufWritePre", {
-      buffer = buffer,
-      callback = function()
-        vim.lsp.buf.format {async = false}
-      end,
-    })
+    buffer = buffer,
+    callback = function()
+      vim.lsp.buf.format { async = false }
+    end,
+  })
 end
 -- Enable some language servers with the additional completion capabilities offered by nvim-cmp
 -- local servers = { 'clangd', 'rust_analyzer', 'pyright', 'tsserver' }
@@ -48,6 +48,30 @@ for _, lsp in ipairs(servers) do
     on_attach = lsp_attach,
   }
 end
+
+lspconfig['lua_ls'].setup {
+  -- on_attach = my_custom_on_attach,
+  capabilities = capabilities,
+  on_attach = lsp_attach,
+  settings = {
+    Lua = {
+      diagnostics = {
+        globals = { "vim" }
+      }
+    }
+  }
+}
+
+lspconfig['pyright'].setup {
+  -- on_attach = my_custom_on_attach,
+  capabilities = capabilities,
+  on_attach = lsp_attach,
+  on_new_config = function(new_config, new_root_dir)
+    if vim.env.VIRTUAL_ENV then
+      new_config.cmd = { 'pyright-langserver', '--stdio', '--venvpath', vim.env.VIRTUAL_ENV }
+    end
+  end
+}
 
 lspconfig['nil_ls'].setup {
   capabilities = capabilities,
@@ -64,7 +88,7 @@ lspconfig['nil_ls'].setup {
 lspconfig['elmls'].setup {
   capabilities = capabilities,
   on_attach = lsp_attach,
-  root_dir = require "lspconfig.util".root_pattern("elm.json",".git"),
+  root_dir = require "lspconfig.util".root_pattern("elm.json", ".git"),
   -- init_options = { elmTestPath = "elm-test-rs" },
   init_options = {
     elmFormatPath = "elm-format",
@@ -83,14 +107,14 @@ vim.api.nvim_create_autocmd("BufWritePre", {
 
 local langs = {
   rs = function(client, buffer)
-    vim.bo.sw=4
-    vim.b.ale_lint_on_insert_leave=0
+    vim.bo.sw = 4
+    vim.b.ale_lint_on_insert_leave = 0
   end,
   elm = function(client, buffer)
-    vim.bo.sw=2 -- set in after/ftplugin as well...
+    vim.bo.sw = 2 -- set in after/ftplugin as well...
   end
 }
-for l,cb in pairs(langs) do
+for l, cb in pairs(langs) do
   vim.api.nvim_create_autocmd("LspAttach", {
     pattern = "*." .. l,
     callback = cb
