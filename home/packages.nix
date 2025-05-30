@@ -43,6 +43,7 @@ in
     meld
     nitrogen
     shutter
+    cachix
 
     # jq -> programs
     # tmux -> programs

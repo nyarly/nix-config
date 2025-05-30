@@ -1,10 +1,10 @@
 function! s:NonSpecialMappings()
   nnoremap <buffer> <F3> <Cmd>MundoToggle<CR>
   ":<C-U>GundoToggle<CR>
-  noremap <buffer> <C-P> :<C-U>Files<CR>
-  inoremap <buffer> <C-P> <Esc>:<C-U>Files<CR>
-  noremap <buffer> <F4> :<C-U>Buffer<CR>
-  inoremap <buffer> <F4> <Esc>:<C-U>Buffer<CR>
+  noremap <buffer> <C-P> <Cmd>Files<CR>
+  inoremap <buffer> <C-P> <Cmd>Files<CR>
+  noremap <buffer> <F4> <Cmd>Buffer<CR>
+  inoremap <buffer> <F4> <Cmd>Buffer<CR>
   nnoremap <buffer> <silent> <CR> i<CR><Esc>
   nnoremap <buffer> <silent>  <F6> :TagbarToggle<CR>
   nnoremap <buffer> <silent>  <F5> :TagbarOpenAutoClose<CR>
@@ -54,7 +54,8 @@ nnoremap <A-h> <C-w>h
 nnoremap <A-j> <C-w>j
 nnoremap <A-k> <C-w>k
 nnoremap <A-l> <C-w>l
-nnoremap WW :ALEFix<CR>:wall<CR>
+" nnoremap WW :ALEFix<CR>:wall<CR> "maybe moving off ALE entirely, or at least use an autocmd
+nnoremap WW <Cmd>wall<CR>
 nnoremap <C-w><C-w> <C-w><C-p>
 nnoremap <C-w>w <C-w><C-p>
 imap <C-W> <Esc>:
@@ -67,16 +68,16 @@ inoremap <Leader>q <Esc>:Lines <C-R><C-W><CR>
 nnoremap <Leader>q :Lines <C-R><C-W><CR>
 nnoremap <Leader>w :Rg<CR>
 inoremap <Leader>a <Esc>:Rg \b<C-R><C-W>\b<CR>
-nnoremap <Leader>a :Rg \b<C-R><C-W>\b<CR>
+nnoremap <Leader>a <Cmd>Rg \b<C-R><C-W>\b<CR>
 vnoremap <Leader>a y:Rg \b<C-R>"\b<CR>
-nnoremap <Leader>h :set hlsearch \| let @/='\<'.expand("<cword>").'\>'<CR>
+nnoremap <Leader>h <Cmd>set hlsearch \| let @/='\<'.expand("<cword>").'\>'<CR>
 "inoremap <Leader>f <Esc>:Files <C-R><C-W><CR> (Files' arg is starting dir)
 "nnoremap <Leader>f :Files <C-R><C-W><CR>
-inoremap <Leader>s <Esc>:call <sid>RgThisFile()<C-R><C-W><CR>
-nnoremap <Leader>s :call <sid>RgThisFile()<C-R><C-W><CR>
+inoremap <Leader>s <Cmd>call <sid>RgThisFile()<C-R><C-W><CR>
+nnoremap <Leader>s <Cmd>call <sid>RgThisFile()<C-R><C-W><CR>
 inoremap jk <Esc>
 inoremap jK <Esc>
-nnoremap MM :Jmake<CR>
+nnoremap MM <Cmd>Jmake<CR>
 nnoremap / /\v
 vnoremap / /\v
 cmap w!! %!sudo tee > /dev/null %
