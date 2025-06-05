@@ -54,8 +54,9 @@ nnoremap <A-h> <C-w>h
 nnoremap <A-j> <C-w>j
 nnoremap <A-k> <C-w>k
 nnoremap <A-l> <C-w>l
-" nnoremap WW :ALEFix<CR>:wall<CR> "maybe moving off ALE entirely, or at least use an autocmd
-nnoremap WW <Cmd>wall<CR>
+"maybe moving off ALE entirely, or at least use an autocmd
+nnoremap WW :ALEFix<CR>:wall<CR>
+" nnoremap WW <Cmd>wall<CR>
 nnoremap <C-w><C-w> <C-w><C-p>
 nnoremap <C-w>w <C-w><C-p>
 imap <C-W> <Esc>:
@@ -64,11 +65,12 @@ imap <C-J> <C-O>j
 imap <C-K> <C-O>k
 noremap <silent><Leader>] <Esc>:nohls<CR>
 noremap <silent><Leader>q <Esc>:nohls<CR>
+"<Cmd> mapping would treat <C-R><C-W> as unmapped keys - the current word isn't inserted
 inoremap <Leader>q <Esc>:Lines <C-R><C-W><CR>
 nnoremap <Leader>q :Lines <C-R><C-W><CR>
 nnoremap <Leader>w :Rg<CR>
 inoremap <Leader>a <Esc>:Rg \b<C-R><C-W>\b<CR>
-nnoremap <Leader>a <Cmd>Rg \b<C-R><C-W>\b<CR>
+nnoremap <Leader>a :Rg \b<C-R><C-W>\b<CR>
 vnoremap <Leader>a y:Rg \b<C-R>"\b<CR>
 nnoremap <Leader>h <Cmd>set hlsearch \| let @/='\<'.expand("<cword>").'\>'<CR>
 "inoremap <Leader>f <Esc>:Files <C-R><C-W><CR> (Files' arg is starting dir)

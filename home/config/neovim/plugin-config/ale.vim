@@ -8,15 +8,11 @@ let g:ale_linters = {
       \ 'ruby': 'all',
       \ 'markdown': ['languagetool', 'proselint', 'vale']
       \}
-      "-- \ 'rust': ['analyzer'],
 let g:ale_fixers = {
       \'*': ['remove_trailing_lines', 'trim_whitespace'],
-      \'go': ['gofmt', 'remove_trailing_lines', 'trim_whitespace'],
       \'json': ['jq', 'remove_trailing_lines', 'trim_whitespace'],
       \'ruby': ['rubocop', 'remove_trailing_lines', 'trim_whitespace'],
-      \'terraform': ['terraform', 'remove_trailing_lines', 'trim_whitespace']
       \}
-      "-- \'rust': ['rustfmt', 'remove_trailing_lines', 'trim_whitespace'],
 
 let g:ale_go_gobuild_options = "-tags 'integration smoke'"
 
