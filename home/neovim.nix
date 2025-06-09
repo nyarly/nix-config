@@ -21,6 +21,7 @@ in {
     elmPackages.elm-format
     elmPackages.elm-language-server
     terraform-ls
+    opentofu # needed by terraform-ls
     tflint
     languagetool
     proselint

@@ -40,7 +40,7 @@ local function lsp_attach(client, buffer)
 end
 -- Enable some language servers with the additional completion capabilities offered by nvim-cmp
 -- local servers = { 'clangd', 'rust_analyzer', 'pyright', 'tsserver' }
-local servers = { 'rust_analyzer', 'gopls', 'yamlls', 'terraformls' }
+local servers = { 'rust_analyzer', 'gopls' }
 for _, lsp in ipairs(servers) do
   lspconfig[lsp].setup {
     -- on_attach = my_custom_on_attach,
@@ -48,6 +48,27 @@ for _, lsp in ipairs(servers) do
     on_attach = lsp_attach,
   }
 end
+
+lspconfig['terraformls'].setup {
+  -- on_attach = my_custom_on_attach,
+  capabilities = capabilities,
+  on_attach = lsp_attach,
+  init_options = {
+    terraform = {
+      path = vim.fn.exepath('tofu')
+    }
+  }
+}
+
+lspconfig['yamlls'].setup {
+  -- on_attach = my_custom_on_attach,
+  capabilities = capabilities,
+  on_attach = lsp_attach,
+  settings = {
+    redhat = { telemetry = { enabled = false } },
+    yaml = { schemaStore = { enable = false } },
+  }
+}
 
 lspconfig['lua_ls'].setup {
   -- on_attach = my_custom_on_attach,
