@@ -24,8 +24,8 @@ in
     "end-of-day" = [fish taskwarrior3 gitFull]; # should include commute as well
     "ontask" = [bash taskwarrior3];
     "task_polybar.sh" = [bash taskwarrior3];
-    "rofi-screenlayout" = [bash rofi dmenu]; # Consider using Rofi directly
-    "rofi-scripts" = [bash rofi dmenu];     # to remove dep on dmenu
+    "rofi-screenlayout" = [bash rofi util-linux]; # Consider using Rofi directly
+    "rofi-scripts" = [bash rofi util-linux];     # to remove dep on dmenu
     "git-jira-branch" = [bash gitFull go-jira];
     "git-current-jira" = [bash gitFull go-jira];
     "current-unstable.nix" = [ bash gitFull ];

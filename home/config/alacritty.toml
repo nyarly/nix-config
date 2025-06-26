@@ -539,6 +539,30 @@ chars = "\u001B[24;3~"
 key = "F12"
 mods = "Super"
 
+# The default URL behavior
+[[hints.enabled]]
+command = "xdg-open"
+hyperlinks = true
+post_processing = true
+persist = false
+mouse.enabled = true
+binding = { key = "O", mods = "Control|Shift" }
+regex = "(ipfs:|ipns:|magnet:|mailto:|gemini://|gopher://|https://|http://|news:|file:|git://|ssh:|ftp://)[^\u0000-\u001F\u007F-\u009F<>\"\\s{-}\\^⟨⟩`\\\\]+"
+
+# Terraform Modules
+[[hints.enabled]]
+action = "Copy"
+persist = false
+binding = { key = "M", mods = "Control|Shift" }
+regex = '[-_[:alnum:]]+((\["[[:alnum:]]"\])|([.][-_[:alnum:]]+))+'
+
+# Files
+[[hints.enabled]]
+action = "Paste"
+persist = false
+binding = { key = "F", mods = "Control|Shift" }
+regex = '[[:alnum:]]{3,}([./][[:alnum:]]{3,})+'
+
 [mouse]
 hide_when_typing = true
 

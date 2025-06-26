@@ -30,6 +30,7 @@ in {
     pyright
     lua-language-server # silly not to have an LSP for Lua in Neovim
     yaml-language-server
+    cue
   ];
 
   plugins =

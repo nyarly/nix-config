@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
 
 cd ~/bin/rofi-entries
-ls | stest -x | rofi -dmenu | sed 's+^+./+' | ${SHELL:-"/bin/sh"} &
+find -type f -executable | rofi -dmenu | ${SHELL:-"/bin/sh"} &

@@ -188,5 +188,5 @@ main = xmonad $
            , workspaces = myWorkspaces
            , keys = newKeys
            , normalBorderColor  = "#aaaaaa"
-           , focusedBorderColor = "#666699"
+           , focusedBorderColor = "#1111aa"
            }
