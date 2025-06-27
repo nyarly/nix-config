@@ -560,8 +560,8 @@ regex = '[-_[:alnum:]]+((\["[[:alnum:]]"\])|([.][-_[:alnum:]]+))+'
 [[hints.enabled]]
 action = "Paste"
 persist = false
-binding = { key = "F", mods = "Control|Shift" }
-regex = '[[:alnum:]]{3,}([./][[:alnum:]]{3,})+'
+binding = { key = "P", mods = "Control|Shift" }
+regex = '[./]{0,2}[-_[:alnum:]]{3,}([./]{1,2}[-_[:alnum:]]{3,})+'
 
 [mouse]
 hide_when_typing = true
