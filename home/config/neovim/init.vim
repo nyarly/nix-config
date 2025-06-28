@@ -9,7 +9,6 @@ set modeline
 set sw=2
 set ts=2
 set scrolloff=4
-set pastetoggle=[23~
 set gdefault
 set mouse=a
 
