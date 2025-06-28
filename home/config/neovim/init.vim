@@ -20,6 +20,7 @@ set mouse=a
 "c	don't give |ins-completion-menu| messages.  For example,
 "   c really useful for echodoc
 set shortmess+=IcOtT
+set messagesopt=wait:150,history:1000
 set number " unimpaired provides `[on` (or `yon`) to enable (toggle) when needed
 set signcolumn=number
 set cursorline
