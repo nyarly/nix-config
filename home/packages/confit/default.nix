@@ -1,4 +1,4 @@
-{ stdenv, lib, rustPlatform, fetchFromGitHub, pkg-config, ... }:
+{ lib, rustPlatform, fetchFromGitHub, pkg-config, ... }:
 
 with rustPlatform;
 
@@ -8,7 +8,7 @@ buildRustPackage rec {
 
   name = "${crateName}-${version}";
 
-  cargoHash = "sha256-YRdrtkzR7XolXpr9IKCcbTfghphk6JeP4YS4mRiDjU4=";
+  cargoHash = "sha256-lWLiEItsvcZ9zCdCkrRYWnQdI23hb/ZoBlGGoYgPqas=";
 
   src = fetchFromGitHub {
     owner = "nyarly";
@@ -27,7 +27,7 @@ buildRustPackage rec {
       tracks a remote, is pushed there.
     '';
     homepage = "https://crates.io/crates/confit";
-    license = licenses.mit; # before submission, need indiecc in nixpkgs
+    license = licenses.mpl20; # before submission, need indiecc in nixpkgs
     maintainers = [ maintainers.nyarly ];
   };
 }

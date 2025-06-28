@@ -1,5 +1,5 @@
-require'nvim-treesitter.configs'.setup {
-	ensure_installed = {},
+require 'nvim-treesitter.configs'.setup {
+  ensure_installed = {},
   -- ensure_installed = { "bash", "bibtex", "c", "c_sharp", "clojure", "cmake",
   -- "comment", "commonlisp", "cpp", "css", "dart", "dockerfile", "dot", "erlang", "fish",
   -- "go", "gomod", "graphql", "hcl", "html", "java",
@@ -10,28 +10,28 @@ require'nvim-treesitter.configs'.setup {
   --"vue", "yaml", },
 
   highlight = {
-    enable = true,              -- false will disable the whole extension
-    disable = {"kotlin", "swift", "verilog", "help"}, -- currently out of date
+    enable = true,                                      -- false will disable the whole extension
+    disable = { "kotlin", "swift", "verilog", "help" }, -- currently out of date
     -- disable = { "c", "rust" },  -- list of language that will be disabled
     additional_vim_regex_highlighting = false,
   },
   incremental_selection = { enable = true },
   indent = {
-    enable = true ,
+    enable = true,
     disable = { "yaml" },
   },
 
   textobjects = {
     select = {
       enable = true,
-        keymaps = {
-          -- You can use the capture groups defined in textobjects.scm
-          ["af"] = "@function.outer",
-          ["if"] = "@function.inner",
-          ["ac"] = "@class.outer",
-          ["ic"] = "@class.inner",
-          ["ap"] = "@parameter.outer",
-          ["ip"] = "@parameter.inner",
+      keymaps = {
+        -- You can use the capture groups defined in textobjects.scm
+        ["af"] = "@function.outer",
+        ["if"] = "@function.inner",
+        ["ac"] = "@class.outer",
+        ["ic"] = "@class.inner",
+        ["ap"] = "@parameter.outer",
+        ["ip"] = "@parameter.inner",
       },
     },
     swap = {
@@ -46,31 +46,31 @@ require'nvim-treesitter.configs'.setup {
     move = {
       enable = true,
       set_jumps = true, -- whether to set jumps in the jumplist
-      goto_next_start = {
-        ["]m"] = "@function.outer",
-        ["]]"] = "@class.outer",
-        ["]p"] = "@parameter.inner",
-      },
-      goto_next_end = {
-        ["]M"] = "@function.outer",
-        ["]["] = "@class.outer",
-        ["]P"] = "@parameter.inner",
-      },
       goto_previous_start = {
         ["[m"] = "@function.outer",
         ["[["] = "@class.outer",
-        ["[p"] = "@parameter.inner",
+        ["[a"] = "@parameter.inner", -- "<a>rgument"
       },
       goto_previous_end = {
         ["[M"] = "@function.outer",
         ["[]"] = "@class.outer",
-        ["[P"] = "@parameter.inner",
+        ["[A"] = "@parameter.inner",
+      },
+      goto_next_start = {
+        ["]m"] = "@function.outer",
+        ["]]"] = "@class.outer",
+        ["]a"] = "@parameter.inner", -- "<a>rgument"
+      },
+      goto_next_end = {
+        ["]M"] = "@function.outer",
+        ["]["] = "@class.outer",
+        ["]A"] = "@parameter.inner",
       },
     },
   },
 }
 
-vim.o.foldmethod='expr'
-vim.o.foldexpr='nvim_treesitter#foldexpr()'
+vim.o.foldmethod = 'expr'
+vim.o.foldexpr = 'nvim_treesitter#foldexpr()'
 
 vim.treesitter.language.register("bash", "shell")

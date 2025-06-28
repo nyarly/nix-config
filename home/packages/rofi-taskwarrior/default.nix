@@ -1,4 +1,4 @@
-{ stdenv, lib, rustPlatform, fetchFromGitHub, pkg-config, ... }:
+{ lib, rustPlatform, fetchFromGitHub, pkg-config, ... }:
 
 with rustPlatform;
 
@@ -8,7 +8,7 @@ buildRustPackage rec {
 
   name = "${crateName}-${version}";
 
-  cargoHash = "sha256-FE4ig7blvri0Ii5GZjbvzP+/vHI9z8lDp74FM+sg3pU=";
+  cargoHash = "sha256-ilxMvJqJl382Qm0kKvJRuhzyf+TDgy2ugYx7Od66h+0=";
 
   src = fetchFromGitHub {
     owner = "nyarly";
@@ -25,8 +25,8 @@ buildRustPackage rec {
       A rofi wrapper for taskwarrior. Provides a rofi-script modi,
       so that you can review, start, stop, edit and mark tasks done.
     '';
-    homepage = https://crates.io/crates/rofi-taskwarrior;
-    license = licenses.mit; # before submission, need prosperity60 in nixpkgs
+    homepage = "https://crates.io/crates/rofi-taskwarrior";
+    license = licenses.mpl20;
     maintainers = [ maintainers.nyarly ];
   };
 }

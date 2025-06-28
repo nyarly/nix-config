@@ -9,17 +9,17 @@ with rustPlatform;
 
 buildRustPackage rec {
   crateName = "socket-notify";
-  version = "0.1.2";
+  version = "0.1.3";
 
   name = "${crateName}-${version}";
 
-  cargoHash = "sha256-AIwfnvAz+XZGKkMR1fh02SHRPA6HExOoTOpy+O0UEI0=";
+  cargoHash = "sha256-rZVZsFrHTapfrijvxxsPBXvO9g4fEBmEOrtiEtNSvgA=";
 
   src = fetchFromGitHub {
     owner = "nyarly";
     repo = crateName;
     rev = version;
-    hash = "sha256-LZU4oYIr3/Sv0tj7j/Y69Mc45xdfnU8iQ1N5CdZPf0M=";
+    hash = "sha256-QlBXXK/zGxjQ6VYg/264d0Sb0yWwlpvMEA85GMOirTc=";
   };
 
   nativeBuildInputs = [ pkg-config ];

@@ -6,7 +6,7 @@
   maxCacheTtl = 86400;
   maxCacheTtlSsh = 86400;
   enableSshSupport = true;
-  pinentryPackage = pkgs.pinentry-gtk2;
+  pinentry.package = pkgs.pinentry-gtk2;
   extraConfig = ''
   '';
 }
