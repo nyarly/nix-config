@@ -551,17 +551,24 @@ regex = "(ipfs:|ipns:|magnet:|mailto:|gemini://|gopher://|https://|http://|news:
 
 # Terraform Modules
 [[hints.enabled]]
-action = "Copy"
+command = "multi-copy"
 persist = false
 binding = { key = "M", mods = "Control|Shift" }
-regex = '[-_[:alnum:]]+((\["[[:alnum:]]"\])|([.][-_[:alnum:]]+))+'
+regex = '[[:alnum:]][-_[:alnum:]]+((\["[-/._[:alnum:]]+"\])|([.][-_[:alnum:]]+))+'
 
 # Files
 [[hints.enabled]]
-action = "Paste"
+command = "multi-copy"
 persist = false
 binding = { key = "P", mods = "Control|Shift" }
-regex = '[./]{0,2}[-_[:alnum:]]{3,}([./]{1,2}[-_[:alnum:]]{3,})+'
+regex = '~?[./]{0,3}[-_[:alnum:]]{3,}([./]{1,2}[-_[:alnum:]]{3,})+(\.[[:alnum:]]{1,3})?'
+
+# Jira Issue IDs
+[[hints.enabled]]
+command = "multi-copy"
+persist = false
+binding = { key = "J", mods = "Control|Shift" }
+regex = '[A-Z]{2,5}-[0-9]{1,6}'
 
 [mouse]
 hide_when_typing = true

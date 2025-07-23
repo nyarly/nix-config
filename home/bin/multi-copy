@@ -1,0 +1,13 @@
+#!/usr/bin/env fish
+
+# Run by Alacritty for some hints.
+# If Tmux is running already, put data into its paste buffer.
+#
+# Regardless, put it into the selection with xclip.
+# We don't want to start an extra
+
+if pgrep tmux 2>&1 >/dev/null
+  tmux set-buffer -w $argv[1]
+end
+echo -n $argv[1] | xclip -i
+echo -n $argv[1] | xclip -i -selection clipboard

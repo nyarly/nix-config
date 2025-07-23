@@ -31,16 +31,27 @@ local function lsp_attach(client, buffer)
 
   vim.cmd([[match OverLength /\%100v./]]) -- right place?
 
-  vim.api.nvim_create_autocmd("BufWritePre", {
-    buffer = buffer,
-    callback = function()
-      vim.lsp.buf.format { async = false }
-    end,
-  })
+  if not client:supports_method('textDocument/willSaveWaitUntil') then
+    if client:supports_method('textDocument/formatting') then
+      vim.api.nvim_create_autocmd("BufWritePre", {
+        buffer = buffer,
+        callback = function()
+          vim.lsp.buf.format { async = false }
+        end,
+      })
+      -- elseif client:get_language_id(buffer) ~= "yaml" then
+    elseif vim.o.filetype ~= "yaml" then
+      vim.api.nvim_create_autocmd("BufWritePre", {
+        buffer = buffer,
+        command = "execute \"normal gg=G\\<c-o>\""
+      })
+    end
+  end
 end
+
 -- Enable some language servers with the additional completion capabilities offered by nvim-cmp
 -- local servers = { 'clangd', 'rust_analyzer', 'pyright', 'tsserver' }
-local servers = { 'rust_analyzer', 'gopls', 'cue' }
+local servers = { 'rust_analyzer', 'gopls', 'cue', 'sqls' }
 for _, lsp in ipairs(servers) do
   lspconfig[lsp].setup {
     -- on_attach = my_custom_on_attach,
@@ -98,11 +109,16 @@ lspconfig['nil_ls'].setup {
   capabilities = capabilities,
   on_attach = lsp_attach,
   settings = {
+    ['nil'] = {
+      formatting = {
+        command = { "nixfmt" }
+      },
+    },
     nix = {
       flake = {
         autoArchive = true
-      }
-    }
+      },
+    },
   }
 }
 
@@ -113,6 +129,17 @@ lspconfig['elmls'].setup {
   -- init_options = { elmTestPath = "elm-test-rs" },
   init_options = {
     elmFormatPath = "elm-format",
+  },
+  handlers = {
+    ["window/showMessageRequest"] = function(err, result, context, config)
+      -- elm-ls sends showMessageRequest with an empty choices list,
+      -- which just hangs on the screen until you hit enter.
+      if result.message:find("Running elm-format failed", 1, true) then
+        print(result.message)
+        return vim.NIL
+      end
+      return vim.lsp.handlers["window/showMessageRequest"](err, result, context, config)
+    end
   }
 }
 
@@ -173,9 +200,13 @@ local opts = {
       -- to enable rust-analyzer settings visit:
       -- https://github.com/rust-analyzer/rust-analyzer/blob/master/docs/user/generated_config.adoc
       ["rust-analyzer"] = {
-        -- enable clippy on save
-        checkOnSave = {
+        checkOnSave = true,
+        check = {
+          -- enable clippy on save
           command = "clippy",
+        },
+        typing = {
+          triggerChars = "=.{(<",
         },
       },
     },

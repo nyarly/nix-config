@@ -54,9 +54,6 @@ myActivateMenu = actionMenu wMenuArgs activateWindow
 
 activateWindow w ws = W.shiftMaster (W.focusWindow w ws)
 
-mainUp =   windows (W.focusDown   . W.swapUp)
-mainDown = windows (W.focusUp     . W.swapDown)
-
 manageZoomHook =
   composeAll $
     [ (className =? zoomClassName) <&&> shouldFloat <$> title --> doFloat | zoomClassName <- zoomClassNames ] ++
@@ -121,6 +118,9 @@ manageZoomHook =
 --
 --
 
+mainUp =   windows (W.focusDown   . W.swapUp)
+mainDown = windows (W.focusUp     . W.swapDown)
+
 myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList ([
        ((modm, xK_z), spawn "loginctl lock-session"),
        ((modm, xK_p), spawn "rofi -show run -modi 'run,window' -show-icons -matching fuzzy -sidebar-mode &"),
@@ -131,7 +131,8 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList ([
        ((modm, xK_g), spawn "rofi -show window -modi 'run,window' -show-icons -matching fuzzy -sidebar-mode &"),
        ((modm .|. shiftMask, xK_j ), mainDown ),
        ((modm .|. shiftMask, xK_k ), mainUp ),
-       ((modm .|. shiftMask, xK_x), xineramaDebug)
+       ((modm .|. shiftMask, xK_x), xineramaDebug),
+       ((modm, xK_Return), (windows W.shiftMaster))
      ]
      ++ [ ((modm, key),                    C.toggleOrView tag) | (tag, key)  <- workspacesWithKeys ]
      ++ [ ((modm .|. shiftMask, key), (windows . W.shift) tag) | (tag, key)  <- workspacesWithKeys ]

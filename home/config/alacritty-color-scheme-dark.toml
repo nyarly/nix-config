@@ -25,3 +25,11 @@ yellow = "0xb58900"
 [colors.primary]
 background = "0x073642"
 foreground = "0x93a1a1"
+
+[colors.hints.start]
+background = "0xd33682"
+foreground = "0xffffff"
+
+[colors.hints.end]
+background = "0xd33682"
+foreground = "0xffffff"

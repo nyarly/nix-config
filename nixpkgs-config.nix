@@ -17,18 +17,21 @@
     };
   };
 
-  allowUnfreePredicate = pkg: let
-    pkgname = (builtins.parseDrvName pkg.name or pkg.pname).name;
-  in
-  builtins.elem pkgname [
-    "postman"
-    "cockroach"
-    "terraform" #BSL
-    "vault" # BSL
-
-    "cloudflared"
-    "google-chrome"
-    "google-chrome-beta"
-    "google-chrome-dev"
-  ];
+  allowUnfreePredicate =
+    pkg:
+    let
+      pkgname = (builtins.parseDrvName pkg.name or pkg.pname).name;
+    in
+    #builtins.elem (builtins.trace pkgname pkgname) [
+    builtins.elem pkgname [
+      "postman"
+      "cockroach"
+      "terraform" # BSL
+      "vault" # BSL
+      "vimplugin-copilot.vim"
+      "cloudflared"
+      "google-chrome"
+      "google-chrome-beta"
+      "google-chrome-dev"
+    ];
 }

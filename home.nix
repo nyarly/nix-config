@@ -1,7 +1,13 @@
-{ lib, config, pkgs, unstable, ... }:
+{
+  lib,
+  config,
+  pkgs,
+  unstable,
+  ...
+}:
 
 let
-  inherit (pkgs.callPackage home/loadConfigs.nix {}) configFiles;
+  inherit (pkgs.callPackage home/loadConfigs.nix { }) configFiles;
 
   updated = {
     # signal = pkgs.callPackage home/packages/signal-desktop.nix {};
@@ -15,9 +21,12 @@ let
   # rhet-butler = pkgs.callPackage home/packages/rhet-butler {};
   # }
 
-  yubikeys = [ "fd7a96" "574947" ];
+  yubikeys = [
+    "fd7a96"
+    "574947"
+  ];
 in
-  {
+{
   imports = [
     home/services/nitrogen.nix
     home/services/scdaemon-notify.nix
@@ -31,7 +40,14 @@ in
 
   nixpkgs.config = import ./nixpkgs-config.nix;
 
-  home.packages = (import ./home/packages.nix) { inherit lib pkgs updated unstable; };
+  home.packages = (import ./home/packages.nix) {
+    inherit
+      lib
+      pkgs
+      updated
+      unstable
+      ;
+  };
 
   gtk = {
     iconTheme = {
@@ -49,7 +65,13 @@ in
     eza.enable = true;
     bat.enable = true;
     fzf.enable = true;
-    gh.enable = true;
+    gh = {
+      enable = true;
+      extensions = with pkgs; [
+        gh-notify
+        gh-s
+      ];
+    };
     gh-dash.enable = true;
     jq.enable = true;
     fd.enable = true;
@@ -89,13 +111,13 @@ in
       ];
     };
 
-    htop = (import home/htop.nix) {inherit config;};
-    ssh = (import home/ssh.nix) {inherit yubikeys;};
-    git = (import home/git.nix) {inherit pkgs;};
-    fish = (import home/fish.nix) {inherit pkgs unstable;};
-    neovim = (import home/neovim.nix) { inherit lib pkgs;};
-    taskwarrior = (import home/taskwarrior.nix) { inherit unstable config;};
-    tmux = (import home/tmux.nix) {inherit pkgs;};
+    htop = (import home/htop.nix) { inherit config; };
+    ssh = (import home/ssh.nix) { inherit yubikeys; };
+    git = (import home/git.nix) { inherit pkgs; };
+    fish = (import home/fish.nix) { inherit pkgs unstable; };
+    neovim = (import home/neovim.nix) { inherit lib pkgs; };
+    taskwarrior = (import home/taskwarrior.nix) { inherit unstable config; };
+    tmux = (import home/tmux.nix) { inherit pkgs; };
 
     bottom = {
       enable = true;
@@ -106,6 +128,25 @@ in
       enable = true;
       stdlib = builtins.readFile home/config/direnvrc;
     };
+
+    element-desktop.enable = true;
+    password-store = {
+      enable = true;
+      package = (
+        pkgs.pass.withExtensions (
+          ext: with ext; [
+            pass-update
+            pass-genphrase
+            pass-otp
+          ]
+        )
+      );
+      settings = {
+        PASSWORD_STORE_X_SELECTION = "primary";
+      };
+
+    };
+
   };
 
   services = {
@@ -129,45 +170,66 @@ in
     nitrogen = (import home/nitrogen.nix) { inherit config; };
 
     lorri = {
-      package = pkgs.callPackage home/packages/lorri {};
+      package = pkgs.callPackage home/packages/lorri { };
       enable = true;
       enableNotifications = true;
     };
 
     myPolybar = {
       enable = true;
-      package = with pkgs; polybar.override {
-        pulseSupport = true;
-        githubSupport = true;
-        inherit curl libpulseaudio;
-      };
+      package =
+        with pkgs;
+        polybar.override {
+          pulseSupport = true;
+          githubSupport = true;
+          inherit curl libpulseaudio;
+        };
       config = import plugins/polybarConfig.nix { inherit lib config pkgs; };
     };
   };
 
-  home.file = {
-    ".local/share/fonts/monofur/monof56.ttf".source = home/fonts/monof55.ttf;
-    ".local/share/fonts/monofur/monof55.ttf".source = home/fonts/monof56.ttf;
-    "Data/Wallpaper/rotsnakes-tile.png".source = home/blobs/rotsnakes-tile.png;
-    ".task/keys/ca.cert".source = home/task/keys/ca.cert;
-    ".ssh/control" = {
-      recursive = true;
-      source = home/ssh/control;
-    };
-  }
-    // builtins.listToAttrs (builtins.concatMap (k: [
-      {name = ".ssh/yubi-${k}.pub"; value = {source = home/ssh + "/yubi-${k}.pub" ;};}
-      {name = ".gnupg/yubi-${k}.pub"; value = {source = home/gnupg + "/yubi-${k}.pub.gpg" ;};}
-      {name = ".config/git/sign-with-${k}"; value = {source = home/config/git + "/sign-with-${k}" ;};}
-    ]) yubikeys)
+  home.file =
+    {
+      ".local/share/fonts/monofur/monof56.ttf".source = home/fonts/monof55.ttf;
+      ".local/share/fonts/monofur/monof55.ttf".source = home/fonts/monof56.ttf;
+      "Data/Wallpaper/rotsnakes-tile.png".source = home/blobs/rotsnakes-tile.png;
+      ".task/keys/ca.cert".source = home/task/keys/ca.cert;
+      ".ssh/control" = {
+        recursive = true;
+        source = home/ssh/control;
+      };
+    }
+    // builtins.listToAttrs (
+      builtins.concatMap (k: [
+        {
+          name = ".ssh/yubi-${k}.pub";
+          value = {
+            source = home/ssh + "/yubi-${k}.pub";
+          };
+        }
+        {
+          name = ".gnupg/yubi-${k}.pub";
+          value = {
+            source = home/gnupg + "/yubi-${k}.pub.gpg";
+          };
+        }
+        {
+          name = ".config/git/sign-with-${k}";
+          value = {
+            source = home/config/git + "/sign-with-${k}";
+          };
+        }
+      ]) yubikeys
+    )
     // configFiles home/bin "bin"
     // configFiles home/config/git/hooks ".git_template/hooks"
     // configFiles home/config/git/hooks ".config/git/hooks"
     // configFiles home/config/go-jira ".jira.d";
 
-  home.activation = let
-    mkAct = k: v: lib.hm.dag.entryAfter ["writeBoundary"] v;
-  in
+  home.activation =
+    let
+      mkAct = k: v: lib.hm.dag.entryAfter [ "writeBoundary" ] v;
+    in
     builtins.mapAttrs mkAct {
       chownSSH = ''
         $DRY_RUN_CMD chmod -R og= $HOME/.ssh
@@ -187,17 +249,18 @@ in
       '';
     };
 
-  xdg.configFile = {
-    "git/trimwhite.sh".source = home/config/git/trimwhite.sh;
-    "procs/config.toml".source = home/config/procs.toml;
-    "alacritty/alacritty-hm.toml".source = home/config/alacritty.toml;
-    "alacritty/color-scheme-light.toml".source = home/config/alacritty-color-scheme-light.toml;
-    "alacritty/color-scheme-dark.toml".source = home/config/alacritty-color-scheme-dark.toml;
-    "nixpkgs/config.nix".source = ./nixpkgs-config.nix;
-    "keynav/keynavrc".source = home/config/keynavrc;
-    "nvim/autoload/tmuxline/presets/nyarly.vim".source = home/config/neovim/tmuxline-preset.vim;
-    "nvim/swapfile_parse.rb".source = home/config/neovim/swapfile_parse.rb;
-  }
+  xdg.configFile =
+    {
+      "git/trimwhite.sh".source = home/config/git/trimwhite.sh;
+      "procs/config.toml".source = home/config/procs.toml;
+      "alacritty/alacritty-hm.toml".source = home/config/alacritty.toml;
+      "alacritty/color-scheme-light.toml".source = home/config/alacritty-color-scheme-light.toml;
+      "alacritty/color-scheme-dark.toml".source = home/config/alacritty-color-scheme-dark.toml;
+      "nixpkgs/config.nix".source = ./nixpkgs-config.nix;
+      "keynav/keynavrc".source = home/config/keynavrc;
+      "nvim/autoload/tmuxline/presets/nyarly.vim".source = home/config/neovim/tmuxline-preset.vim;
+      "nvim/swapfile_parse.rb".source = home/config/neovim/swapfile_parse.rb;
+    }
     // configFiles home/config/neovim/after/ftplugin "nvim/after/ftplugin"
     // configFiles home/config/neovim/ftplugin "nvim/ftplugin"
     // configFiles home/config/hexchat "hexchat"

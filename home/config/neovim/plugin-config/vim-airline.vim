@@ -49,6 +49,17 @@ let g:Powerline_loaded  = 'not really but I want it disabled'
 let g:airline#extensions#promptline#snapshot_file = "~/.config/fish/shell_prompt.sh"
 let g:airline#extensions#promptline#enabled = 1
 
+"https://github.com/neovim/neovim/commit/e049c6e4c08a141c94218672e770f86f91c27a11
+"If we have to revisit any of this, consider https://github.com/nvim-lualine/lualine.nvim
+"(and look at gruvbox)
+hi statusline cterm=NONE gui=NONE
+hi statuslinenc cterm=NONE gui=NONE
+hi tabline cterm=NONE gui=NONE
+hi tablinenc cterm=NONE gui=NONE
+hi winbar cterm=NONE gui=NONE
+hi winbarnc cterm=NONE gui=NONE
+"(maybe airline is not the solution for much longer)
+
 augroup myAirline
   au VimEnter * AirlineRefresh
 augroup end

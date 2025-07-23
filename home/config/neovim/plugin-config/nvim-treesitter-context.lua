@@ -3,10 +3,13 @@ local function on_context_attach(bufnr)
   vim.cmd("hi link TreesitterContext NormalFloat")
   vim.cmd("hi TreesitterContextBottom gui=underline guisp=Grey")
   vim.cmd("hi TreesitterContextLineNumberBottom gui=underline guisp=Grey")
+  vim.keymap.set("n", "[c", function()
+    require("treesitter-context").go_to_context(vim.v.count1)
+  end, { silent = true })
   return true
 end
 
-require'treesitter-context'.setup{
+require 'treesitter-context'.setup {
   enable = true, -- Enable this plugin (Can be enabled/disabled later via commands)
   on_attach = on_context_attach,
 }

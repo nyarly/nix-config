@@ -11,4 +11,4 @@ function! <SID>SynStack()
     echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')
 endfunc
 
-highlight! TreesitterContext cterm=nocombine,standout ctermbg=254 guibg=LightMagenta
+" highlight! TreesitterContext cterm=nocombine,standout ctermbg=254 guibg=LightMagenta

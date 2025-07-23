@@ -20,13 +20,12 @@ set mouse=a
 "c	don't give |ins-completion-menu| messages.  For example,
 "   c really useful for echodoc
 set shortmess+=IcOtT
-set messagesopt=wait:150,history:1000
 set number " unimpaired provides `[on` (or `yon`) to enable (toggle) when needed
 set signcolumn=number
 set cursorline
 set noshowmode
 set foldlevelstart=2
-set foldopen=all
+"set foldopen=all
 set guicursor=n-v-c-sm:block,i-ci-ve:ver25,r-cr-o:hor20
 
 set title

@@ -69,8 +69,8 @@ noremap <silent><Leader>q <Esc>:nohls<CR>
 inoremap <Leader>q <Esc>:Lines <C-R><C-W><CR>
 nnoremap <Leader>q :Lines <C-R><C-W><CR>
 nnoremap <Leader>w :Rg<CR>
-inoremap <Leader>a <Esc>:Rg \b<C-R><C-W>\b<CR>
-nnoremap <Leader>a :Rg \b<C-R><C-W>\b<CR>
+inoremap <expr> <Leader>a '<Cmd>Rg \b'.expand("<cword>").'\b<CR>'
+nnoremap <expr> <Leader>a '<Cmd>Rg \b'.expand("<cword>").'\b<CR>'
 vnoremap <Leader>a y:Rg \b<C-R>"\b<CR>
 nnoremap <Leader>h <Cmd>set hlsearch \| let @/='\<'.expand("<cword>").'\>'<CR>
 "inoremap <Leader>f <Esc>:Files <C-R><C-W><CR> (Files' arg is starting dir)

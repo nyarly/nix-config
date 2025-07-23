@@ -12,7 +12,6 @@ lib.concatStringsSep "\n" (map (p: "\"${p}\n${builtins.readFile p}\n") [
 
   ./motion-join.vim
   ./syntax-inspect.vim
-  ./indent-jump.vim
   ./80cols.vim
   ./taxo-quickfix.vim
   ./out2file.vim
@@ -22,7 +21,6 @@ lib.concatStringsSep "\n" (map (p: "\"${p}\n${builtins.readFile p}\n") [
   ./mapping.vim
   ./matchit.vim
   ./xterm-color-table.vim
-  ./toggle-folding.vim
   ./center-jump.vim
   ./blase-swapfile.vim
   ./colors.vim
