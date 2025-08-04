@@ -46,7 +46,7 @@ with pkgs;
   nitrogen
   shutter
   cachix
-
+  nix-update
 
   # Gone to programs config
   # (pass.withExtensions (
