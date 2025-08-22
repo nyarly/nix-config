@@ -3,6 +3,7 @@
   config,
   pkgs,
   unstable,
+  localpkgs,
   ...
 }:
 
@@ -46,6 +47,7 @@ in
       pkgs
       updated
       unstable
+      localpkgs
       ;
   };
 
@@ -66,6 +68,7 @@ in
     bat.enable = true;
     fzf.enable = true;
     gh = {
+      package = unstable.gh;
       enable = true;
       extensions = with pkgs; [
         gh-notify

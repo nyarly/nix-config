@@ -10,27 +10,42 @@
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  outputs = { home-manager, nixpkgs-unstable, nixpkgs, ... }:
+  outputs =
+    {
+      home-manager,
+      nixpkgs-unstable,
+      nixpkgs,
+      ...
+    }:
     let
       system = "x86_64-linux";
       username = "judson";
-      unstable = { pkgs, ... }: {
-        _module.args.unstable = import nixpkgs-unstable { inherit (pkgs.stdenv.targetPlatform) system; };
-      };
-    in {
+      pkgs = nixpkgs.legacyPackages.${system};
+    in
+    rec {
+      packages.${system}.wrkflw = pkgs.callPackage home/packages/wrkflw/package.nix { };
+
       homeConfigurations.${username} = home-manager.lib.homeManagerConfiguration {
-        pkgs = nixpkgs.legacyPackages.${system};
+        inherit pkgs;
 
         modules = [
-            unstable
-            ./home.nix
+          (
+            { pkgs, ... }:
             {
-              home = {
-                inherit username;
-                homeDirectory = "/home/${username}";
-                stateVersion = "24.11";
+              _module.args = {
+                unstable = import nixpkgs-unstable { inherit (pkgs.stdenv.targetPlatform) system; };
+                localpkgs = packages.${system};
               };
             }
+          )
+          ./home.nix
+          {
+            home = {
+              inherit username;
+              homeDirectory = "/home/${username}";
+              stateVersion = "24.11";
+            };
+          }
         ];
       };
     };

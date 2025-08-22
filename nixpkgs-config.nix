@@ -28,7 +28,7 @@
       "cockroach"
       "terraform" # BSL
       "vault" # BSL
-      "vimplugin-copilot.vim"
+      # "vimplugin-copilot.vim"
       "cloudflared"
       "google-chrome"
       "google-chrome-beta"

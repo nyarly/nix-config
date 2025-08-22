@@ -3,6 +3,7 @@
   pkgs,
   unstable,
   updated,
+  localpkgs,
 }:
 let
   binScripts = lib.filterAttrs (n: v: lib.isDerivation v) (
@@ -18,13 +19,15 @@ with pkgs;
   kalker
   rofi-taskwarrior
   confit
+  biff
+  localpkgs.wrkflw
 
   fasd
   illum # should be made a service
   inetutils
   man-pages
   moreutils
-  rdap
+  rdap # replaces whois
   nftables
   wmctrl
   xorg.xmessage
@@ -47,32 +50,6 @@ with pkgs;
   shutter
   cachix
   nix-update
-
-  # Gone to programs config
-  # (pass.withExtensions (
-  #  :ext: with ext; [
-  #    pass-update
-  #    pass-genphrase
-  #    pass-otp
-  #  ]
-  #  ))
-
-  # element-desktop -> programs
-  # jq -> programs
-  # tmux -> programs
-  # bash -> programs
-  # bat -> programs
-  # eza -> programs
-  # fzf -> programs
-  # hexchat -> programs
-  # ripgrep -> programs
-  # unstable.gitAndTools.gh -> programs
-
-  # GUI
-  # dunst -> services
-  # feh -> programs
-  # unstable.rofi -> programs
-  # unstable.rofi-pass -> programs
 
   # bruno # -> devShells
   # pandoc -> devShells/neovim

@@ -138,6 +138,6 @@ in
       webapi-vim
       (dotLua "nvim-treesitter-context")
       (dotLua "zk-nvim")
-      (dotVim "copilot-vim")
+      # (dotVim "copilot-vim")
     ];
 }

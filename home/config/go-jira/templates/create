@@ -17,6 +17,9 @@ fields:
   {{- end}}
   description: |
     {{ or .overrides.description "" | indent 4 }}
+  {{- if .meta.fields.duedate}}
+  duedate: {{ or .overrides.duedate "" }}
+  {{- end -}}
   {{if .meta.fields.customfield_10029 }}
   # .overrides.acceptance
   customfield_10029: |
