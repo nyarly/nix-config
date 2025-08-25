@@ -71,7 +71,7 @@ in
       (dotLua "fidget-nvim")
 
       nvim-lspconfig
-      rust-tools-nvim
+      # rust-tools-nvim -- barely if ever use
       (dotLua "cmp-nvim-lsp") # depends on nvim-lspconfig and rust-tools-nvim
 
       (dotLua "luasnip")
@@ -86,7 +86,7 @@ in
       direnv-vim
       Dockerfile-vim
       echodoc
-      errormarker-vim
+      errormarker-vim # LSP obsoletes?
       (dotVim "fzf-vim")
       fzfWrapper
       vim-gist

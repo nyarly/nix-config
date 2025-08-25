@@ -1,3 +1,19 @@
+vim.diagnostic.config({
+  {
+    float = true,
+    jump = {
+      float = false,
+      wrap = true
+    },
+    severity_sort = true,
+    signs = true,
+    underline = true,
+    update_in_insert = false,
+    virtual_lines = false,
+    virtual_text = false
+  }
+})
+
 local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
 local lspconfig = require('lspconfig')
@@ -213,4 +229,4 @@ local opts = {
   },
 }
 
-require("rust-tools").setup(opts)
+-- require("rust-tools").setup(opts)

@@ -2,25 +2,22 @@
   lib,
   pkgs,
   unstable,
-  updated,
   localpkgs,
 }:
 let
   binScripts = lib.filterAttrs (n: v: lib.isDerivation v) (
-    pkgs.callPackage ./binScripts.nix { pkgs = pkgs // updated; }
+    pkgs.callPackage ./binScripts.nix { pkgs = pkgs // localpkgs; }
   );
-  rofi-taskwarrior = pkgs.callPackage packages/rofi-taskwarrior { };
-  confit = pkgs.callPackage packages/confit { };
 in
 with pkgs;
 [
   # The modern shell
   procs
   kalker
-  rofi-taskwarrior
-  confit
   biff
   localpkgs.wrkflw
+  localpkgs.rofi-taskwarrior
+  localpkgs.confit
 
   fasd
   illum # should be made a service
@@ -33,7 +30,7 @@ with pkgs;
   xorg.xmessage
 
   signal-desktop
-  # updated.signal
+  # localpkgs.signal
 
   gist
   codeowners

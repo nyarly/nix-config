@@ -14,6 +14,11 @@ if [ $? -ne 0 ]; then
   exit 0
 fi
 
+current=$(git name-rev --name-only HEAD)
+if [ $? -ne 0 ]; then
+  exit 0
+fi
+
 jiras=$(git config --get-all "branch.${current}.jira-ticket" | sort -u)
 if [ $? -eq 0 ]; then
   for jira_id in $jiras; do

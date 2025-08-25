@@ -10,18 +10,6 @@
 let
   inherit (pkgs.callPackage home/loadConfigs.nix { }) configFiles;
 
-  updated = {
-    # signal = pkgs.callPackage home/packages/signal-desktop.nix {};
-    # go-jira = pkgs.callPackage home/packages/go-jira.nix {};
-    # meld = pkgs.callPackage home/packages/meld.nix {};
-    # trivy = pkgs.callPackage home/packages/trivy.nix {}; # >= 0.20
-  };
-  # localPackages = {
-  # lorri = pkgs.callPackage home/packages/lorri {};
-  # vim-markdown-composer = pkgs.callPackage home/packages/vim-markdown-composer.nix {};
-  # rhet-butler = pkgs.callPackage home/packages/rhet-butler {};
-  # }
-
   yubikeys = [
     "fd7a96"
     "574947"
@@ -45,7 +33,6 @@ in
     inherit
       lib
       pkgs
-      updated
       unstable
       localpkgs
       ;
