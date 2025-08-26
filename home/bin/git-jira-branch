@@ -4,8 +4,13 @@ if [ $# -lt 1 ]; then
   echo "Usage: $0 <issue key...>"
 fi
 
-path=$(git symbolic-ref HEAD) || (echo "Not on a branch"; exit 1)
-branch=${path#refs/heads/}
+#path=$(git symbolic-ref HEAD) || (echo "Not on a branch"; exit 1)
+#branch=${path#refs/heads/}
+branch=$(git rev-parse --abbrev-ref HEAD)
+if [ $? -ne 0 ]; then
+  echo "Not on a branch"
+  exit 1
+fi
 
 while [ $# -gt 0 ]; do
   issue=$1
@@ -18,5 +23,10 @@ while [ $# -gt 0 ]; do
   fi
 
   git config --add "$config" "$issue"
+  if ! echo $branch | grep -Eq -- "-[A-Z]{2,}-[0-9]+$"; then #XXX issue patterns
+    oldbranch=$branch
+    branch=$branch-$issue
+    git branch -m $oldbranch $branch
+  fi
   jira take "$issue"
 done

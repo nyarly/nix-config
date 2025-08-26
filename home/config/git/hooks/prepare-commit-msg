@@ -9,17 +9,12 @@ if [ "${source}" == "commit" ]; then
   exit 0
 fi
 
-path=$(git symbolic-ref HEAD)
+branch=$(git rev-parse --abbrev-ref HEAD)
 if [ $? -ne 0 ]; then
   exit 0
 fi
 
-current=$(git name-rev --name-only HEAD)
-if [ $? -ne 0 ]; then
-  exit 0
-fi
-
-jiras=$(git config --get-all "branch.${current}.jira-ticket" | sort -u)
+jiras=$(git config --get-all "branch.${branch}.jira-ticket" | sort -u)
 if [ $? -eq 0 ]; then
   for jira_id in $jiras; do
     awk "/^#/ && !x {print \"$jira_id\"; x=1} 1" "$file" > "$file.tmp"
