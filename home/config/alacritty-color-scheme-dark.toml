@@ -8,10 +8,6 @@ red = "0xcb4b16"
 white = "0x002b36"
 yellow = "0x839496"
 
-[colors.cursor]
-cursor = "0xeee8d5"
-text = "0xeee8d5"
-
 [colors.normal]
 black = "0xeee8d5"
 blue = "0x268bd2"
