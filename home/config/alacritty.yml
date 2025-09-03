@@ -137,9 +137,9 @@ schemes:
 
   light: &solarized-light
     # Colors the cursor will use if `custom_cursor_colors` is true
-    cursor:
-      text: *base02
-      cursor: *base02
+#    cursor:
+#      text: *base02
+#      cursor: *base02
 
     primary:
       background: *base3
@@ -169,9 +169,9 @@ schemes:
 
   dark: &solarized-dark
     # Colors the cursor will use if `custom_cursor_colors` is true
-    cursor:
-      text: *base2
-      cursor: *base2
+#    cursor:
+#      text: *base2
+#      cursor: *base2
 
     primary:
       background: *base02

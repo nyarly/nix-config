@@ -16,11 +16,16 @@ let
   ];
 in
 {
+  disabledModules = [
+    "services/lorri.nix"
+  ];
+
   imports = [
     home/services/nitrogen.nix
     home/services/scdaemon-notify.nix
     home/services/nm-applet.nix
     home/services/my-polybar.nix
+    home/services/lorri.nix
 
     home/programs/scdaemon.nix
   ];
