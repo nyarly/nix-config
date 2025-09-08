@@ -16,11 +16,13 @@ import XMonad.Actions.WindowBringer
 import XMonad.Hooks.OnPropertyChange
 import qualified XMonad.Actions.CycleWS as C
 import qualified XMonad.StackSet as W
+import XMonad.Hooks.DebugKeyEvents
 
 -- c.f. https://wiki.haskell.org/Xmonad/Frequently_asked_questions#Multi_head_or_xinerama_troubles
 
 import qualified Graphics.X11
 import qualified Graphics.X11.Xinerama
+import Graphics.X11.ExtraTypes.XF86
 import Data.List (intercalate)
 
 -- c.f. http://hackage.haskell.org/package/xmonad-contrib-0.13/docs/XMonad-Actions-CycleWS.html
@@ -132,7 +134,14 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList ([
        ((modm .|. shiftMask, xK_j ), mainDown ),
        ((modm .|. shiftMask, xK_k ), mainUp ),
        ((modm .|. shiftMask, xK_x), xineramaDebug),
-       ((modm, xK_Return), (windows W.shiftMaster))
+       ((modm, xK_Return), (windows W.shiftMaster)),
+       ((0, xF86XK_AudioLowerVolume   ), spawn "wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"),
+       ((0, xF86XK_AudioRaiseVolume   ), spawn "wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+"),
+       ((0, xF86XK_AudioMute          ), spawn "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"),
+       ((0, xF86XK_AudioPlay          ), spawn "playerctl play"),
+       ((0, xF86XK_AudioPause         ), spawn "playerctl pause"),
+       ((0, xF86XK_AudioPrev          ), spawn "playerctl previous"),
+       ((0, xF86XK_AudioNext          ), spawn "playerctl next")
      ]
      ++ [ ((modm, key),                    C.toggleOrView tag) | (tag, key)  <- workspacesWithKeys ]
      ++ [ ((modm .|. shiftMask, key), (windows . W.shift) tag) | (tag, key)  <- workspacesWithKeys ]
@@ -185,7 +194,7 @@ main = xmonad $
            , layoutHook = myLayout
            , logHook = dynamicLogString def >>= xmonadPropLog
            , manageHook = myManageHook <+> manageHook def
-           , handleEventHook = mconcat [ onTitleChange manageZoomHook, handleEventHook def]
+           , handleEventHook = mconcat [ onTitleChange manageZoomHook, handleEventHook def] <> debugKeyEvents
            , workspaces = myWorkspaces
            , keys = newKeys
            , normalBorderColor  = "#aaaaaa"

@@ -28,6 +28,7 @@ with pkgs;
   nftables
   wmctrl
   xorg.xmessage
+  playerctl
 
   signal-desktop
   # localpkgs.signal
