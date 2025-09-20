@@ -71,19 +71,6 @@ in
     jq.enable = true;
     fd.enable = true;
 
-    zk = {
-      enable = true;
-      settings = {
-        notebook.dir = "~/Data/zk-notebook";
-        note = {
-          filename = "{{id}}-{{slug title}}";
-        };
-        format.markdown = {
-          multiword-tags = true;
-        };
-      };
-    };
-
     hexchat.enable = true;
     feh.enable = true;
     rofi = {
@@ -106,6 +93,7 @@ in
       ];
     };
 
+    zk = (import home/zk.nix) { };
     htop = (import home/htop.nix) { inherit config; };
     ssh = (import home/ssh.nix) { inherit yubikeys; };
     git = (import home/git.nix) { inherit pkgs; };
@@ -183,43 +171,42 @@ in
     };
   };
 
-  home.file =
-    {
-      ".local/share/fonts/monofur/monof56.ttf".source = home/fonts/monof55.ttf;
-      ".local/share/fonts/monofur/monof55.ttf".source = home/fonts/monof56.ttf;
-      "Data/Wallpaper/rotsnakes-tile.png".source = home/blobs/rotsnakes-tile.png;
-      ".task/keys/ca.cert".source = home/task/keys/ca.cert;
-      ".ssh/control" = {
-        recursive = true;
-        source = home/ssh/control;
-      };
-    }
-    // builtins.listToAttrs (
-      builtins.concatMap (k: [
-        {
-          name = ".ssh/yubi-${k}.pub";
-          value = {
-            source = home/ssh + "/yubi-${k}.pub";
-          };
-        }
-        {
-          name = ".gnupg/yubi-${k}.pub";
-          value = {
-            source = home/gnupg + "/yubi-${k}.pub.gpg";
-          };
-        }
-        {
-          name = ".config/git/sign-with-${k}";
-          value = {
-            source = home/config/git + "/sign-with-${k}";
-          };
-        }
-      ]) yubikeys
-    )
-    // configFiles home/bin "bin"
-    // configFiles home/config/git/hooks ".git_template/hooks"
-    // configFiles home/config/git/hooks ".config/git/hooks"
-    // configFiles home/config/go-jira ".jira.d";
+  home.file = {
+    ".local/share/fonts/monofur/monof56.ttf".source = home/fonts/monof55.ttf;
+    ".local/share/fonts/monofur/monof55.ttf".source = home/fonts/monof56.ttf;
+    "Data/Wallpaper/rotsnakes-tile.png".source = home/blobs/rotsnakes-tile.png;
+    ".task/keys/ca.cert".source = home/task/keys/ca.cert;
+    ".ssh/control" = {
+      recursive = true;
+      source = home/ssh/control;
+    };
+  }
+  // builtins.listToAttrs (
+    builtins.concatMap (k: [
+      {
+        name = ".ssh/yubi-${k}.pub";
+        value = {
+          source = home/ssh + "/yubi-${k}.pub";
+        };
+      }
+      {
+        name = ".gnupg/yubi-${k}.pub";
+        value = {
+          source = home/gnupg + "/yubi-${k}.pub.gpg";
+        };
+      }
+      {
+        name = ".config/git/sign-with-${k}";
+        value = {
+          source = home/config/git + "/sign-with-${k}";
+        };
+      }
+    ]) yubikeys
+  )
+  // configFiles home/bin "bin"
+  // configFiles home/config/git/hooks ".git_template/hooks"
+  // configFiles home/config/git/hooks ".config/git/hooks"
+  // configFiles home/config/go-jira ".jira.d";
 
   home.activation =
     let
@@ -244,23 +231,23 @@ in
       '';
     };
 
-  xdg.configFile =
-    {
-      "git/trimwhite.sh".source = home/config/git/trimwhite.sh;
-      "procs/config.toml".source = home/config/procs.toml;
-      "alacritty/alacritty-hm.toml".source = home/config/alacritty.toml;
-      "alacritty/color-scheme-light.toml".source = home/config/alacritty-color-scheme-light.toml;
-      "alacritty/color-scheme-dark.toml".source = home/config/alacritty-color-scheme-dark.toml;
-      "nixpkgs/config.nix".source = ./nixpkgs-config.nix;
-      "keynav/keynavrc".source = home/config/keynavrc;
-      "nvim/autoload/tmuxline/presets/nyarly.vim".source = home/config/neovim/tmuxline-preset.vim;
-      "nvim/swapfile_parse.rb".source = home/config/neovim/swapfile_parse.rb;
-    }
-    // configFiles home/config/neovim/after/ftplugin "nvim/after/ftplugin"
-    // configFiles home/config/neovim/ftplugin "nvim/ftplugin"
-    // configFiles home/config/hexchat "hexchat"
-    // configFiles home/config/fish/completions "fish/completions"
-    // configFiles home/config/fish/functions "fish/functions";
+  xdg.configFile = {
+    "git/trimwhite.sh".source = home/config/git/trimwhite.sh;
+    "procs/config.toml".source = home/config/procs.toml;
+    "alacritty/alacritty-hm.toml".source = home/config/alacritty.toml;
+    "alacritty/color-scheme-light.toml".source = home/config/alacritty-color-scheme-light.toml;
+    "alacritty/color-scheme-dark.toml".source = home/config/alacritty-color-scheme-dark.toml;
+    "nixpkgs/config.nix".source = ./nixpkgs-config.nix;
+    "keynav/keynavrc".source = home/config/keynavrc;
+    "nvim/autoload/tmuxline/presets/nyarly.vim".source = home/config/neovim/tmuxline-preset.vim;
+    "nvim/swapfile_parse.rb".source = home/config/neovim/swapfile_parse.rb;
+  }
+  // configFiles home/config/neovim/after/ftplugin "nvim/after/ftplugin"
+  // configFiles home/config/neovim/ftplugin "nvim/ftplugin"
+  // configFiles home/config/hexchat "hexchat"
+  // configFiles home/config/fish/completions "fish/completions"
+  // configFiles home/config/fish/functions "fish/functions"
+  // configFiles home/config/zk/templates "zk/templates";
 
   xsession = {
     enable = true;
