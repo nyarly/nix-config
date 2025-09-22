@@ -106,7 +106,8 @@ in
       semweb-vim
       sparkup
       tabular
-      (dotVim "tagbar")
+      #(dotVim "tagbar")
+      (dotLua "outline-nvim")
       textile-vim
       tla-vim
       (dotVim "tmuxline-vim")

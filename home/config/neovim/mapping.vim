@@ -6,8 +6,6 @@ function! s:NonSpecialMappings()
   noremap <buffer> <F4> <Cmd>Buffer<CR>
   inoremap <buffer> <F4> <Cmd>Buffer<CR>
   nnoremap <buffer> <silent> <CR> i<CR><Esc>
-  nnoremap <buffer> <silent>  <F6> :TagbarToggle<CR>
-  nnoremap <buffer> <silent>  <F5> :TagbarOpenAutoClose<CR>
 
 "imap <buffer> <C-L> <Plug>delimitMateJumpMany
   "like . but for commands
