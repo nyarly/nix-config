@@ -67,7 +67,7 @@ end
 
 -- Enable some language servers with the additional completion capabilities offered by nvim-cmp
 -- local servers = { 'clangd', 'rust_analyzer', 'pyright', 'tsserver' }
-local servers = { 'rust_analyzer', 'gopls', 'cue', 'postgres_lsp' }
+local servers = { 'rust_analyzer', 'gopls', 'cue', 'postgres_lsp', 'pylsp' }
 for _, lsp in ipairs(servers) do
   lspconfig[lsp].setup {
     -- on_attach = my_custom_on_attach,
@@ -110,16 +110,16 @@ lspconfig['lua_ls'].setup {
   }
 }
 
-lspconfig['pyright'].setup {
-  -- on_attach = my_custom_on_attach,
-  capabilities = capabilities,
-  on_attach = lsp_attach,
-  on_new_config = function(new_config, new_root_dir)
-    if vim.env.VIRTUAL_ENV then
-      new_config.cmd = { 'pyright-langserver', '--stdio', '--venvpath', vim.env.VIRTUAL_ENV }
-    end
-  end
-}
+-- lspconfig['pyright'].setup {
+--   -- on_attach = my_custom_on_attach,
+--   capabilities = capabilities,
+--   on_attach = lsp_attach,
+--   on_new_config = function(new_config, new_root_dir)
+--     if vim.env.VIRTUAL_ENV then
+--       new_config.cmd = { 'pyright-langserver', '--stdio', '--venvpath', vim.env.VIRTUAL_ENV }
+--     end
+--   end
+-- }
 
 lspconfig['nil_ls'].setup {
   capabilities = capabilities,

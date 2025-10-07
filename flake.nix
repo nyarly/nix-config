@@ -27,6 +27,7 @@
         wrkflw = pkgs.callPackage home/packages/wrkflw/package.nix { };
         rofi-taskwarrior = pkgs.callPackage home/packages/rofi-taskwarrior { };
         confit = pkgs.callPackage home/packages/confit { };
+        acli = pkgs.callPackage home/packages/acli.nix { };
         # signal = pkgs.callPackage home/packages/signal-desktop.nix {};
         # go-jira = pkgs.callPackage home/packages/go-jira.nix {};
         # meld = pkgs.callPackage home/packages/meld.nix {};

@@ -57,7 +57,13 @@ in
     home-manager.enable = true;
 
     eza.enable = true;
-    bat.enable = true;
+    bat = {
+      enable = true;
+      config = {
+        wrap = "never";
+        "set-terminal-title" = true;
+      };
+    };
     fzf.enable = true;
     gh = {
       package = unstable.gh;

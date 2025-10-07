@@ -29,7 +29,8 @@ in
     proselint
     vale
     ranger # in vim
-    pyright
+    #pyright
+    python313Packages.python-lsp-server
     lua-language-server # silly not to have an LSP for Lua in Neovim
     yaml-language-server
     cue
@@ -71,7 +72,6 @@ in
       (dotLua "fidget-nvim")
 
       nvim-lspconfig
-      # rust-tools-nvim -- barely if ever use
       (dotLua "cmp-nvim-lsp") # depends on nvim-lspconfig and rust-tools-nvim
 
       (dotLua "luasnip")
@@ -106,7 +106,6 @@ in
       semweb-vim
       sparkup
       tabular
-      #(dotVim "tagbar")
       (dotLua "outline-nvim")
       textile-vim
       tla-vim

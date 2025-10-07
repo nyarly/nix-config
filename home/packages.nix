@@ -18,6 +18,7 @@ with pkgs;
   localpkgs.wrkflw
   localpkgs.rofi-taskwarrior
   localpkgs.confit
+  localpkgs.acli
 
   fasd
   illum # should be made a service
