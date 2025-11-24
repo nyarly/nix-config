@@ -31,6 +31,6 @@ if [[ ! $FILE =~ $CC_REGEX && "$(git config --get core.coco)" == 'true' ]]; then
 elif [[ -z "$(git config --get core.coco)" ]]; then
   eval 2>&1
   echo "  No conventional commit configuration set; if it's that kind of joint:"
-  echo "  git config --local --type bool core.coco false"
+  echo "  >>> git config --local --type bool core.coco false"
 	echo >&2 "Valid commit message."
 fi

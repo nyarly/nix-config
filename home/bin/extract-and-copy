@@ -1,0 +1,10 @@
+#!/usr/bin/env fish
+
+# Run by Alacritty for some hints.
+#
+# Extracts the first group from its regex first argument from its second,
+# then passed it to multi-copy
+
+set extracted (echo $argv[2] | sed "s/$argv[1]/\1/")
+
+multi-copy $extracted

@@ -94,6 +94,10 @@ wrap (
       gitFull
       coreutils
     ];
+    "extract-and-copy" = [
+      fish
+      gnused
+    ];
     "multi-copy" = [
       fish
       procps

@@ -570,6 +570,13 @@ persist = false
 binding = { key = "J", mods = "Control|Shift" }
 regex = '[A-Z]{2,5}-[0-9]{1,6}'
 
+# >>> commands
+[[hints.enabled]]
+command = { program = "extract-and-copy", args = [ '>>> \(.*\)' ] }
+persist = false
+binding = { key = "C", mods = "Control|Shift" }
+regex = '>>> .*$'
+
 [mouse]
 hide_when_typing = true
 

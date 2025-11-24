@@ -79,7 +79,7 @@ EOF
   echo "We don't use master branches anymore."
   echo "consider:"
   cat "$fixsh"
-  echo "which you can run from $branchfix"
+  echo "which you can run from >>> $branchfix"
   exit 1
 fi
 

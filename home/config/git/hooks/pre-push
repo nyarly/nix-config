@@ -7,9 +7,9 @@ while read local lsha remote rsha; do
         [  "$(git config --get branch.${remote}.protected)" != 'false' ]; then
         echo "Refusing to push to ${remote}!"
         echo "  If it's that kind of joint:"
-        echo "  git config --type bool branch.${remote}.protected false"
+        echo "  >>> git config --type bool branch.${remote}.protected false"
         echo "  Otherwise, what about:"
-        echo "  git config --type bool branch.${remote}.protected true"
+        echo "  >>> git config --type bool branch.${remote}.protected true"
         exit 1
       fi
       ;;
