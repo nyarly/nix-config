@@ -57,6 +57,7 @@ in
     set -x GLAMOUR_STYLE light
     set -x RIPGREP_CONFIG_PATH /home/judson/.config/ripgrep/ripgreprc
     set -x ZK_NOTEBOOK_DIR /home/judson/Data/zk-notebook
+    set -x JQ_COLORS "0;90:0;39:0;39:0;39:0;32:1;39:1;39:1;34"
     bind \e\; 'commandline -r -t (commandline -t | sed \"s/:\(\d*\)/ +\1/\")'
     direnv export fish | source
   ''

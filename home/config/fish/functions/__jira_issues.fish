@@ -2,7 +2,7 @@
 function __jira_issues
 	set -l jql $JIRA_JQL
 
-  if test -z $jql
+  if test -z "$jql"
     set jql (git config --get jira.jql)
     if test $status -ne 0
         return 1
@@ -10,5 +10,7 @@ function __jira_issues
   end
 
   # Limit 100 because go-jira/Jira is behaving funky for >100
-  jira list --limit 100 --query $jql --template view-completion 2>/tmp/jira_issues.err
+  #jira list --limit 100 --query $jql --template view-completion 2>/tmp/jira_issues.err
+  #
+  acli jira workitem search --paginate --json -j $jql | jq -r '.[] | "\(.key)\t\(.fields.summary) [\(.fields.status.name)]"'
 end
