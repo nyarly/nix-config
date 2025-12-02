@@ -146,12 +146,79 @@ in
     picom.enable = true;
     espanso = {
       enable = true;
-      configs = {
-        default = {
-          # show_notifications = false;
-          toggle_key = "RIGHT_CTRL";
-        };
+
+      configs.default = {
+        # show_notifications = false;
+        toggle_key = "RIGHT_CTRL";
       };
+
+      matches.base.matches = [
+        {
+          trigger = "a/o/t";
+          replace = "as opposed to";
+        }
+        {
+          trigger = "e.g.";
+          replace = "for example";
+        }
+        {
+          trigger = "i.e.";
+          replace = "in other words";
+        }
+        {
+          trigger = "n.b.";
+          replace = "be aware";
+        }
+        {
+          trigger = "cf.";
+          replace = "but compare";
+        }
+        {
+          trigger = "q.v.";
+          replace = "for which see";
+        }
+        {
+          trigger = "b/c";
+          replace = "because";
+        }
+        {
+          trigger = "d/c";
+          replace = "don't care";
+        }
+        {
+          trigger = "idk";
+          replace = "I don't know";
+        }
+        {
+          trigger = "iiuc";
+          replace = "if I understand correctly";
+        }
+        {
+          trigger = "afaik";
+          replace = "as far as I know";
+        }
+        {
+          trigger = "afk";
+          replace = "away from computer";
+        }
+        {
+          trigger = "eod";
+          replace = "end of day";
+        }
+        {
+          trigger = "imo";
+          replace = "in my opinion";
+        }
+        {
+          trigger = "IMO";
+          replace = "In my opinion";
+        }
+        {
+          trigger = "lgtm";
+          replace = "looks good to me";
+        }
+
+      ];
     };
 
     dunst = import home/dunst.nix;
