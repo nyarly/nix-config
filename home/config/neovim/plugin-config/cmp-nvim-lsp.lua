@@ -89,6 +89,8 @@ lspconfig['terraformls'].setup {
 
 lspconfig['yamlls'].setup {
   -- on_attach = my_custom_on_attach,
+  -- XXX testing out their PR
+  cmd = { "node", "/home/judson/dev/yaml-language-server/out/server/src/server.js", "--stdio" },
   capabilities = capabilities,
   on_attach = lsp_attach,
   settings = {

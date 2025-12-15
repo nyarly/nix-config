@@ -35,6 +35,8 @@ in
     yaml-language-server
     cue
     postgres-lsp
+    # xxx testing out yaml-language-server PR
+    nodejs_20
   ];
 
   plugins =

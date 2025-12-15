@@ -15,3 +15,6 @@ abbr -a -g -- ghmd 'gh pr merge --auto --merge --delete-branch'
 abbr -a -g -- ghprmd 'gh pr create --title (bjtitle) --reviewer ymeadows/backend; and gh pr merge --auto --merge --delete-branch'
 abbr -a -g -- bc 'kalker'
 abbr -a -g -- kk 'kalker'
+abbr --add sc --command xclip -- "-selection clipboard"
+abbr --add sp --command xclip -- "-selection primary"
+abbr --add ss --command xclip -- "-selection secondary"

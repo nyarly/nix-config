@@ -194,6 +194,10 @@ in
           replace = "if I understand correctly";
         }
         {
+          trigger = "iirc";
+          replace = "if I recall correctly";
+        }
+        {
           trigger = "afaik";
           replace = "as far as I know";
         }
@@ -216,6 +220,19 @@ in
         {
           trigger = "lgtm";
           replace = "looks good to me";
+        }
+        {
+          trigger = ":6date";
+          replace = "{{6date}}";
+          vars = [
+            {
+              name = "6date";
+              type = "date";
+              params = {
+                format = "%y%m%d";
+              };
+            }
+          ];
         }
 
       ];
