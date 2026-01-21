@@ -222,6 +222,10 @@ in
           replace = "looks good to me";
         }
         {
+          trigger = "k8s";
+          replace = "Kubernetes";
+        }
+        {
           trigger = ":6date";
           replace = "{{6date}}";
           vars = [
@@ -230,6 +234,19 @@ in
               type = "date";
               params = {
                 format = "%y%m%d";
+              };
+            }
+          ];
+        }
+        {
+          trigger = ":10date";
+          replace = "{{10date}}";
+          vars = [
+            {
+              name = "10date";
+              type = "date";
+              params = {
+                format = "%Y-%m-%d";
               };
             }
           ];
