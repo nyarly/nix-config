@@ -4,6 +4,7 @@ let
 in
 {
   enable = true;
+  enableDefaultConfig = false;
 
   extraOptionOverrides = {
     IdentitiesOnly = "yes";
@@ -15,6 +16,14 @@ in
       controlPersist = "60m";
       controlMaster = "auto";
       controlPath = "~/.ssh/control/%r@%h:%p.socket";
+
+      forwardAgent = false;
+      serverAliveInterval = 0;
+      serverAliveCountMax = 3;
+      compression = false;
+      addKeysToAgent = "no";
+      hashKnownHosts = false;
+      userKnownHostsFile = "~/.ssh/known_hosts";
     };
 
     "github.com" = {
