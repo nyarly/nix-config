@@ -16,7 +16,8 @@ vim.diagnostic.config({
 
 local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
-local lspconfig = require('lspconfig')
+-- local lspconfig = require('lspconfig') -- see :help lspconfig-nvim-0.11
+local lspconfig = vim.lsp.config
 -- local configs = require('lspconfig/configs')
 
 local function lsp_attach(client, buffer)
