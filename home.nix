@@ -103,6 +103,13 @@ in
     htop = (import home/htop.nix) { inherit config; };
     ssh = (import home/ssh.nix) { inherit yubikeys; };
     git = (import home/git.nix) { inherit pkgs; };
+    delta = {
+      enable = true;
+      options = {
+        light = true;
+      };
+      enableGitIntegration = true;
+    };
     fish = (import home/fish.nix) { inherit pkgs unstable; };
     neovim = (import home/neovim.nix) { inherit lib pkgs; };
     taskwarrior = (import home/taskwarrior.nix) { inherit unstable config; };

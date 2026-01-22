@@ -17,7 +17,7 @@ in
     nixfmt-rfc-style
     impl
 
-    go_1_23
+    go_1_25
     elmPackages.elm
     elmPackages.elm-test
     elmPackages.elm-format
@@ -34,7 +34,7 @@ in
     lua-language-server # silly not to have an LSP for Lua in Neovim
     yaml-language-server
     cue
-    postgres-lsp
+    postgres-language-server
     # xxx testing out yaml-language-server PR
     nodejs_20
   ];
@@ -106,7 +106,7 @@ in
       (dotVim "ranger-vim")
       rfc-syntax
       semweb-vim
-      sparkup
+      # sparkup # RIP
       tabular
       (dotLua "outline-nvim")
       textile-vim

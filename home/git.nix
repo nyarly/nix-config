@@ -1,24 +1,9 @@
-{pkgs}:
+{ pkgs }:
 {
   # :eyes: git.maintenance
 
   enable = true;
-  package = pkgs.gitAndTools.gitFull;
-  userName = "Judson Lester";
-  userEmail = "nyarly@gmail.com";
-  aliases = {
-    ctags = "!.git/hooks/ctags";
-    bundle-tags = "!.git/hooks/bundle-ctags";
-    savepoint-merge = "!~/bin/git-savepoint-merge";
-    savepoint-complete = "!~/bin/git-savepoint-complete";
-    savepoint-reset = "!~/bin/git-savepoint-reset";
-    savepoint-zap = "branch -d savepoint";
-    localize-branches = "!~/bin/git-localize-branches";
-    go-root = "!echo $(pwd) $GIT_PREFIX";
-    pb = "!pb";
-    mt = "mergetool";
-    dt = "difftool -d";
-  };
+  package = pkgs.gitFull;
   signing = {
     key = null;
     signByDefault = true;
@@ -38,19 +23,29 @@
     ".taskrc"
   ];
 
-  delta = {
-    enable = true;
-    options = {
-      light = true;
-    };
-  };
-
   includes = [
     # condition = ? # something about "if it exists"?
     { path = "~/.config/git/secret"; }
   ];
   # can be attrs converted...
-  extraConfig = {
+  settings = {
+    user = {
+      name = "Judson Lester";
+      email = "nyarly@gmail.com";
+    };
+    alias = {
+      ctags = "!.git/hooks/ctags";
+      bundle-tags = "!.git/hooks/bundle-ctags";
+      savepoint-merge = "!~/bin/git-savepoint-merge";
+      savepoint-complete = "!~/bin/git-savepoint-complete";
+      savepoint-reset = "!~/bin/git-savepoint-reset";
+      savepoint-zap = "branch -d savepoint";
+      localize-branches = "!~/bin/git-localize-branches";
+      go-root = "!echo $(pwd) $GIT_PREFIX";
+      pb = "!pb";
+      mt = "mergetool";
+      dt = "difftool -d";
+    };
     core = {
       hooksPath = "~/.config/git/hooks";
     };
@@ -124,7 +119,6 @@
         insteadOf = "https://github.com";
       };
     };
-
 
     diff.rawtext.textconv = "~/.config/git/trimwhite.sh";
 

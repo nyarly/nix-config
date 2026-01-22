@@ -1,4 +1,10 @@
-{ lib, rustPlatform, fetchFromGitHub, pkg-config, ... }:
+{
+  lib,
+  rustPlatform,
+  fetchFromGitHub,
+  pkg-config,
+  ...
+}:
 
 with rustPlatform;
 
@@ -8,13 +14,13 @@ buildRustPackage rec {
 
   name = "${crateName}-${version}";
 
-  cargoHash = "sha256-lWLiEItsvcZ9zCdCkrRYWnQdI23hb/ZoBlGGoYgPqas=";
+  cargoHash = "sha256-Znja7NxPeGeMo+OsisbqQ4pJZFIEaTwhUtIS+T3alT0=";
 
   src = fetchFromGitHub {
     owner = "nyarly";
     repo = crateName;
     rev = version;
-    hash = "sha256-l7TipT7Ou5N/pMlnnqE44i2d2XcWfPZuDEKObrqAUL8=";
+    hash = "sha256-thGbOPdNvr4d17RcoWZjmsocWx1lnpdAf17+nqSMj58=";
   };
 
   nativeBuildInputs = [ pkg-config ];
