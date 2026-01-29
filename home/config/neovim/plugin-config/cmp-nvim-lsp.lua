@@ -17,7 +17,8 @@ vim.diagnostic.config({
 local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
 -- local lspconfig = require('lspconfig') -- see :help lspconfig-nvim-0.11
-local lspconfig = vim.lsp.config
+-- syntax is significantly different and will need a little extra work to change over
+--local lspconfig = vim.lsp.config
 -- local configs = require('lspconfig/configs')
 
 local function lsp_attach(client, buffer)
@@ -70,14 +71,13 @@ end
 -- local servers = { 'clangd', 'rust_analyzer', 'pyright', 'tsserver' }
 local servers = { 'rust_analyzer', 'gopls', 'cue', 'postgres_lsp', 'pylsp' }
 for _, lsp in ipairs(servers) do
-  lspconfig[lsp].setup {
-    -- on_attach = my_custom_on_attach,
+  vim.lsp.config(lsp, {
     capabilities = capabilities,
     on_attach = lsp_attach,
-  }
+  })
 end
 
-lspconfig['terraformls'].setup {
+vim.lsp.config('terraformls', {
   -- on_attach = my_custom_on_attach,
   capabilities = capabilities,
   on_attach = lsp_attach,
@@ -85,10 +85,10 @@ lspconfig['terraformls'].setup {
     terraform = {
       path = vim.fn.exepath('tofu')
     }
-  }
-}
+  },
+})
 
-lspconfig['yamlls'].setup {
+vim.lsp.config('yamlls', {
   -- on_attach = my_custom_on_attach,
   -- XXX testing out their PR
   cmd = { "node", "/home/judson/dev/yaml-language-server/out/server/src/server.js", "--stdio" },
@@ -97,10 +97,10 @@ lspconfig['yamlls'].setup {
   settings = {
     redhat = { telemetry = { enabled = false } },
     yaml = { schemaStore = { enable = false } },
-  }
-}
+  },
+})
 
-lspconfig['lua_ls'].setup {
+vim.lsp.config('lua_ls', {
   -- on_attach = my_custom_on_attach,
   capabilities = capabilities,
   on_attach = lsp_attach,
@@ -110,10 +110,10 @@ lspconfig['lua_ls'].setup {
         globals = { "vim" }
       }
     }
-  }
-}
+  },
+})
 
--- lspconfig['pyright'].setup {
+-- vim.lsp.config('pyright', {
 --   -- on_attach = my_custom_on_attach,
 --   capabilities = capabilities,
 --   on_attach = lsp_attach,
@@ -124,7 +124,7 @@ lspconfig['lua_ls'].setup {
 --   end
 -- }
 
-lspconfig['nil_ls'].setup {
+vim.lsp.config('nil_ls', {
   capabilities = capabilities,
   on_attach = lsp_attach,
   settings = {
@@ -139,9 +139,9 @@ lspconfig['nil_ls'].setup {
       },
     },
   }
-}
+})
 
-lspconfig['elmls'].setup {
+vim.lsp.config('elmls', {
   capabilities = capabilities,
   on_attach = lsp_attach,
   root_dir = require "lspconfig.util".root_pattern("elm.json", ".git"),
@@ -160,7 +160,7 @@ lspconfig['elmls'].setup {
       return vim.lsp.handlers["window/showMessageRequest"](err, result, context, config)
     end
   }
-}
+})
 
 -- belongs in on_attach? belongs in lsp?
 local format_sync_grp = vim.api.nvim_create_augroup("Format", {})
