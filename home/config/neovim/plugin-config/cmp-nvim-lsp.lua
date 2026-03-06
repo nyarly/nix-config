@@ -75,6 +75,7 @@ for _, lsp in ipairs(servers) do
     capabilities = capabilities,
     on_attach = lsp_attach,
   })
+  vim.lsp.enable(lsp)
 end
 
 vim.lsp.config('terraformls', {
@@ -87,6 +88,7 @@ vim.lsp.config('terraformls', {
     }
   },
 })
+vim.lsp.enable('terraformls')
 
 vim.lsp.config('yamlls', {
   -- on_attach = my_custom_on_attach,
@@ -99,6 +101,7 @@ vim.lsp.config('yamlls', {
     yaml = { schemaStore = { enable = false } },
   },
 })
+vim.lsp.enable('yamlls')
 
 vim.lsp.config('lua_ls', {
   -- on_attach = my_custom_on_attach,
@@ -112,6 +115,7 @@ vim.lsp.config('lua_ls', {
     }
   },
 })
+vim.lsp.enable('lua_ls')
 
 -- vim.lsp.config('pyright', {
 --   -- on_attach = my_custom_on_attach,
@@ -140,6 +144,7 @@ vim.lsp.config('nil_ls', {
     },
   }
 })
+vim.lsp.enable('nil_ls')
 
 vim.lsp.config('elmls', {
   capabilities = capabilities,
@@ -161,6 +166,7 @@ vim.lsp.config('elmls', {
     end
   }
 })
+vim.lsp.enable('elmls')
 
 -- belongs in on_attach? belongs in lsp?
 local format_sync_grp = vim.api.nvim_create_augroup("Format", {})

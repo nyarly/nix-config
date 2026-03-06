@@ -33,5 +33,6 @@
       "google-chrome"
       "google-chrome-beta"
       "google-chrome-dev"
+      "claude-code"
     ];
 }

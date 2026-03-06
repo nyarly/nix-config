@@ -56,6 +56,17 @@ in
     # Let Home Manager install and manage itself.
     home-manager.enable = true;
 
+    claude-code = {
+      enable = true;
+      settings = {
+        spinnerVerbs = {
+          mode = "replace";
+          verbs = [ "> " ];
+        };
+        # showTurnDuration: false; # is also "playful"
+      };
+    };
+
     eza.enable = true;
     bat = {
       enable = true;
