@@ -136,10 +136,10 @@ vim.lsp.config('nil_ls', {
       formatting = {
         command = { "nixfmt" }
       },
-    },
-    nix = {
-      flake = {
-        autoArchive = true
+      nix = {
+        flake = {
+          autoArchive = true
+        },
       },
     },
   }

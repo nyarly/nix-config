@@ -168,6 +168,7 @@ in
       configs.default = {
         # show_notifications = false;
         toggle_key = "RIGHT_CTRL";
+
       };
 
       matches.base.matches = [
