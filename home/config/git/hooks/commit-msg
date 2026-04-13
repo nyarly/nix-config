@@ -32,5 +32,7 @@ elif [[ -z "$(git config --get core.coco)" ]]; then
   eval 2>&1
   echo "  No conventional commit configuration set; if it's that kind of joint:"
   echo "  >>> git config --local --type bool core.coco false"
+  echo "  or:"
+  echo "  >>> git config --local --type bool core.coco true"
 	echo >&2 "Valid commit message."
 fi
