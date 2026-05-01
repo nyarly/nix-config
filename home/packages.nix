@@ -37,7 +37,6 @@ with pkgs;
   gist
   codeowners
 
-  acli
   trivy
   docker
   docker-compose
