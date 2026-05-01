@@ -58,13 +58,13 @@ wrap (
     "git-jira-branch" = [
       bash
       gitFull
-      go-jira
+      acli
       gnugrep
     ];
     "git-current-jira" = [
       bash
       gitFull
-      go-jira
+      acli
     ];
     "current-unstable.nix" = [
       bash

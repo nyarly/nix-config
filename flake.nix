@@ -29,7 +29,6 @@
         confit = pkgs.callPackage home/packages/confit { };
         acli = pkgs.callPackage home/packages/acli.nix { };
         # signal = pkgs.callPackage home/packages/signal-desktop.nix {};
-        # go-jira = pkgs.callPackage home/packages/go-jira.nix {};
         # meld = pkgs.callPackage home/packages/meld.nix {};
         # trivy = pkgs.callPackage home/packages/trivy.nix {}; # >= 0.20
         # lorri = pkgs.callPackage home/packages/lorri {};

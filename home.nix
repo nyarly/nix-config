@@ -331,8 +331,7 @@ in
   )
   // configFiles home/bin "bin"
   // configFiles home/config/git/hooks ".git_template/hooks"
-  // configFiles home/config/git/hooks ".config/git/hooks"
-  // configFiles home/config/go-jira ".jira.d";
+  // configFiles home/config/git/hooks ".config/git/hooks";
 
   home.activation =
     let

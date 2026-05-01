@@ -37,7 +37,7 @@ with pkgs;
   gist
   codeowners
 
-  go-jira # >1.0.24
+  acli
   trivy
   docker
   docker-compose

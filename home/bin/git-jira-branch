@@ -28,5 +28,5 @@ while [ $# -gt 0 ]; do
     branch=$branch-$issue
     git branch -m $oldbranch $branch
   fi
-  jira take "$issue"
+  acli jira workitem assign --key "$issue" --assignee "@me"
 done

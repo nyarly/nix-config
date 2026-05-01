@@ -9,8 +9,5 @@ function __jira_issues
     end
   end
 
-  # Limit 100 because go-jira/Jira is behaving funky for >100
-  #jira list --limit 100 --query $jql --template view-completion 2>/tmp/jira_issues.err
-  #
   acli jira workitem search --paginate --json -j $jql | jq -r '.[] | "\(.key)\t\(.fields.summary) [\(.fields.status.name)]"'
 end
