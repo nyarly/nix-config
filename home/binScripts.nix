@@ -98,6 +98,11 @@ wrap (
       fish
       gnused
     ];
+    "extract-and-type" = [
+      fish
+      gnused
+      xdotool
+    ];
     "multi-copy" = [
       fish
       procps
