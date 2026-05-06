@@ -5,16 +5,20 @@ set -l branchname $argv[1]
 git switch -c $branchname
 git symbolic-ref HEAD | grep -q "^refs/heads/$branchname" || exit 1
 
-set -l jiradir (mktemp -d -t jira.XXXXXX)
-set -l jirasave $jiradir/create-result.yaml
 set -l summary (echo $branchname | sed 's/.*/\u&/; s/[-_]/ /g')
 
-jira create \
-  -i Task -p DOP \
-	--saveFile="$jirasave" \
-	-o "summary=$summary" \
-	-o "estimate=1"
-
-set -l jira_id (yq e '.issue' $jirasave)
+set -l jira_id (acli jira workitem create --from-json (
+  acli jira workitem create --generate-json | yq -P "\
+    .summary = \"$summary\" |
+    .reporter = \"@me\" |
+    .type = \"Task\" |
+    .projectKey = \"DOP\" |
+    .labels = [] |
+    (.description.content[0].content[0].text = \"\") |
+    del(.additionalAttributes) |
+    del(.assignee) |
+    del(.parentIssueId) |
+    . " | vipe | yq -o json | psub
+) | sed 's/.*Work item \(\S*\).*/\1/')
 
 git jira-branch $jira_id

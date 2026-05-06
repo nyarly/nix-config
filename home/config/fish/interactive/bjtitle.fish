@@ -1,3 +1,3 @@
 function bjtitle
-  echo (bjid) (jira view (bjid) | grep "^summary:" | sed 's/summary: \(Ops: \)\?//')
+  echo (bjid) (acli jira workitem view --json (bjid) | yq ".fields.summary" | sed 's/^Ops: //')
 end

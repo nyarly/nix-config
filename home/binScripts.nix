@@ -84,6 +84,7 @@ wrap (
       xorg.xbacklight
     ];
     "quick-jira-task" = [
+      moreutils
       fish
       gnugrep
       yq-go
