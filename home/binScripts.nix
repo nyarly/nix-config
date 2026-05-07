@@ -110,5 +110,15 @@ wrap (
       tmux
       xclip
     ];
+    "bjid" = [
+      fish
+      gitFull
+    ];
+    "bjtitle" = [
+      fish
+      acli
+      yq-go
+      gnused
+    ];
   }
 )

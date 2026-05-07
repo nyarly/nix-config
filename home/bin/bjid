@@ -1,0 +1,4 @@
+#!/usr/bin/env fish
+
+set -l branch (git rev-parse --abbrev-ref HEAD)
+git config --get branch.{$branch}.jira-ticket

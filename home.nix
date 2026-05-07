@@ -175,74 +175,97 @@ in
         {
           trigger = "a/o/t";
           replace = "as opposed to";
+          word = true;
+        }
+        {
+          trigger = "E.g.";
+          replace = "For example,";
+          word = true;
         }
         {
           trigger = "e.g.";
-          replace = "for example";
+          replace = "(for example)";
+          word = true;
         }
         {
           trigger = "i.e.";
           replace = "in other words";
+          word = true;
         }
         {
           trigger = "n.b.";
           replace = "be aware";
+          word = true;
         }
         {
-          trigger = "cf.";
+          trigger = "c.f.";
           replace = "but compare";
+          word = true;
         }
         {
           trigger = "q.v.";
           replace = "for which see";
+          word = true;
         }
         {
           trigger = "b/c";
           replace = "because";
+          word = true;
         }
         {
           trigger = "d/c";
           replace = "don't care";
+          word = true;
         }
         {
           trigger = "idk";
           replace = "I don't know";
+          word = true;
         }
         {
           trigger = "iiuc";
           replace = "if I understand correctly";
+          word = true;
         }
         {
           trigger = "iirc";
           replace = "if I recall correctly";
+          word = true;
         }
         {
           trigger = "afaik";
           replace = "as far as I know";
+          word = true;
         }
         {
           trigger = "afk";
           replace = "away from computer";
+          word = true;
         }
         {
           trigger = "eod";
           replace = "end of day";
+          word = true;
         }
         {
           trigger = "imo";
           replace = "in my opinion";
+          word = true;
         }
         {
           trigger = "IMO";
           replace = "In my opinion";
+          word = true;
         }
         {
           trigger = "lgtm";
           replace = "looks good to me";
+          word = true;
         }
         {
-          trigger = "k8s";
+          trigger = "K8s";
           replace = "Kubernetes";
+          word = true;
         }
         {
           trigger = ":6date";
