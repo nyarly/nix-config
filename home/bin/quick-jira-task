@@ -18,7 +18,7 @@ set -l jira_id (acli jira workitem create --from-json (
     del(.additionalAttributes) |
     del(.assignee) |
     del(.parentIssueId) |
-    . " | vipe | yq -o json | psub
+    . " | vipe --suffix yaml | yq -o json | psub
 ) | sed 's/.*Work item \(\S*\).*/\1/')
 
 git jira-branch $jira_id
